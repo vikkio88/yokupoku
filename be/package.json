@@ -1,0 +1,20 @@
+{
+  "name": "be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "micro-dev -p 3001",
+    "start": "micro"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "micro": "^9.3.4",
+    "micro-cors": "^0.1.1",
+    "micro-dev": "^3.0.0",
+    "microrouter": "^3.1.3"
+  }
+}

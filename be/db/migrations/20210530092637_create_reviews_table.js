@@ -1,13 +1,17 @@
+const { TABLES } = require('../enums');
 
 exports.up = function (knex) {
-    return knex.schema.createTable('reviews', function (table) {
+    return knex.schema.createTable(TABLES.REVIEWS, function (table) {
         table.string('slug', 255).primary();
-        table.enu('type', ['game', 'movie', 'book', 'tv', 'other']).defaultTo('game');
-        table.enu('store', ['steam', 'epic', 'gog', 'ubisoft', 'origin', 'other']).defaultTo('steam');
-        table.string('name', 255).notNullable();
-        table.string('edition', 255);
-        table.string('title', 255);
-        table.text('review');
+        table.string('productId', 255).notNullable()
+            .references('id')
+            .inTable(TABLES.PRODUCTS)
+            .onDelete('CASCADE');
+        table.string('title', 255).notNullable();
+        table.string('subtitle', 255).notNullable();
+        table.text('content').notNullable();
+
+
         table.integer('rating');
         // boredom speed index
         table.integer('bsi');
@@ -15,7 +19,6 @@ exports.up = function (knex) {
         table.bool('refunded').defaultTo(false);
 
         table.text('tags');
-        table.text('genre');
         table.bool('published').defaultTo(false);
         table.timestamp('createdAt').defaultTo(knex.fn.now());
         table.timestamp('updatedAt').defaultTo(knex.fn.now());
@@ -23,5 +26,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-    knex.schema.dropTableIfExists('reviews');
+    knex.schema.dropTableIfExists(TABLES.REVIEWS);
 };

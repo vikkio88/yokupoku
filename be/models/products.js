@@ -27,8 +27,20 @@ const format = {
 module.exports = {
     format,
     games: {
-        get() {
-            return db(products).where('type', 'game').then(rows => rows.map(format.select));
+        async total() {
+            const result = await db(products).count('*', { as: 'total' }).where('type', 'game');
+            return result ? result[0].total : 0;
+        },
+        get({ range = [0, 9], sort = ['id', 'asc'] }) {
+            const [lower, upper] = range;
+            const limit = upper - lower;
+            const offset = lower;
+
+
+            return db(products).where('type', 'game')
+                .orderBy(sort[0], sort[1])
+                .limit(limit).offset(offset)
+                .then(rows => rows.map(format.select));
         }
     }
 };

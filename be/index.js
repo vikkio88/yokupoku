@@ -1,7 +1,15 @@
 if (process.env.NODE_ENV === 'development') require('dotenv').config();
-const cors = require('micro-cors')();
+const cors = require('micro-cors')({
+    allowHeaders: [
+        'X-Requested-With', 'Access-Control-Allow-Origin',
+        'X-HTTP-Method-Override', 'Content-Type',
+        'Authorization', 'Accept',
+        'Content-Range', 'range'
+    ],
+    exposeHeaders: ['Content-Range', 'range', 'X-Total-Count']
+});
 const { send } = require('micro');
-const { router, get, post, withNamespace } = require('microrouter');
+const { router, get, post, withNamespace, options } = require('microrouter');
 
 const { misc, reviews, products } = require('./actions');
 
@@ -12,11 +20,12 @@ module.exports = cors(
         api(
             get('/ping', misc.pong),
             get('/reviews', reviews.get),
-            get('/prods/games', products.games.get)
+            get('/games', products.games.get)
         ),
         get('/', misc.fallback),
 
         get('/*', (req, res) => send(res, 404)),
-        post('/*', (req, res) => send(res, 404))
+        post('/*', (req, res) => send(res, 404)),
+        options('/*', (req, res) => send(res, 200))
     )
 );

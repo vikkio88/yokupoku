@@ -31,7 +31,8 @@ const games = {
         const body = await json(req);
         if (!id || !body) return unprocessable(res);
         const result = await model.games.update(id, body);
-        return response(res, result);
+        if (!result) return unprocessable(res);
+        return response(res, { id, ...body });
 
     }
 };

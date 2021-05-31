@@ -14,9 +14,10 @@ const format = {
     },
     update(obj) {
         if (obj.id) delete obj.id;
+
         return {
             ...obj,
-            meta: JSON.parse(obj?.meta ?? null)
+            meta: JSON.stringify(obj?.meta ?? null)
         };
     },
     select(obj) {
@@ -52,8 +53,9 @@ module.exports = {
         create() {
 
         },
-        update(id, values) {
-            return db(products).where('type', 'game').where('id', id).update(format.update(values));
+        async update(id, values) {
+            const result = await db(products).where('type', 'game').where('id', id).update(format.update(values));
+            return result === 1;
         },
         delete() {
 

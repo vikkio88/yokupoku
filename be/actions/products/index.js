@@ -1,4 +1,4 @@
-const { response } = require('../formatters');
+const { response, notFound } = require('../formatters');
 const model = require('../../models/products');
 
 const getGames = async (req, res) => {
@@ -13,9 +13,23 @@ const getGames = async (req, res) => {
     return response(res, games);
 };
 
+const getGame = async (req, res) => {
+    const { id } = req.params;
+    const result = await model.games.find(id);
+    let game = null;
+    if (Array.isArray(result) && result.length) {
+        game = result.pop();
+    }
+
+    if (!game) return notFound(res);
+    
+    return response(res, game);
+};
+
 
 module.exports = {
     games: {
-        get: getGames
+        get: getGames,
+        find: getGame
     }
 };

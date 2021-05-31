@@ -20,7 +20,9 @@ module.exports = cors(
         api(
             get('/ping', misc.pong),
             get('/reviews', reviews.get),
-            get('/games', products.games.get)
+
+            get('/games', products.games.get),
+            get('/games/:id', products.games.find),
         ),
         get('/', misc.fallback),
 

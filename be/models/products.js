@@ -13,6 +13,7 @@ const format = {
         };
     },
     update(obj) {
+        if (obj.id) delete obj.id;
         return {
             ...obj,
             meta: JSON.parse(obj?.meta ?? null)

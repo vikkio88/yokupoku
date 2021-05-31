@@ -17,12 +17,12 @@ const Game = props => (
     <SimpleShowLayout>
       <TextField source="id" />
       <TextField source="name" />
+      <TextField source="meta.edition" label="Edition" />
       <ChipField source="genre" />
-      <TextField source="meta.edition" />
-      <ChipField source="meta.store" />
-      <NumberField source="meta.price" />
-      <NumberField source="meta.played" />
-      <BooleanField source="meta.refunded" />
+      <ChipField source="meta.store" label="Store" />
+      <NumberField source="meta.played" label="Played Time" />
+      <BooleanField source="meta.refunded" label="Refunded?" />
+      <NumberField source="meta.price" label="Price" options={{ style: 'currency', currency: 'GBP' }} />
       <TextField source="genre" />
       <DateField source="createdAt" />
     </SimpleShowLayout>

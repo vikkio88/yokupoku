@@ -12,8 +12,11 @@ const format = {
             meta: JSON.stringify(obj?.meta ?? null)
         };
     },
-    update() {
-
+    update(obj) {
+        return {
+            ...obj,
+            meta: JSON.parse(obj?.meta ?? null)
+        };
     },
     select(obj) {
         return {
@@ -44,6 +47,15 @@ module.exports = {
                 .orderBy(sort[0], sort[1])
                 .limit(limit).offset(offset)
                 .then(rows => rows.map(format.select));
+        },
+        create() {
+
+        },
+        update(id, values) {
+            return db(products).where('type', 'game').where('id', id).update(format.update(values));
+        },
+        delete() {
+
         }
     }
 };

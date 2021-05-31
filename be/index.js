@@ -9,7 +9,7 @@ const cors = require('micro-cors')({
     exposeHeaders: ['Content-Range', 'range', 'X-Total-Count']
 });
 const { send } = require('micro');
-const { router, get, post, withNamespace, options } = require('microrouter');
+const { router, get, post, withNamespace, options, put } = require('microrouter');
 
 const { misc, reviews, products } = require('./actions');
 
@@ -23,6 +23,7 @@ module.exports = cors(
 
             get('/games', products.games.get),
             get('/games/:id', products.games.find),
+            put('/games/:id', products.games.update),
         ),
         get('/', misc.fallback),
 

@@ -26,6 +26,13 @@ const games = {
 
         return response(res, game);
     },
+    create: async (req, res) => {
+        const body = await json(req);
+        if (!body) return unprocessable(res);
+        const result = await model.games.create(body);
+        if (!result) return unprocessable(res);
+        return response(res, result);
+    },
     update: async (req, res) => {
         const { id } = req.params;
         const body = await json(req);

@@ -24,6 +24,7 @@ module.exports = cors(
             get('/games', products.games.get),
             get('/games/:id', products.games.find),
             put('/games/:id', products.games.update),
+            post('/games', products.games.create),
         ),
         get('/', misc.fallback),
 

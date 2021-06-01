@@ -2,13 +2,18 @@ const { ulid } = require('ulid');
 const db = require('../db');
 const { TABLES } = require('../db/enums');
 
+const TYPES = {
+    GAME: 'game',
+};
+
 const products = TABLES.PRODUCTS;
 
 const format = {
-    insert(obj) {
+    insert(obj, type) {
         return {
             ...obj,
             id: ulid(),
+            type,
             meta: JSON.stringify(obj?.meta ?? null)
         };
     },
@@ -37,7 +42,8 @@ module.exports = {
             return result ? result[0].total : 0;
         },
         find(id) {
-            return db(products).where('type', 'game')
+            return db(products)
+                .where('type', TYPES.GAME)
                 .where('id', id)
                 .then(rows => rows.map(format.select));
         },
@@ -45,16 +51,23 @@ module.exports = {
             const [lower, upper] = range;
             const limit = upper - lower;
             const offset = lower;
-            return db(products).where('type', 'game')
+            return db(products)
+                .where('type', TYPES.GAME)
                 .orderBy(sort[0], sort[1])
                 .limit(limit).offset(offset)
                 .then(rows => rows.map(format.select));
         },
-        create() {
+        async create(obj) {
+            const payload = format.insert(obj, TYPES.GAME);
+            await db(products).insert(payload);
+            return { id: payload.id };
 
         },
         async update(id, values) {
-            const result = await db(products).where('type', 'game').where('id', id).update(format.update(values));
+            const result = await db(products)
+                .where('type', TYPES.GAME)
+                .where('id', id)
+                .update(format.update(values));
             return result === 1;
         },
         delete() {

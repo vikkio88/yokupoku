@@ -1,4 +1,4 @@
-import { Edit, SimpleForm, TextInput, NumberInput, NullableBooleanInput, SelectInput, DateInput } from 'react-admin';
+import { Create, SimpleForm, TextInput, NumberInput, NullableBooleanInput, SelectInput } from 'react-admin';
 
 const STORES = [
     'steam',
@@ -11,10 +11,9 @@ const STORES = [
     'drm-free'
 ];
 
-const GameEdit = props => (
-    <Edit {...props}>
+const GameCreate = props => (
+    <Create {...props}>
         <SimpleForm>
-            <TextInput disabled label="Id" source="id" />
             <TextInput source="name" />
             <TextInput source="genre" />
             <TextInput source="meta.edition" label="Edition" />
@@ -22,9 +21,8 @@ const GameEdit = props => (
             <NumberInput source="meta.played" label="Played Time" step={1} min={0} />
             <NullableBooleanInput source="meta.refunded" label="Refunded?" />
             <NumberInput source="meta.price" label="Price" step={1} min={0} />
-            <DateInput source="createdAt" />
         </SimpleForm>
-    </Edit>
+    </Create>
 );
 
-export default GameEdit;
+export default GameCreate;

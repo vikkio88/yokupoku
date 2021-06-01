@@ -37,10 +37,21 @@ const games = {
         const { id } = req.params;
         const body = await json(req);
         if (!id || !body) return unprocessable(res);
+
         const result = await model.games.update(id, body);
+
         if (!result) return unprocessable(res);
         return response(res, { id, ...body });
+    },
+    delete: async (req, res) => {
+        const { id } = req.params;
+        if (!id) return notFound(res);
 
+        const result = await model.games.delete(id);
+
+        if (!result) return unprocessable(res);
+
+        return response(res, { id });
     }
 };
 

@@ -70,8 +70,10 @@ module.exports = {
                 .update(format.update(values));
             return result === 1;
         },
-        delete() {
-
+        async delete(id) {
+            const result = await db(products)
+                .where('id', id).delete();
+            return result === 1;
         }
     }
 };

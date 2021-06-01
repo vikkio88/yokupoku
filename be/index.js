@@ -6,10 +6,11 @@ const cors = require('micro-cors')({
         'Authorization', 'Accept',
         'Content-Range', 'range'
     ],
-    exposeHeaders: ['Content-Range', 'range', 'X-Total-Count']
+    exposeHeaders: ['Content-Range', 'range', 'X-Total-Count'],
+    allowMethods: ['PUT', 'POST', 'GET', 'DELETE', 'OPTIONS']
 });
 const { send } = require('micro');
-const { router, get, post, withNamespace, options, put } = require('microrouter');
+const { router, get, post, withNamespace, options, put, del } = require('microrouter');
 
 const { misc, reviews, products } = require('./actions');
 
@@ -25,6 +26,7 @@ module.exports = cors(
             get('/games/:id', products.games.find),
             put('/games/:id', products.games.update),
             post('/games', products.games.create),
+            del('/games/:id', products.games.delete),
         ),
         get('/', misc.fallback),
 

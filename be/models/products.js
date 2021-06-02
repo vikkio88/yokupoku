@@ -36,6 +36,7 @@ const format = {
 
 module.exports = {
     format,
+    TYPES,
     games: {
         async total() {
             const result = await db(products).count('*', { as: 'total' }).where('type', 'game');

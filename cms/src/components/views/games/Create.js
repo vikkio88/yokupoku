@@ -1,6 +1,7 @@
 import {
     Create, SimpleForm, TextInput,
-    NumberInput, NullableBooleanInput, SelectInput
+    NumberInput, NullableBooleanInput,
+    SelectInput, TextField
 } from 'react-admin';
 import { Row } from 'components/layout';
 import { STORES } from 'enums/games';
@@ -18,6 +19,9 @@ const GameCreate = props => (
                 <NumberInput source="meta.played" label="Played Time" step={1} min={0} />
                 <NullableBooleanInput source="meta.refunded" label="Refunded?" />
                 <NumberInput source="meta.price" label="Price" step={1} min={0} />
+            </Row>
+            <Row>
+                <TextInput multiline source="notes" />
             </Row>
         </SimpleForm>
     </Create>

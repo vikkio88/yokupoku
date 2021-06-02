@@ -9,6 +9,7 @@ exports.up = function (knex) {
         table.json('meta');
         table.string('name', 255).notNullable();
         table.string('genre', 255).defaultTo(null);
+        table.text('notes').defaultTo(null);
 
         table.timestamp('released').defaultTo(null);
         table.timestamp('consumed').defaultTo(null);

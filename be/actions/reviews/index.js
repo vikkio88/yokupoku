@@ -16,9 +16,15 @@ const queries = {
 };
 
 const get = async (req, res) => {
-    const params = queries.get(req);
-    const reviews = await model.get(params);
-    return response(res, { reviews });
+
+    let { range, sort } = req.query;
+    range = range ? JSON.parse(range) : undefined;
+    sort = sort ? JSON.parse(sort) : undefined;
+
+    const total = await model.total();
+    const reviews = await model.get({ range, sort });
+    res.setHeader('Content-Range', `reviews ${range[0]}-${range[1]} / ${total}`);
+    return response(res, reviews);
 };
 
 

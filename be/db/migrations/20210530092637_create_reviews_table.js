@@ -2,7 +2,8 @@ const { TABLES } = require('../enums');
 
 exports.up = function (knex) {
     return knex.schema.createTable(TABLES.REVIEWS, function (table) {
-        table.string('slug', 255).primary();
+        table.string('id', 255).primary();
+        table.string('slug', 255).unique().notNullable();
         table.string('productId', 255).notNullable()
             .references('id')
             .inTable(TABLES.PRODUCTS)

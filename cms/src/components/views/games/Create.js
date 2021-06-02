@@ -1,7 +1,7 @@
 import {
     Create, SimpleForm, TextInput,
     NumberInput, NullableBooleanInput,
-    SelectInput, TextField
+    SelectInput
 } from 'react-admin';
 import { Row } from 'components/layout';
 import { STORES } from 'enums/games';

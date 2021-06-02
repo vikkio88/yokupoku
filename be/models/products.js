@@ -22,7 +22,8 @@ const format = {
 
         return {
             ...obj,
-            meta: JSON.stringify(obj?.meta ?? null)
+            meta: JSON.stringify(obj?.meta ?? null),
+            //TODO: add updatedAt
         };
     },
     select(obj) {
@@ -31,7 +32,6 @@ const format = {
             meta: JSON.parse(obj?.meta ?? null)
         };
     }
-
 };
 
 module.exports = {
@@ -52,6 +52,7 @@ module.exports = {
             const [lower, upper] = range;
             const limit = upper - lower;
             const offset = lower;
+            // TODO: wanna select a subset of info for the get
             return db(products)
                 .where('type', TYPES.GAME)
                 .orderBy(sort[0], sort[1])

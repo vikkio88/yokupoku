@@ -7,11 +7,8 @@ import {
 import { Row } from 'components/layout';
 import { STORES } from 'enums/games';
 
+import Title from './shared/Title';
 
-
-const Title = ({ record }) => {
-    return <span>Game: {record ? `"${record.name}"` : ''}</span>;
-};
 
 const GameEdit = props => (
     <Edit {...props} title={<Title />}>
@@ -19,10 +16,12 @@ const GameEdit = props => (
             <Row>
                 <TextInput disabled label="Id" source="id" />
                 <TextInput source="name" />
-                <TextInput source="genre" />
             </Row>
             <Row>
+                <TextInput source="genre" />
                 <TextInput source="meta.edition" label="Edition" />
+            </Row>
+            <Row>
                 <SelectInput source="meta.store" label="Store" choices={STORES.map(s => ({ id: s, name: s }))} />
                 <NumberInput source="meta.played" label="Played Time" step={1} min={0} />
                 <NullableBooleanInput source="meta.refunded" label="Refunded?" />

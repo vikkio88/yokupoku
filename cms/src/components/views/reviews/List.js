@@ -1,15 +1,25 @@
-import { List, Datagrid, TextField, EditButton } from 'react-admin';
+import { List, Datagrid, TextField, EditButton, ShowButton, FunctionField, linkToRecord } from 'react-admin';
+import { Link } from 'react-router-dom';
 
-
+const productLink = record => {
+    return (
+        <Link to={linkToRecord('games', record.product.id, 'show')}>
+            {`${record.product.name}`}
+        </Link>
+    );
+};
 
 // the list of Reviews
 const Reviews = props => (
     <List {...props}>
-        <Datagrid rowClick="show">
+        <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
-            <TextField source="product.name" label="product name" />
-            <TextField source="product.type" label="product type" />
+            <FunctionField
+                label="Product"
+                render={productLink}
+            />
+            <ShowButton />
             <EditButton />
         </Datagrid>
     </List>

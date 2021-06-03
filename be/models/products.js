@@ -44,7 +44,6 @@ module.exports = {
         },
         find(id) {
             return db(products)
-                .select('id', 'name')
                 .where('type', TYPES.GAME)
                 .where('id', id)
                 .then(rows => rows.map(format.select));
@@ -53,8 +52,8 @@ module.exports = {
             const [lower, upper] = range;
             const limit = upper - lower;
             const offset = lower;
-            // TODO: wanna select a subset of info for the get
             return db(products)
+                .select('id', 'name')
                 .where('type', TYPES.GAME)
                 .orderBy(sort[0], sort[1])
                 .limit(limit).offset(offset)

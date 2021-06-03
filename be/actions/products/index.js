@@ -12,7 +12,8 @@ const games = {
         const total = await model.games.total({ filter });
         const games = await model.games.get({ range, sort, filter });
 
-        res.setHeader('Content-Range', `games ${range[0]}-${range[1]} / ${total}`);
+        const topRange = Math.min(games.length, range[1]);
+        res.setHeader('Content-Range', `games ${range[0]}-${topRange} / ${total}`);
         return response(res, games);
     },
     find: async (req, res) => {

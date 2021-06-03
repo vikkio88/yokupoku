@@ -38,8 +38,12 @@ module.exports = {
     format,
     TYPES,
     games: {
-        async total() {
-            const result = await db(products).count('*', { as: 'total' }).where('type', 'game');
+        async total({ filter }) {
+            const query = db(products).count('*', { as: 'total' }).where('type', 'game');
+            for (const f of Object.keys(filter)) {
+                query.where(f, 'LIKE', `%${filter[f]}%`);
+            }
+            const result = await query;
             return result ? result[0].total : 0;
         },
         find(id) {
@@ -48,14 +52,19 @@ module.exports = {
                 .where('id', id)
                 .then(rows => rows.map(format.select));
         },
-        get({ range = [0, 9], sort = ['id', 'asc'] }) {
+        get({ range = [0, 9], sort = ['id', 'asc'], filter = {} }) {
             const [lower, upper] = range;
             const limit = upper - lower;
             const offset = lower;
-            return db(products)
+            const query = db(products)
                 .select('id', 'name')
-                .where('type', TYPES.GAME)
-                .orderBy(sort[0], sort[1])
+                .where('type', TYPES.GAME);
+
+            for (const f of Object.keys(filter)) {
+                query.where(f, 'LIKE', `%${filter[f]}%`);
+            }
+
+            return query.orderBy(sort[0], sort[1])
                 .limit(limit).offset(offset)
                 .then(rows => rows.map(format.select));
         },

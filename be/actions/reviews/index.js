@@ -1,3 +1,4 @@
+const { json } = require('micro');
 const { response } = require('../formatters');
 const model = require('../../models/reviews');
 
@@ -27,7 +28,17 @@ const find = async (req, res) => {
     return response(res, review);
 };
 
+const create = async (req, res) => {
+    const body = await json(req);
+    if (!body) return unprocessable(res);
+
+    const result = await model.create(body);
+
+    if (!result) return unprocessable(res);
+    return response(res, result);
+};
+
 
 module.exports = {
-    get, find
+    get, find, create
 };

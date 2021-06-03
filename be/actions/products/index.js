@@ -4,12 +4,13 @@ const model = require('../../models/products');
 
 const games = {
     get: async (req, res) => {
-        let { range, sort } = req.query;
+        let { range, sort, filter } = req.query;
+        filter = filter ? JSON.parse(filter) : {};
         range = range ? JSON.parse(range) : [0, 10];
         sort = sort ? JSON.parse(sort) : ['id', 'asc'];
 
-        const total = await model.games.total();
-        const games = await model.games.get({ range, sort });
+        const total = await model.games.total({ filter });
+        const games = await model.games.get({ range, sort, filter });
 
         res.setHeader('Content-Range', `games ${range[0]}-${range[1]} / ${total}`);
         return response(res, games);

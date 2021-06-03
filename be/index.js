@@ -20,8 +20,10 @@ module.exports = cors(
     router(
         api(
             get('/ping', misc.pong),
+
             get('/reviews', reviews.get),
             get('/reviews/:id', reviews.find),
+            post('/reviews', reviews.create),
 
             get('/games', products.games.get),
             get('/games/:id', products.games.find),

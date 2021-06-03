@@ -12,7 +12,7 @@ const format = {
             ...obj,
             id: ulid(),
             slug: slugify(obj.title),
-            productId
+            productId: obj.productId || productId
         };
     },
     select(obj) {
@@ -58,6 +58,11 @@ module.exports = {
                 'products.name as productName', 'products.type as productType'
             ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
             .where('reviews.id', id)
-            .then(rows => rows.map(format.select));;
+            .then(rows => rows.map(format.select));
     },
+    async create(obj) {
+        const payload = format.insert(obj);
+        await db(TABLES.REVIEWS).insert(payload);
+        return { id: payload.id };
+    }
 };

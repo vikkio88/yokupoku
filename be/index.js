@@ -21,6 +21,7 @@ module.exports = cors(
         api(
             get('/ping', misc.pong),
             get('/reviews', reviews.get),
+            get('/reviews/:id', reviews.find),
 
             get('/games', products.games.get),
             get('/games/:id', products.games.find),

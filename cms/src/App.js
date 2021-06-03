@@ -2,7 +2,7 @@ import { Admin, Resource } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 
 import { Games, Game, GameEdit, GameCreate } from './components/views/games';
-import { Reviews } from 'components/views/reviews';
+import { Reviews, Review } from 'components/views/reviews';
 
 const App = () => {
   return (
@@ -18,6 +18,7 @@ const App = () => {
       <Resource
         name="reviews"
         list={Reviews}
+        show={Review}
       />
     </Admin>
   );

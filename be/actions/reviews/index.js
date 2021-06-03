@@ -14,7 +14,20 @@ const get = async (req, res) => {
     return response(res, reviews);
 };
 
+const find = async (req, res) => {
+    const { id } = req.params;
+    const result = await model.find(id);
+    let review = null;
+    if (Array.isArray(result) && result.length) {
+        review = result.pop();
+    }
+
+    if (!review) return notFound(res);
+
+    return response(res, review);
+};
+
 
 module.exports = {
-    get
+    get, find
 };

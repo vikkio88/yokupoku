@@ -54,6 +54,10 @@ module.exports = {
     },
     find(id) {
         return db(TABLES.REVIEWS)
-            .where('id', id);
+            .select('reviews.*',
+                'products.name as productName', 'products.type as productType'
+            ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
+            .where('reviews.id', id)
+            .then(rows => rows.map(format.select));;
     },
 };

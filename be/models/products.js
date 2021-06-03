@@ -44,6 +44,7 @@ module.exports = {
         },
         find(id) {
             return db(products)
+                .select('id', 'name')
                 .where('type', TYPES.GAME)
                 .where('id', id)
                 .then(rows => rows.map(format.select));

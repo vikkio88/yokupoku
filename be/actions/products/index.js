@@ -5,8 +5,8 @@ const model = require('../../models/products');
 const games = {
     get: async (req, res) => {
         let { range, sort } = req.query;
-        range = range ? JSON.parse(range) : undefined;
-        sort = sort ? JSON.parse(sort) : undefined;
+        range = range ? JSON.parse(range) : [0, 10];
+        sort = sort ? JSON.parse(sort) : ['id', 'asc'];
 
         const total = await model.games.total();
         const games = await model.games.get({ range, sort });

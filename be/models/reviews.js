@@ -8,6 +8,9 @@ const slugify = text => text.toLowerCase().replace(/[^A-Za-z0-9]/g, '-');
 
 const format = {
     insert(obj, productId) {
+
+        if (obj.product) delete obj.product;
+
         return {
             ...obj,
             id: ulid(),
@@ -24,13 +27,21 @@ const format = {
                 type: obj.productType || null,
             }
         };
-
-        delete formatted.productId;
         formatted.productName && delete formatted.productName;
         formatted.productType && delete formatted.productType;
 
         return formatted;
-    }
+    },
+    update(obj) {
+        if (obj.id) delete obj.id;
+
+        if (obj.product) delete obj.product;
+
+        return {
+            ...obj,
+            //TODO: add updatedAt
+        };
+    },
 };
 
 module.exports = {
@@ -64,5 +75,16 @@ module.exports = {
         const payload = format.insert(obj);
         await db(TABLES.REVIEWS).insert(payload);
         return { id: payload.id };
+    },
+    async update(id, values) {
+        const result = await db(TABLES.REVIEWS)
+            .where('id', id)
+            .update(format.update(values));
+        return result === 1;
+    },
+    async delete(id) {
+        const result = await db(TABLES.REVIEWS)
+            .where('id', id).delete();
+        return result === 1;
     }
 };

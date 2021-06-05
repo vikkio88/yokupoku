@@ -3,6 +3,8 @@ import {
     AutocompleteInput, ReferenceInput
 } from 'react-admin';
 
+import MdInput from 'ra-input-markdown';
+
 const ReviewCreate = props => (
     <Create {...props}>
         <SimpleForm>
@@ -15,7 +17,7 @@ const ReviewCreate = props => (
             >
                 <AutocompleteInput optionText="name" />
             </ReferenceInput>
-            <TextInput multiline source="content" />
+            <MdInput source="content" />
         </SimpleForm>
     </Create>
 );

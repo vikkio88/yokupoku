@@ -39,6 +39,29 @@ const create = async (req, res) => {
 };
 
 
+const update = async (req, res) => {
+    const { id } = req.params;
+    const body = await json(req);
+    if (!id || !body) return unprocessable(res);
+
+    const result = await model.update(id, body);
+
+    if (!result) return unprocessable(res);
+    return response(res, { id, ...body });
+};
+
+const del = async (req, res) => {
+    const { id } = req.params;
+    if (!id) return notFound(res);
+
+    const result = await model.delete(id);
+
+    if (!result) return unprocessable(res);
+
+    return response(res, { id });
+};
+
+
 module.exports = {
-    get, find, create
+    get, find, create, update, del
 };

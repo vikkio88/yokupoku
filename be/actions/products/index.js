@@ -45,7 +45,7 @@ const games = {
         if (!result) return unprocessable(res);
         return response(res, { id, ...body });
     },
-    delete: async (req, res) => {
+    del: async (req, res) => {
         const { id } = req.params;
         if (!id) return notFound(res);
 

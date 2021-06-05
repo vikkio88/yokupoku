@@ -1,4 +1,5 @@
-import { Show, SimpleShowLayout, TextField } from 'react-admin';
+import { FunctionField, Show, SimpleShowLayout, TextField } from 'react-admin';
+import MdView from 'react-showdown';
 
 const Review = props => (
     <Show {...props}>
@@ -8,7 +9,7 @@ const Review = props => (
             <TextField source="subtitle" />
             <TextField source="product.name" label="product name" />
             <TextField source="product.type" label="product type" />
-            <TextField source="content" />
+            <FunctionField label="Review Content (Preview)" render={record => <MdView markdown={record.content} options={{ tables: true, emoji: true }} />} />
         </SimpleShowLayout>
     </Show>
 );

@@ -1,6 +1,6 @@
 import {
     Create, SimpleForm, TextInput,
-    NumberInput, NullableBooleanInput,
+    NumberInput, NullableBooleanInput, DateInput,
     SelectInput
 } from 'react-admin';
 import { Row } from 'components/layout';
@@ -21,7 +21,15 @@ const GameCreate = props => (
                 <NumberInput source="meta.price" label="Price" step={1} min={0} />
             </Row>
             <Row>
+                <TextInput source="tags" />
+                <TextInput source="links" />
+            </Row>
+            <Row>
                 <TextInput multiline source="notes" />
+            </Row>
+            <Row>
+                <DateInput source="released" />
+                <DateInput source="consumed" />
             </Row>
         </SimpleForm>
     </Create>

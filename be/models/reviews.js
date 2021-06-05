@@ -1,21 +1,21 @@
-const { ulid } = require('ulid');
+
+// model for REVIEWS table
+const { generateId, slugify, csl } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('../db/enums');
 
-// to be used to generate the slug
-// on insert
-const slugify = text => text.toLowerCase().replace(/[^A-Za-z0-9]/g, '-');
-
 const format = {
     insert(obj, productId) {
-
         if (obj.product) delete obj.product;
 
         return {
             ...obj,
-            id: ulid(),
+            id: generateId(),
             slug: slugify(obj.title),
-            productId: obj.productId || productId
+            productId: obj.productId || productId,
+            tags: csl.toString(obj.tags),
+            pros: csl.toString(obj.pros),
+            cons: csl.toString(obj.cons),
         };
     },
     select(obj) {
@@ -25,7 +25,10 @@ const format = {
                 id: obj.productId,
                 name: obj.productName || null,
                 type: obj.productType || null,
-            }
+            },
+            tags: csl.toString(obj.tags),
+            pros: csl.toString(obj.pros),
+            cons: csl.toString(obj.cons),
         };
         formatted.productName && delete formatted.productName;
         formatted.productType && delete formatted.productType;
@@ -39,7 +42,10 @@ const format = {
 
         return {
             ...obj,
-            //TODO: add updatedAt
+            tags: csl.toString(obj.tags),
+            pros: csl.toString(obj.pros),
+            cons: csl.toString(obj.cons),
+            updatedAt: Date.now()
         };
     },
 };

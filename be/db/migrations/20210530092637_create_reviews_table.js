@@ -12,13 +12,17 @@ exports.up = function (knex) {
         table.string('subtitle', 255).notNullable();
         table.text('content').notNullable();
 
+        // comma separates lists
+        table.text('pros').defaultTo(null);
+        table.text('cons').defaultTo(null);
+        table.text('tags').defaultTo(null);
+
 
         table.integer('rating');
         // boredom speed index
         table.integer('bsi');
         table.bool('suggested').defaultTo(false);
 
-        table.text('tags');
         table.bool('published').defaultTo(false);
         table.timestamp('createdAt').defaultTo(knex.fn.now());
         table.timestamp('updatedAt').defaultTo(knex.fn.now());

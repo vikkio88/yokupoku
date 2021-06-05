@@ -1,7 +1,7 @@
 import {
     Edit, SimpleForm, TextInput,
     AutocompleteInput, ReferenceInput,
-    useNotify, useRefresh, useRedirect
+    useNotify, useRefresh
 } from 'react-admin';
 
 import MdInput from 'ra-input-markdown';
@@ -9,7 +9,7 @@ import MdInput from 'ra-input-markdown';
 const ReviewEdit = props => {
     const notify = useNotify();
     const refresh = useRefresh();
-    //const redirect = useRedirect();
+
     return (
         <Edit
             onSuccess={() => {
@@ -26,8 +26,8 @@ const ReviewEdit = props => {
                     disabled
                     label="Product"
                     source="productId" reference="games"
-                    // for some reason this shit breaks crap
-                    // filterToQuery={searchText => ({ name: searchText })}
+                // for some reason this shit breaks crap
+                // filterToQuery={searchText => ({ name: searchText })}
                 >
                     <AutocompleteInput optionText="name" />
                 </ReferenceInput>

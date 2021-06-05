@@ -5,10 +5,15 @@ exports.up = function (knex) {
         table.string('id', 255).primary();
         table.enu('type', ['game', 'movie', 'book', 'tv', 'music', 'other']).defaultTo('game');
         // GAME:
-        // store, edition, price, played and so on
+        // store, edition, price, played, refunded
         table.json('meta');
         table.string('name', 255).notNullable();
         table.string('genre', 255).defaultTo(null);
+
+        // comma separates lists
+        table.text('tags').defaultTo(null);
+        table.text('links').defaultTo(null);
+
         table.text('notes').defaultTo(null);
 
         table.timestamp('released').defaultTo(null);

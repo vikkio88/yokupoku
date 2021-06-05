@@ -18,6 +18,7 @@ const GameEdit = props => (
                 <TextInput source="name" />
             </Row>
             <Row>
+                <TextInput disabled source="type" />
                 <TextInput source="genre" />
                 <TextInput source="meta.edition" label="Edition" />
             </Row>
@@ -28,11 +29,19 @@ const GameEdit = props => (
                 <NumberInput source="meta.price" label="Price" step={1} min={0} />
             </Row>
             <Row>
+                <TextInput source="tags" />
+                <TextInput source="links" />
+            </Row>
+            <Row>
                 <TextInput multiline source="notes" />
             </Row>
             <Row>
-                <DateInput source="createdAt" />
-                <DateInput source="updatedAt" />
+                <DateInput source="released" />
+                <DateInput source="consumed" />
+            </Row>
+            <Row>
+                <DateInput disabled source="createdAt" />
+                <DateInput disabled source="updatedAt" />
             </Row>
         </SimpleForm>
     </Edit>

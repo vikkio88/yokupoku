@@ -1,4 +1,4 @@
-const { ulid } = require('ulid');
+const { generateId, csl } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('../db/enums');
 
@@ -12,9 +12,10 @@ const format = {
     insert(obj, type) {
         return {
             ...obj,
-            id: ulid(),
+            id: generateId(),
             type,
-            meta: JSON.stringify(obj?.meta ?? null)
+            meta: JSON.stringify(obj?.meta ?? null),
+            tags: csl.toString(obj.tags)
         };
     },
     update(obj) {
@@ -23,13 +24,15 @@ const format = {
         return {
             ...obj,
             meta: JSON.stringify(obj?.meta ?? null),
-            //TODO: add updatedAt
+            tags: csl.toString(obj.tags),
+            updatedAt: Date.now()
         };
     },
     select(obj) {
         return {
             ...obj,
-            meta: JSON.parse(obj?.meta ?? null)
+            meta: JSON.parse(obj?.meta ?? null),
+            tags: csl.toString(obj.tags)
         };
     }
 };

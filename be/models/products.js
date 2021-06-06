@@ -49,11 +49,18 @@ module.exports = {
             const result = await query;
             return result ? result[0].total : 0;
         },
-        find(id) {
-            return db(products)
+        async find(id) {
+            const result = await db(products)
                 .where('type', TYPES.GAME)
                 .where('id', id)
                 .then(rows => rows.map(format.select));
+
+            let game = null;
+            if (Array.isArray(result) && result.length) {
+                game = result.pop();
+            }
+
+            return game;
         },
         get({ range = [0, 9], sort = ['id', 'asc'], filter = {} }) {
             const [lower, upper] = range;

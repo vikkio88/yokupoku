@@ -19,14 +19,7 @@ const games = {
     find: async (req, res) => {
         const { id } = req.params;
         const result = await model.games.find(id);
-        let game = null;
-        if (Array.isArray(result) && result.length) {
-            game = result.pop();
-        }
-
-        if (!game) return notFound(res);
-
-        return response(res, game);
+        return response(res, result);
     },
     create: async (req, res) => {
         const body = await json(req);

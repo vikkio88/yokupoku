@@ -36,6 +36,7 @@ module.exports = cors(
         ),
         provider(
             get('/reviews', providers.getPublished),
+            get('/reviews/:slug', providers.getReview),
         ),
 
         get('/', misc.fallback),

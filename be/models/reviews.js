@@ -62,6 +62,21 @@ const format = {
 
 module.exports = {
     format,
+    async getBySlug(slug) {
+        const result = await db(TABLES.REVIEWS).select('reviews.*',
+            'products.name as productName', 'products.type as productType'
+        ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
+            .where('published', true)
+            .where('slug', slug)
+            .then(rows => rows.map(format.select));
+
+        let review = null;
+        if (Array.isArray(result) && result.length) {
+            review = result.pop();
+        }
+
+        return review;
+    },
     async getPublished() {
         const result = await db(TABLES.REVIEWS).select('reviews.*',
             'products.name as productName', 'products.type as productType'

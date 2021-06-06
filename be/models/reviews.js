@@ -62,6 +62,14 @@ const format = {
 
 module.exports = {
     format,
+    async getPublished() {
+        const result = await db(TABLES.REVIEWS).select('reviews.*',
+            'products.name as productName', 'products.type as productType'
+        ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
+            .where('published', true)
+            .then(rows => rows.map(format.select));
+        return result;
+    },
     async total() {
         const result = await db(TABLES.REVIEWS).count('*', { as: 'total' });
         return result ? result[0].total : 0;

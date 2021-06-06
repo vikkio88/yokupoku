@@ -1,9 +1,8 @@
 const { json } = require('micro');
-const { response } = require('../formatters');
+const { response, notFound } = require('../formatters');
 const model = require('../../models/reviews');
 
 const get = async (req, res) => {
-
     let { range, sort } = req.query;
     range = range ? JSON.parse(range) : [0, 10];
     sort = sort ? JSON.parse(sort) : ['products.id', 'asc'];

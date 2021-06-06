@@ -1,7 +1,10 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
+import axios from 'axios';
+
+export default function Home({ reviews }) {
+
   return (
     <div className={styles.container}>
       <Head>
@@ -25,6 +28,11 @@ export default function Home() {
 
         </p>
 
+        <p className={styles.description}>
+          <ul>
+            {reviews.map(r => <li>{r.product.name}: {r.title}</li>)}
+          </ul>
+        </p>
       </main>
 
       <footer className={styles.footer}>
@@ -35,4 +43,15 @@ export default function Home() {
       </footer>
     </div>
   );
+
+}
+
+export async function getStaticProps() {
+  const response = await axios.get('http://localhost:3001/provider/reviews');
+
+  return {
+    props: {
+      reviews: response.data
+    }
+  };
 }

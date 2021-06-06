@@ -12,9 +12,10 @@ const cors = require('micro-cors')({
 const { send } = require('micro');
 const { router, get, post, withNamespace, options, put, del } = require('microrouter');
 
-const { misc, reviews, products } = require('./actions');
+const { misc, reviews, products, providers } = require('./actions');
 
 const api = withNamespace('/api');
+const provider = withNamespace('/provider');
 
 module.exports = cors(
     router(
@@ -33,6 +34,10 @@ module.exports = cors(
             post('/games', products.games.create),
             del('/games/:id', products.games.del),
         ),
+        provider(
+            get('/reviews', providers.getPublished),
+        ),
+
         get('/', misc.fallback),
 
         get('/*', (req, res) => send(res, 404)),

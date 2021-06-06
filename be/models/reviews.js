@@ -29,6 +29,8 @@ const format = {
             tags: csl.toString(obj.tags),
             pros: csl.toString(obj.pros),
             cons: csl.toString(obj.cons),
+            published: obj.published !== null ? Boolean(obj.published) : null,
+            suggested: obj.suggested !== null ? Boolean(obj.suggested) : null,
         };
         formatted.productName && delete formatted.productName;
         formatted.productType && delete formatted.productType;

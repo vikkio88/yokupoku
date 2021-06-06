@@ -1,6 +1,6 @@
 import {
     Show, SimpleShowLayout, TextField,
-    DateField, ChipField, NumberField, BooleanField, FunctionField
+    DateField, ChipField, NumberField, BooleanField
 } from 'react-admin';
 
 import { Csl } from 'components/common';

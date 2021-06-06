@@ -18,7 +18,7 @@ const format = {
             cons: csl.toString(obj.cons),
         };
     },
-    select(obj) {
+    selectMany(obj) {
         const formatted = {
             ...obj,
             product: {
@@ -26,15 +26,23 @@ const format = {
                 name: obj.productName || null,
                 type: obj.productType || null,
             },
+        };
+
+        formatted.productName && delete formatted.productName;
+        formatted.productType && delete formatted.productType;
+
+        return formatted;
+    },
+    select(obj) {
+        const base = format.selectMany(obj);
+        const formatted = {
+            ...base,
             tags: csl.toString(obj.tags),
             pros: csl.toString(obj.pros),
             cons: csl.toString(obj.cons),
             published: nBoolean(obj.published),
             suggested: nBoolean(obj.suggested),
         };
-        formatted.productName && delete formatted.productName;
-        formatted.productType && delete formatted.productType;
-
         return formatted;
     },
     update(obj) {
@@ -69,7 +77,7 @@ module.exports = {
                 'products.name as productName', 'products.type as productType'
             ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
             .orderBy(sort[0], sort[1])
-            .limit(limit).offset(offset).then(rows => rows.map(format.select));
+            .limit(limit).offset(offset).then(rows => rows.map(format.selectMany));
     },
     find(id) {
         return db(TABLES.REVIEWS)

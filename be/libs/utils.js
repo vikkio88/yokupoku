@@ -6,6 +6,8 @@ const generateId = () => {
     return ulid();
 };
 
+const nBoolean = value => value === null ? null : Boolean(value);
+
 // comma separated list
 const csl = {
     toString(list) {
@@ -25,5 +27,6 @@ const csl = {
 module.exports = {
     generateId,
     csl,
-    slugify
+    slugify,
+    nBoolean
 };

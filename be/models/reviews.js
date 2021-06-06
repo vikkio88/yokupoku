@@ -1,6 +1,6 @@
 
 // model for REVIEWS table
-const { generateId, slugify, csl } = require('../libs/utils');
+const { generateId, slugify, csl, nBoolean } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('../db/enums');
 
@@ -29,8 +29,8 @@ const format = {
             tags: csl.toString(obj.tags),
             pros: csl.toString(obj.pros),
             cons: csl.toString(obj.cons),
-            published: obj.published !== null ? Boolean(obj.published) : null,
-            suggested: obj.suggested !== null ? Boolean(obj.suggested) : null,
+            published: nBoolean(obj.published),
+            suggested: nBoolean(obj.suggested),
         };
         formatted.productName && delete formatted.productName;
         formatted.productType && delete formatted.productType;

@@ -2,6 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 
+import { Footer } from '../../components/common';
+
 import axios from 'axios';
 
 export default function Home({ reviews }) {
@@ -34,12 +36,7 @@ export default function Home({ reviews }) {
         </ul>
       </main>
 
-      <footer className={styles.footer}>
-        made with ♥ by <a
-          href="//vikkio.me"
-          target="_blank"
-        >vikkio</a>
-      </footer>
+      <Footer className={styles.footer} />
     </div>
   );
 

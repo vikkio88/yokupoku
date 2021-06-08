@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import styles from '../../styles/Home.module.css';
+import Link from 'next/link';
+import styles from '../../styles/Review.module.css';
 
 import axios from 'axios';
 
@@ -8,17 +9,17 @@ export default function Review({ review, product }) {
     return (
         <div className={styles.container}>
             <Head>
-                <title>{`Review: ${product.name} - ${review.title}`}Yokupoku - Reviews for people with short attention span</title>
+                <title>{`Review: ${product.name} - ${review.title}`} Yokupoku - Reviews for people with short attention span</title>
                 <meta lang="en" />
                 <meta charSet="utf-8" />
-                <meta name="description" content="Yokupoku - Mayoku - reviews for people with short attention span" />
+                <meta name="description" content={`${1} - Yokupoku - reviews for people with short attention span`} />
                 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
                 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
             </Head>
+            <nav className={styles.nav}>
+                <h1><Link href="/">Yokupoku</Link> / Reviews /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
+            </nav>
             <main className={styles.main}>
-                <h1 className={styles.title}>
-                    {product.name}
-                </h1>
                 <h1>{review.title}</h1>
                 <h2>{review.subtitle}</h2>
                 <p className={styles.description}>
@@ -48,6 +49,12 @@ export default function Review({ review, product }) {
                 </p>
                 {/* Maybe can add Updated/Created */}
             </main>
+            <footer className={styles.footer}>
+                made with ♥ by <a
+                    href="//vikkio.me"
+                    target="_blank"
+                >vikkio</a>
+            </footer>
         </div>
     );
 }

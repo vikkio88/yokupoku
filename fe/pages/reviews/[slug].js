@@ -4,6 +4,7 @@ import Link from 'next/link';
 import styles from '../../styles/Review.module.css';
 
 import axios from 'axios';
+import { Footer } from '../../components/layout';
 
 export default function Review({ review, product }) {
     return (
@@ -49,12 +50,7 @@ export default function Review({ review, product }) {
                 </p>
                 {/* Maybe can add Updated/Created */}
             </main>
-            <footer className={styles.footer}>
-                made with ♥ by <a
-                    href="//vikkio.me"
-                    target="_blank"
-                >vikkio</a>
-            </footer>
+            <Footer className={styles.footer} />
         </div>
     );
 }

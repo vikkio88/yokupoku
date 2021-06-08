@@ -7,4 +7,6 @@ const Footer = ({ className }) => {
             >vikkio</a>
         </footer>
     );
-}
+};
+
+export default Footer;

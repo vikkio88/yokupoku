@@ -1,8 +1,10 @@
 import Head from 'next/head';
-import Link from 'next/link';
+
 import styles from '../styles/Home.module.css';
+import { Footer } from '../components/layout';
 
 import axios from 'axios';
+import { Review } from '../components/home';
 
 export default function Home({ reviews }) {
 
@@ -24,22 +26,13 @@ export default function Home({ reviews }) {
         <h2>
           Reviews for people with short attention span
         </h2>
-
-        <p className={styles.description}>
-
-        </p>
-
-        <ul>
-          {reviews.map(r => <li>{r.product.name}: {r.title} <Link href={`reviews/${r.slug}`}>READ</Link></li>)}
-        </ul>
+        <h3>Latest Reviews</h3>
+        <div className={styles.latest}>
+          {reviews.map(r => <Review key={r.id} review={r} />)}
+        </div>
       </main>
 
-      <footer className={styles.footer}>
-        made with ♥ by <a
-          href="//vikkio.me"
-          target="_blank"
-        >vikkio</a>
-      </footer>
+      <Footer className={styles.footer} />
     </div>
   );
 

@@ -5,8 +5,9 @@ import styles from '../../styles/Review.module.css';
 
 import axios from 'axios';
 import { Footer } from '../../components/layout';
+import { Product, Review } from '../../components/review';
 
-export default function Review({ review, product }) {
+export default function ReviewPage({ review, product }) {
     return (
         <div className={styles.container}>
             <Head>
@@ -21,34 +22,8 @@ export default function Review({ review, product }) {
                 <h1><Link href="/">Yokupoku</Link> / Reviews /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
             </nav>
             <main className={styles.main}>
-                <h1>{review.title}</h1>
-                <h2>{review.subtitle}</h2>
-                <p className={styles.description}>
-                    {review.content}
-                </p>
-                <p>
-                    <h3>Pros</h3>
-                    {review.pros}
-                </p>
-                <p>
-                    <h3>Cons</h3>
-                    {review.cons}
-                </p>
-
-                <p>
-                    <h3>Tags</h3>
-                    {review.tags}
-                </p>
-                <p>Suggested: {review.suggested ? 'YES' : 'NO'}</p>
-                <p>
-                    <h3>Boredom Speed Index</h3>
-                    <h2>{review.bsi}</h2>
-                </p>
-                <p>
-                    <h3>Rate</h3>
-                    <h2>{review.rating} / 100</h2>
-                </p>
-                {/* Maybe can add Updated/Created */}
+                <Review className={styles.review} review={review} />
+                <Product className={styles.product} product={product} />
             </main>
             <Footer className={styles.footer} />
         </div>

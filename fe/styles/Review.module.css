@@ -36,8 +36,26 @@
 
 .main {
     flex: 7;
+    width: 100%;
     align-self: flex-start;
-    width: 95%;
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.review {
+    flex: 5;
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
+    padding: 1em;
+    margin-right: 3px;
+}
+
+.product {
+    flex:2;
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
     padding: 1em;
 }
 

@@ -1,13 +1,18 @@
 import styles from './styles/Review.module.css';
 
-const Review = ({ className, review }) => {
+const Review = ({ review }) => {
     const { title, subtitle, content,
         pros, cons, tags, suggested, bsi, rating } = review;
     return (
-        <div className={className}>
-            <h1>{title}</h1>
-            <h2>{subtitle}</h2>
+        <div className={styles.wrapper}>
+            <h1 className={styles.title}>
+                {title}
+            </h1>
+            <h2 className={styles.subtitle}>
+                {subtitle}
+            </h2>
             <p className={styles.content}>
+                {/* Need to make a md parser here */}
                 {content}
             </p>
             <p>

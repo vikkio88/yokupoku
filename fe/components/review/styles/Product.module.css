@@ -1,9 +1,9 @@
 .wrapper {
-    flex: 5;
+    flex:3;
     border: 2px solid #eaeaea;
     border-radius: 3px;
     padding: 1em;
-    margin-right: 3px;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -12,13 +12,4 @@
 
 .wrapper * {
     margin: 0;
-}
-
-.title {
-}
-.subtitle {
-
-}
-.content {
-
 }

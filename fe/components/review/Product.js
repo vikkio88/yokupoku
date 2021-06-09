@@ -1,7 +1,9 @@
-const Product = ({ className, product }) => {
+import styles from './styles/Product.module.css';
+
+const Product = ({ product }) => {
     const { name } = product;
     return (
-        <div className={className}>
+        <div className={styles.wrapper}>
             <h1>{name}</h1>
         </div>
     );

@@ -81,7 +81,7 @@ module.exports = {
         const result = await db(TABLES.REVIEWS).select('reviews.*',
             'products.name as productName', 'products.type as productType'
         ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
-            .where('published', true)
+            .where('published', true).orderBy('updatedAt', 'desc')
             .then(rows => rows.map(format.select));
         return result;
     },

@@ -9,6 +9,14 @@
     margin: 1em;
 }
 
-.reviewLink {
+.reviewDate {
+    font-size: smaller;
+}
 
+.reviewProduct {
+    font-size: larger;
+}
+
+.reviewLink {
+    font-size: large;
 }

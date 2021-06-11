@@ -8,6 +8,8 @@ const generateId = () => {
 
 const nBoolean = value => value === null ? null : Boolean(value);
 
+const now = () => (new Date()).toUTCString();
+
 // comma separated list
 const csl = {
     toString(list) {
@@ -28,5 +30,6 @@ module.exports = {
     generateId,
     csl,
     slugify,
-    nBoolean
+    nBoolean,
+    now
 };

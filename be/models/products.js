@@ -1,4 +1,4 @@
-const { generateId, csl } = require('../libs/utils');
+const { generateId, csl, now } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('../db/enums');
 
@@ -25,7 +25,7 @@ const format = {
             ...obj,
             meta: JSON.stringify(obj?.meta ?? null),
             tags: csl.toString(obj.tags),
-            updatedAt: Date.now()
+            updatedAt: now()
         };
     },
     select(obj) {

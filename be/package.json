@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "micro-dev -p 3001",
+    "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
     "start": "micro"
   },
   "keywords": [],

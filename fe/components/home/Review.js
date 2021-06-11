@@ -9,7 +9,7 @@ const Review = ({ review }) => {
     return (
         <div className={styles.reviewListItem}>
             <ProductType type={product.type} />
-            <span className={styles.reviewDate}>
+            <span className={styles.reviewDate} title={review.updatedAt}>
                 {timeago.format(new Date(review.updatedAt))}
             </span>
             <strong className={styles.reviewProduct}>

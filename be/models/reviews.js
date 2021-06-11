@@ -1,6 +1,6 @@
 
 // model for REVIEWS table
-const { generateId, slugify, csl, nBoolean } = require('../libs/utils');
+const { generateId, slugify, csl, nBoolean, now } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('../db/enums');
 
@@ -55,7 +55,7 @@ const format = {
             tags: csl.toString(obj.tags),
             pros: csl.toString(obj.pros),
             cons: csl.toString(obj.cons),
-            updatedAt: Date.now()
+            updatedAt: now()
         };
     },
 };

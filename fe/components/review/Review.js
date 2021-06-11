@@ -1,4 +1,6 @@
+import { Thumbool } from './common';
 import styles from './styles/Review.module.css';
+
 
 const Review = ({ review }) => {
     const { title, subtitle, content,
@@ -11,32 +13,32 @@ const Review = ({ review }) => {
             <h2 className={styles.subtitle}>
                 {subtitle}
             </h2>
-            <p className={styles.content}>
+            <div className={styles.content}>
                 {/* Need to make a md parser here */}
                 {content}
-            </p>
-            <p>
+            </div>
+            <div>
                 <h3>Pros</h3>
                 {pros}
-            </p>
-            <p>
+            </div>
+            <div>
                 <h3>Cons</h3>
                 {cons}
-            </p>
+            </div>
 
-            <p>
+            <div>
                 <h3>Tags</h3>
                 {tags}
-            </p>
-            <p>Suggested: {suggested ? 'YES' : 'NO'}</p>
-            <p>
+            </div>
+            <div>
                 <h3>Boredom Speed Index</h3>
-                <h2>{bsi}</h2>
-            </p>
-            <p>
+                <h2>{bsi} / 100</h2>
+            </div>
+            <div>
                 <h3>Rate</h3>
                 <h2>{rating} / 100</h2>
-            </p>
+            </div>
+            <div><h2>Suggested: <Thumbool value={suggested} /></h2></div>
             {/* Maybe can add Updated/Created */}
         </div>
     );

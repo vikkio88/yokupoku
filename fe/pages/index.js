@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 import styles from '../styles/Home.module.css';
 import { Footer } from '../components/layout';
@@ -20,14 +21,23 @@ export default function Home({ reviews }) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Yokupoku
-        </h1>
-        <h2>
-          Reviews for people with short attention span
+        <div className={styles.title}>
+          <h1>
+            Yokupoku
+          </h1>
+          <h2>
+            Reviews for people with short attention span
         </h2>
-        <h3>Latest Reviews</h3>
+        </div>
+        <nav className={styles.nav}>
+          <Link href="/about">Reviews</Link>
+          <Link href="/about">Products</Link>
+          <Link href="/about">About</Link>
+          <Link href="/about">🔎</Link>
+        </nav>
+
         <div className={styles.latest}>
+          <h3>Latest Reviews <span>👍👎</span></h3>
           {reviews.map(r => <Review key={r.id} review={r} />)}
         </div>
       </main>

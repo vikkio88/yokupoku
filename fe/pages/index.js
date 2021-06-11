@@ -30,10 +30,10 @@ export default function Home({ reviews }) {
         </h2>
         </div>
         <nav className={styles.nav}>
-          <Link href="/about">Reviews</Link>
-          <Link href="/about">Products</Link>
+          <Link href="/coming-soon">Reviews</Link>
+          <Link href="/coming-soon">Products</Link>
           <Link href="/about">About</Link>
-          <Link href="/about">🔎</Link>
+          <Link href="/coming-soon">🔎</Link>
         </nav>
 
         <div className={styles.latest}>

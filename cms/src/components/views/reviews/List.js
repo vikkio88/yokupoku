@@ -2,6 +2,8 @@ import { List, Datagrid, TextField, EditButton, ShowButton, FunctionField, linkT
 import { Link } from 'react-router-dom';
 
 const productLink = record => {
+    if (!record?.product) return null;
+    
     return (
         <Link to={linkToRecord('games', record.product.id, 'show')}>
             {`${record.product.name}`}

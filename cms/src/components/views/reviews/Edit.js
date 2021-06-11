@@ -1,22 +1,14 @@
 import {
     Edit, SimpleForm, TextInput, NumberInput,
-    NullableBooleanInput, DateInput,
-    useNotify, useRefresh
+    NullableBooleanInput, DateInput
 } from 'react-admin';
 import MdInput from 'ra-input-markdown';
 import { Row } from 'components/layout';
 import Title from './shared/Title';
 
 const ReviewEdit = props => {
-    const notify = useNotify();
-    const refresh = useRefresh();
-
     return (
         <Edit
-            onSuccess={() => {
-                notify('Updated');
-                refresh();
-            }}
             title={<Title />}
             {...props}
         >

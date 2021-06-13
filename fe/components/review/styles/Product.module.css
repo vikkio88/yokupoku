@@ -1,13 +1,15 @@
 .wrapper {
-    flex:3;
-    border: 2px solid #eaeaea;
-    border-radius: 3px;
+    margin: 2em;
+    border-top: 2px solid #eaeaea;
     padding: 1em;
 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+
+
+    text-align: center;
 }
 
 .wrapper * {

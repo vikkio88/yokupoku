@@ -1,0 +1,12 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.item {
+    padding: .5em;
+    border-radius: 3px;
+    border: solid 1px #eaeaea;
+    text-align: center;
+    cursor: pointer;
+}

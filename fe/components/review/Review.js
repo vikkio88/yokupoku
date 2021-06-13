@@ -1,4 +1,4 @@
-import { Thumbool } from './common';
+import { Thumbool, Csl } from './common';
 import styles from './styles/Review.module.css';
 
 
@@ -17,28 +17,35 @@ const Review = ({ review }) => {
                 {/* Need to make a md parser here */}
                 {content}
             </div>
-            <div>
-                <h3>Pros</h3>
-                {pros}
-            </div>
-            <div>
-                <h3>Cons</h3>
-                {cons}
+
+            <div className={styles.row}>
+                <div className={styles.pros}>
+                    <h2>Pros</h2>
+                    {pros}
+                </div>
+                <div className={styles.pros}>
+                    <h2>Cons</h2>
+                    {cons}
+                </div>
             </div>
 
-            <div>
+            <div className={styles.row}>
+                <div>
+                    <h3>Boredom Speed Index</h3>
+                    <h2>{bsi} / 100</h2>
+                </div>
+                <div>
+                    <h3>Rate</h3>
+                    <h2>{rating} / 100</h2>
+                </div>
+                <div>
+                    <h2>Suggested: <Thumbool value={suggested} /></h2>
+                </div>
+            </div>
+            <div className={styles.tags}>
                 <h3>Tags</h3>
-                {tags}
+                <Csl value={tags} />
             </div>
-            <div>
-                <h3>Boredom Speed Index</h3>
-                <h2>{bsi} / 100</h2>
-            </div>
-            <div>
-                <h3>Rate</h3>
-                <h2>{rating} / 100</h2>
-            </div>
-            <div><h2>Suggested: <Thumbool value={suggested} /></h2></div>
             {/* Maybe can add Updated/Created */}
         </div>
     );

@@ -22,10 +22,9 @@ export default function ReviewPage({ review, product }) {
                 <h1><Link href="/">Yokupoku</Link> / Reviews /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
             </nav>
             <main className={styles.main}>
-                <Review review={review} />
                 <Product product={product} />
+                <Review review={review} />
             </main>
-            <Footer className={styles.footer} />
         </div>
     );
 }

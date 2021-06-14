@@ -1,4 +1,5 @@
-import { Thumbool, Csl } from './common';
+import { Tooltip } from 'react-tippy';
+import { Thumbool, Csl, RoundIndicator } from './common';
 import styles from './styles/Review.module.css';
 
 
@@ -35,15 +36,39 @@ const Review = ({ review }) => {
 
             <div className={styles.row}>
                 <div className={styles.col}>
-                    <h3 title="Boredom Speed Index">BSI 🥱</h3>
-                    <h2>{bsi} / 100</h2>
+                    <Tooltip
+                        title="Boredom Speed Index or how fast it gets boring (%)"
+                        position="top"
+                        trigger="mouseenter"
+                        arrow
+                        inertia
+                    >
+                        <h3>BSI 🥱</h3>
+                    </Tooltip>
+                    <RoundIndicator value={bsi} />
                 </div>
                 <div className={styles.col}>
-                    <h3>Rate 🧐</h3>
-                    <h2>{rating} / 100</h2>
+                    <Tooltip
+                        title="Rate out of 100"
+                        position="top"
+                        trigger="mouseenter"
+                        arrow
+                        inertia
+                    >
+                        <h3>Rate 🧐</h3>
+                    </Tooltip>
+                    <RoundIndicator value={rating} />
                 </div>
                 <div className={styles.col}>
-                    <h2>Suggested: <Thumbool value={suggested} /></h2>
+                    <Tooltip
+                        title="Whether I would suggest to buy this game"
+                        position="top"
+                        trigger="mouseenter"
+                        arrow
+                        inertia
+                    >
+                        <h2>Suggested: <Thumbool value={suggested} /></h2>
+                    </Tooltip>
                 </div>
             </div>
             <div className={styles.tags}>

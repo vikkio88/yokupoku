@@ -1,11 +1,12 @@
+import * as timeago from 'timeago.js';
 import { Tooltip } from 'react-tippy';
-import { Thumbool, Csl, RoundIndicator } from './common';
+import { Csl, RoundIndicator } from './common';
 import styles from './styles/Review.module.css';
 
 
 const Review = ({ review }) => {
     const { title, subtitle, content,
-        pros, cons, tags, suggested, bsi, rating } = review;
+        pros, cons, tags, suggested, bsi, rating, updatedAt } = review;
     return (
         <div className={styles.wrapper}>
             <h1 className={styles.title}>
@@ -14,6 +15,19 @@ const Review = ({ review }) => {
             <h2 className={styles.subtitle}>
                 {subtitle}
             </h2>
+
+            <Tooltip
+                title={updatedAt}
+                position="bottom"
+                trigger="mouseenter"
+                arrow
+                inertia
+            >
+                <h3 className={styles.date}>
+                    last updated: {timeago.format(updatedAt)}
+                </h3>
+            </Tooltip>
+
             <div className={styles.content}>
                 {/* Need to make a md parser here */}
                 {content}
@@ -45,7 +59,7 @@ const Review = ({ review }) => {
                     >
                         <h3>BSI 🥱</h3>
                     </Tooltip>
-                    <RoundIndicator value={bsi} />
+                    <RoundIndicator invertColour value={bsi} />
                 </div>
                 <div className={styles.col}>
                     <Tooltip
@@ -61,21 +75,21 @@ const Review = ({ review }) => {
                 </div>
                 <div className={styles.col}>
                     <Tooltip
-                        title="Whether I would suggest to buy this game"
+                        title={`${suggested ? 'YES!' : 'NOPE!'}`}
                         position="top"
                         trigger="mouseenter"
                         arrow
                         inertia
                     >
-                        <h2>Suggested: <Thumbool value={suggested} /></h2>
+                        <h2>Suggested</h2>
                     </Tooltip>
+                    <RoundIndicator value={100} invertColour={!suggested} forceText={suggested ? '👍' : '👎'} />
                 </div>
             </div>
             <div className={styles.tags}>
-                <h3>Tags</h3>
+                <h2>Tags</h2>
                 <Csl value={tags} />
             </div>
-            {/* Maybe can add Updated/Created */}
         </div>
     );
 };

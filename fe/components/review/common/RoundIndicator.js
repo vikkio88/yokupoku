@@ -6,12 +6,12 @@ const getColour = percent => {
 
 const RoundIndicator = ({
     radius = 60, stroke = 5, max = 100,
-    value = 10, showRail = true,
+    value = 10, showRail = true, invertColour = false,
     railColour = "#eaeaea", textColour = "black",
-    style = {}, children = null
+    style = {}, children = null, forceText = null
 }) => {
 
-    const colour = getColour(value);
+    const colour = getColour(invertColour ? (max - value) : value);
     const cx = radius;
     const cy = radius;
     const normalizedRadius = radius - stroke * 2;
@@ -42,7 +42,7 @@ const RoundIndicator = ({
                 style={{ strokeDashoffset }}
                 {...circleProps}
             />
-            <text textAnchor="middle" x="50%" y="50%" dy={children ? ".1em" : ".3em"} style={{ fill: textColour, fontSize: '1.8em' }}>{value}</text>
+            <text textAnchor="middle" x="50%" y="50%" dy={children ? ".1em" : ".3em"} style={{ fill: textColour, fontSize: '1.8em' }}>{forceText || value}</text>
             {children && <text textAnchor="middle" x="50%" y="50%" dy="1.3em" style={{ fill: textColour }}>{children}</text>}
         </svg>
     );

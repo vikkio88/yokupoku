@@ -20,25 +20,29 @@ const Review = ({ review }) => {
 
             <div className={styles.row}>
                 <div className={styles.pros}>
-                    <h2>Pros</h2>
-                    {pros}
+                    <h2>Pros 😍</h2>
+                    <ul>
+                        {pros.split(',').map(c => <li>{c}</li>)}
+                    </ul>
                 </div>
-                <div className={styles.pros}>
-                    <h2>Cons</h2>
-                    {cons}
+                <div className={styles.cons}>
+                    <h2>Cons 🤮</h2>
+                    <ul>
+                        {cons.split(',').map(c => <li>{c}</li>)}
+                    </ul>
                 </div>
             </div>
 
             <div className={styles.row}>
-                <div>
-                    <h3>Boredom Speed Index</h3>
+                <div className={styles.col}>
+                    <h3 title="Boredom Speed Index">BSI 🥱</h3>
                     <h2>{bsi} / 100</h2>
                 </div>
-                <div>
-                    <h3>Rate</h3>
+                <div className={styles.col}>
+                    <h3>Rate 🧐</h3>
                     <h2>{rating} / 100</h2>
                 </div>
-                <div>
+                <div className={styles.col}>
                     <h2>Suggested: <Thumbool value={suggested} /></h2>
                 </div>
             </div>

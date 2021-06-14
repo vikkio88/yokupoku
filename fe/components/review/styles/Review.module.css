@@ -25,10 +25,53 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
 .tags {
     margin-top: 3em;
 }
+
+.tags * {
+    margin: .5em;
+}
+
+.pros {
+    flex: 0 1 33%;
+    color: #155724;
+    background-color: #d4edda;
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
+    padding: 1em;
+    text-align: center;
+}
+
+.cons {
+    flex: 0 1 33%;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
+    padding: 1em;
+    text-align: center;
+}
+
+.pros ul ,
+.cons ul {
+    text-align: justify;
+}
+
+.pros li ,
+.cons li {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+

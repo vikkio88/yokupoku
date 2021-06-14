@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "deploy:dev": "npm run export && surge out/ --domain --domain yokupoku-dev.surge.sh",
+    "deploy:prod": "npm run export && surge out/ --domain --domain yokupoku.surge.sh"
   },
   "dependencies": {
     "axios": "^0.21.1",

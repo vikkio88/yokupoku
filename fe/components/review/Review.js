@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import * as timeago from 'timeago.js';
 import { Tooltip } from 'react-tippy';
 import { Csl, RoundIndicator } from './common';
@@ -6,7 +7,13 @@ import styles from './styles/Review.module.css';
 
 const Review = ({ review }) => {
     const { title, subtitle, content,
-        pros, cons, tags, suggested, bsi, rating, updatedAt } = review;
+        pros, cons, tags, suggested,
+        bsi, rating, updatedAt
+    } = review;
+
+    const [dateString, setDateString] = useState(timeago.format(updatedAt));
+    useEffect(() => setDateString(timeago.format(updatedAt)));
+
     return (
         <div className={styles.wrapper}>
             <h1 className={styles.title}>
@@ -24,7 +31,7 @@ const Review = ({ review }) => {
                 inertia
             >
                 <h3 className={styles.date}>
-                    last updated: {timeago.format(updatedAt)}
+                    last updated: {dateString}
                 </h3>
             </Tooltip>
 

@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { Tooltip } from 'react-tippy';
 import Link from 'next/link';
 import * as timeago from 'timeago.js';
 import { ProductType } from '../common';
@@ -5,13 +7,23 @@ import styles from './styles/Review.module.css';
 
 
 const Review = ({ review }) => {
-    const { product, title, slug } = review;
+    const { product, title, slug, updatedAt } = review;
+    const [dateString, setDateString] = useState(timeago.format(updatedAt));
+    useEffect(() => setDateString(timeago.format(updatedAt)));
     return (
         <div className={styles.reviewListItem}>
             <ProductType type={product.type} />
-            <span className={styles.reviewDate} title={review.updatedAt}>
-                {timeago.format(new Date(review.updatedAt))}
-            </span>
+            <Tooltip
+                title={updatedAt}
+                position="bottom"
+                trigger="mouseenter"
+                arrow
+                inertia
+            >
+                <span className={styles.reviewDate}>
+                    {dateString}
+                </span>
+            </Tooltip>
             <strong className={styles.reviewProduct}>
                 {product.name}
             </strong>

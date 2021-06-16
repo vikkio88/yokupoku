@@ -1,4 +1,4 @@
-import ProductType from '../common/ProductType';
+import { ProductType, T } from '../common';
 import styles from './styles/Product.module.css';
 
 const Product = ({ product }) => {
@@ -7,7 +7,11 @@ const Product = ({ product }) => {
         <div className={styles.wrapper}>
             <h2><ProductType type={type} /></h2>
             <h1>{name}</h1>
-            {meta?.store && <h3>🛒 {meta?.store}</h3>}
+            {meta?.store && (
+                <T title="Store" position="left">
+                    <h3>🛒 {meta?.store}</h3>
+                </T>
+            )}
             {links?.map((l, i) => <h3>{l}</h3>)}
         </div>
     );

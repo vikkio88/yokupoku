@@ -24,6 +24,15 @@
     padding: 1.5em;
 }
 
+.content blockquote{
+    border-left:3px solid #eaeaea;
+    background-color: #fafafa;
+    padding: .3em;
+    padding-left: .5em;
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
 .row {
     margin-top: 2em;
     width: 100%;

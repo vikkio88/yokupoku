@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Md from 'react-markdown';
 import * as timeago from 'timeago.js';
 import { Csl, RoundIndicator } from './common';
 import { T } from '../common';
@@ -30,8 +31,9 @@ const Review = ({ review }) => {
             </T>
 
             <div className={styles.content}>
-                {/* Need to make a md parser here */}
-                {content}
+                <Md>
+                    {content}
+                </Md>
             </div>
 
             <div className={styles.row}>

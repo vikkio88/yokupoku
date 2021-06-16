@@ -7,7 +7,7 @@ const Product = ({ product }) => {
         <div className={styles.wrapper}>
             <h2><ProductType type={type} /></h2>
             <h1>{name}</h1>
-            {meta?.store && <h3>🛒: {meta?.store}</h3>}
+            {meta?.store && <h3>🛒 {meta?.store}</h3>}
             {links?.map((l, i) => <h3>{l}</h3>)}
         </div>
     );

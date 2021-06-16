@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Tooltip } from 'react-tippy';
 import Link from 'next/link';
 import * as timeago from 'timeago.js';
-import { ProductType } from '../common';
+import { ProductType, T } from '../common';
 import styles from './styles/Review.module.css';
 
 
@@ -13,17 +12,11 @@ const Review = ({ review }) => {
     return (
         <div className={styles.reviewListItem}>
             <ProductType type={product.type} />
-            <Tooltip
-                title={updatedAt}
-                position="bottom"
-                trigger="mouseenter"
-                arrow
-                inertia
-            >
+            <T title={updatedAt}>
                 <span className={styles.reviewDate}>
                     {dateString}
                 </span>
-            </Tooltip>
+            </T>
             <strong className={styles.reviewProduct}>
                 {product.name}
             </strong>

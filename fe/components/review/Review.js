@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as timeago from 'timeago.js';
-import { Tooltip } from 'react-tippy';
 import { Csl, RoundIndicator } from './common';
+import { T } from '../common';
 import styles from './styles/Review.module.css';
 
 
@@ -23,17 +23,11 @@ const Review = ({ review }) => {
                 {subtitle}
             </h2>
 
-            <Tooltip
-                title={updatedAt}
-                position="bottom"
-                trigger="mouseenter"
-                arrow
-                inertia
-            >
+            <T title={updatedAt} position="bottom">
                 <h3 className={styles.date}>
                     last updated: {dateString}
                 </h3>
-            </Tooltip>
+            </T>
 
             <div className={styles.content}>
                 {/* Need to make a md parser here */}
@@ -56,42 +50,26 @@ const Review = ({ review }) => {
             </div>
 
             <div className={styles.row}>
-                <div className={styles.col}>
-                    <Tooltip
-                        title="Boredom Speed Index or how fast it gets boring (%)"
-                        position="top"
-                        trigger="mouseenter"
-                        arrow
-                        inertia
-                    >
+                <T
+                    title="Boredom Speed Index or how fast it gets boring (%)"
+                >
+                    <div className={styles.col}>
                         <h3>BSI 🥱</h3>
-                    </Tooltip>
-                    <RoundIndicator invertColour value={bsi} />
-                </div>
-                <div className={styles.col}>
-                    <Tooltip
-                        title="Rate out of 100"
-                        position="top"
-                        trigger="mouseenter"
-                        arrow
-                        inertia
-                    >
+                        <RoundIndicator invertColour value={bsi} />
+                    </div>
+                </T>
+                <T title="Rate out of 100">
+                    <div className={styles.col}>
                         <h3>Rate 🧐</h3>
-                    </Tooltip>
-                    <RoundIndicator value={rating} />
-                </div>
-                <div className={styles.col}>
-                    <Tooltip
-                        title={`${suggested ? 'YES!' : 'NOPE!'}`}
-                        position="top"
-                        trigger="mouseenter"
-                        arrow
-                        inertia
-                    >
-                        <h2>Suggested</h2>
-                    </Tooltip>
-                    <RoundIndicator value={100} invertColour={!suggested} forceText={suggested ? '👍' : '👎'} />
-                </div>
+                        <RoundIndicator value={rating} />
+                    </div>
+                </T>
+                <T title={`${suggested ? 'YES!' : 'NOPE!'}`}>
+                    <div className={styles.col}>
+                        <h3>Suggested</h3>
+                        <RoundIndicator value={100} invertColour={!suggested} forceText={suggested ? '👍' : '👎'} />
+                    </div>
+                </T>
             </div>
             <div className={styles.tags}>
                 <h2>Tags</h2>

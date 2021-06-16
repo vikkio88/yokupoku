@@ -7,7 +7,7 @@ const Csl = ({ value, className, component = null, onClick = null }) => {
     const values = value.split(',');
     return (
         <div className={className || styles.wrapper} onClick={onClick}>
-            {values.filter(v => v && v !== '').map(v => <Wrapper>{`#${v}`}</Wrapper>)}
+            {values.filter(v => v && v !== '').map((v, i) => <Wrapper key={`wr_${i}`}>{`#${v}`}</Wrapper>)}
         </div>
     );
 };

@@ -38,13 +38,13 @@ const Review = ({ review }) => {
                 <div className={styles.pros}>
                     <h2>Pros 😍</h2>
                     <ul>
-                        {pros.split(',').map(c => <li>{c}</li>)}
+                        {pros.split(',').map((c, i) => <li key={`pro_${i}`}>{c}</li>)}
                     </ul>
                 </div>
                 <div className={styles.cons}>
                     <h2>Cons 🤮</h2>
                     <ul>
-                        {cons.split(',').map(c => <li>{c}</li>)}
+                        {cons.split(',').map((c, i) => <li key={`cons_${i}`}>{c}</li>)}
                     </ul>
                 </div>
             </div>

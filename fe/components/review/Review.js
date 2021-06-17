@@ -60,9 +60,9 @@ const Review = ({ review }) => {
                         <RoundIndicator invertColour value={bsi} />
                     </div>
                 </T>
-                <T title="Rate out of 100">
+                <T title="Rating out of 100">
                     <div className={styles.col}>
-                        <h3>Rate 🧐</h3>
+                        <h3>Rating 🧐</h3>
                         <RoundIndicator value={rating} />
                     </div>
                 </T>

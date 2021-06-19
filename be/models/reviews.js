@@ -1,18 +1,19 @@
 
 // model for REVIEWS table
+const { products } = require('./products');
 const { generateId, slugify, csl, nBoolean, now } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('../db/enums');
 
 const format = {
-    insert(obj, productId) {
+    insert(obj, product) {
         if (obj.product) delete obj.product;
 
         return {
             ...obj,
             id: generateId(),
-            slug: slugify(obj.title),
-            productId: obj.productId || productId,
+            slug: slugify(`${product.name} ${obj.title}`),
+            productId: obj.productId,
             tags: csl.toString(obj.tags),
             pros: csl.toString(obj.pros),
             cons: csl.toString(obj.cons),
@@ -111,7 +112,9 @@ module.exports = {
             .then(rows => rows.map(format.select));
     },
     async create(obj) {
-        const payload = format.insert(obj);
+        const result = await products.find(obj.productId);
+        const product = result.length ? result.pop() : null;
+        const payload = format.insert(obj, product);
         await db(TABLES.REVIEWS).insert(payload);
         return { id: payload.id };
     },

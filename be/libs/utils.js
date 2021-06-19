@@ -1,6 +1,11 @@
 const { ulid } = require('ulid');
 
-const slugify = text => text.toLowerCase().replace(/[^A-Za-z0-9]/g, '-');
+const slugify = text => text.toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
 
 const generateId = () => {
     return ulid();

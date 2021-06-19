@@ -6,7 +6,7 @@ const TYPES = {
     GAME: 'game',
 };
 
-const products = TABLES.PRODUCTS;
+const prodTable = TABLES.PRODUCTS;
 
 const format = {
     insert(obj, type) {
@@ -37,12 +37,20 @@ const format = {
     }
 };
 
+const products = {
+    find(id) {
+        return db(prodTable)
+            .where('id', id);
+    }
+};
+
 module.exports = {
     format,
     TYPES,
+    products,
     games: {
         async total({ filter }) {
-            const query = db(products).count('*', { as: 'total' }).where('type', 'game');
+            const query = db(prodTable).count('*', { as: 'total' }).where('type', 'game');
             for (const f of Object.keys(filter)) {
                 query.where(f, 'LIKE', `%${filter[f]}%`);
             }
@@ -50,9 +58,8 @@ module.exports = {
             return result ? result[0].total : 0;
         },
         async find(id) {
-            const result = await db(products)
+            const result = await products.find(id)
                 .where('type', TYPES.GAME)
-                .where('id', id)
                 .then(rows => rows.map(format.select));
 
             let game = null;
@@ -66,7 +73,7 @@ module.exports = {
             const [lower, upper] = range;
             const limit = upper - lower;
             const offset = lower;
-            const query = db(products)
+            const query = db(prodTable)
                 .select('id', 'name')
                 .where('type', TYPES.GAME);
 
@@ -80,19 +87,19 @@ module.exports = {
         },
         async create(obj) {
             const payload = format.insert(obj, TYPES.GAME);
-            await db(products).insert(payload);
+            await db(prodTable).insert(payload);
             return { id: payload.id };
 
         },
         async update(id, values) {
-            const result = await db(products)
+            const result = await db(prodTable)
                 .where('type', TYPES.GAME)
                 .where('id', id)
                 .update(format.update(values));
             return result === 1;
         },
         async delete(id) {
-            const result = await db(products)
+            const result = await db(prodTable)
                 .where('id', id).delete();
             return result === 1;
         }

@@ -6,11 +6,14 @@ const r = array => array[Math.floor(Math.random() * array.length)];
 const rI = () => Math.floor(Math.random() * 100);
 const rB = () => Math.floor(Math.random() * 100) > 50;
 
+const MAX_REVIEWS = 10;
+
 exports.seed = async (knex) => {
     return knex(TABLES.REVIEWS).del()
         .then(async () => {
-            const products = await knex(TABLES.PRODUCTS).select('id');
+            const products = await knex(TABLES.PRODUCTS).select('id', 'name');
             const reviewsToAdd = [];
+            let reviewsSoFar = 0;
             for (const product of products) {
                 const review = {
                     title: `${r(reviews.words)} ${r(reviews.words)} ${r(reviews.words)}`,
@@ -25,7 +28,13 @@ exports.seed = async (knex) => {
                     published: rB()
 
                 };
-                reviewsToAdd.push(format.insert(review, product.id));
+
+                review.productId = product.id;
+
+                reviewsToAdd.push(format.insert(review, product));
+                reviewsSoFar++;
+
+                if (reviewsSoFar >= MAX_REVIEWS) break;
             }
             return knex(TABLES.REVIEWS).insert(reviewsToAdd);
         });

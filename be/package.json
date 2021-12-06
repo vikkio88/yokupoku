@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
-    "start": "micro"
+    "start": "micro",
+    "parse:csv": "node db/data/parsecsv.js",
+    "db:purge": "rm db/data/dev.sqlite3",
+    "db:migrate": "knex migrate:latest",
+    "db:seed": "knex seed:run"
   },
   "keywords": [],
   "author": "",

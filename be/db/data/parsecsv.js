@@ -1,5 +1,6 @@
 const fs = require('fs');
-const GAMES_CSV = __dirname + '/games.csv';
+const DATA_DIR = __dirname;
+const GAMES_CSV = `${DATA_DIR}/games.csv`;
 
 let data = fs.readFileSync(GAMES_CSV, 'utf-8');
 let lines = data.split(/\r?\n/);
@@ -20,6 +21,8 @@ for (const l of data) {
     games.push(row);
 }
 
+const genres = new Set;
+const tags = new Set;
 const metas = ['meta.device', 'meta.store', 'meta.played', 'meta.edition', 'meta.refunded', 'meta.price'];
 for (const g of games) {
     const meta = {};
@@ -30,12 +33,21 @@ for (const g of games) {
     }
     g.name = g.name.replace(/~/g, ',');
     g.tags = g.tags.replace(/\|/g, ',');
+    const tagsList = g.tags.split(',');
+    for (const t of tagsList) {
+        tags.add(t.trim());
+    }
+
     g.released = g.released ? g.released.split('/').reverse().join('-') : null;
     // not loading consumed
     g.consumed = null;
     g.meta = meta;
+    genres.add(g.genre);
 }
 
 
 
+
+fs.writeFileSync(`${DATA_DIR}/genres.json`, JSON.stringify([...genres]));
+fs.writeFileSync(`${DATA_DIR}/tags.json`, JSON.stringify([...tags]));
 fs.writeFileSync(GAMES_CSV.replace('.csv', '.json'), JSON.stringify(games));

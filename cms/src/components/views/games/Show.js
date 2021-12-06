@@ -16,6 +16,7 @@ const Game = props => (
             <TextField source="name" />
             <TextField source="meta.edition" label="Edition" />
             <ChipField source="genre" />
+            <ChipField source="meta.device" label="Device" />
             <ChipField source="meta.store" label="Store" />
             <NumberField source="meta.played" label="Played Time" />
             <BooleanField source="meta.refunded" label="Refunded?" />

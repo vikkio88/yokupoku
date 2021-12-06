@@ -1,5 +1,4 @@
-import { List, Datagrid, TextField, EditButton } from 'react-admin';
-
+import { List, Datagrid, TextField, ChipField, EditButton } from 'react-admin';
 
 
 // the list of Games
@@ -8,6 +7,8 @@ const Games = props => (
         <Datagrid rowClick="show" >
             <TextField source="id" />
             <TextField source="name" />
+            <ChipField source="meta.device" label="device" />
+            <ChipField source="meta.store" label="store" />
             <EditButton />
         </Datagrid>
     </List>

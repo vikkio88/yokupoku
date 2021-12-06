@@ -1,5 +1,5 @@
 const Title = ({ record }) => {
-    return <span>Review: {record ? `"${record.Title}"` : ''}</span>;
+    return <span>Game: {record ? `"${record.name}"` : ''}</span>;
 };
 
 export default Title;

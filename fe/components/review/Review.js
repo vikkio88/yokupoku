@@ -35,7 +35,7 @@ const Review = ({ review }) => {
                     {content}
                 </Md>
             </div>
-
+            {/* This needs ot drop to col flex in mobile same with the next */}
             <div className={styles.row}>
                 <div className={styles.pros}>
                     <h2>Pros 😍</h2>

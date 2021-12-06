@@ -74,7 +74,7 @@ module.exports = {
             const limit = upper - lower;
             const offset = lower;
             const query = db(prodTable)
-                .select('id', 'name')
+                .select('id', 'name', 'meta')
                 .where('type', TYPES.GAME);
 
             for (const f of Object.keys(filter)) {

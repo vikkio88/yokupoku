@@ -60,7 +60,15 @@ const del = async (req, res) => {
     return response(res, { id });
 };
 
+const purge = async (req, res) => {
+    const result = await model.purge();
+
+    if (!result) return unprocessable(res);
+
+    return response(res,);
+}
+
 
 module.exports = {
-    get, find, create, update, del
+    get, find, create, update, del, purge
 };

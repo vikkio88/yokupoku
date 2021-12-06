@@ -27,6 +27,7 @@ module.exports = cors(
             post('/reviews', reviews.create),
             put('/reviews/:id', reviews.update),
             del('/reviews/:id', reviews.del),
+            del('/reviews', reviews.purge),
 
             get('/games', products.games.get),
             get('/games/:id', products.games.find),

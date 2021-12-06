@@ -128,5 +128,9 @@ module.exports = {
         const result = await db(TABLES.REVIEWS)
             .where('id', id).delete();
         return result === 1;
+    },
+    async purge() {
+        await db(TABLES.REVIEWS).delete();
+        return result === 1;
     }
 };

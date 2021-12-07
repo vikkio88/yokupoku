@@ -4,6 +4,12 @@ const TABLES = {
 };
 
 
+const PRODUCT_TYPES = {
+    GAME: 'game',
+};
+
+
 module.exports = {
-    TABLES
+    TABLES,
+    PRODUCT_TYPES
 };

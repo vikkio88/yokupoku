@@ -1,10 +1,6 @@
 const { generateId, csl, now } = require('../libs/utils');
 const db = require('../db');
-const { TABLES } = require('../db/enums');
-
-const TYPES = {
-    GAME: 'game',
-};
+const { TABLES, PRODUCT_TYPES } = require('../db/enums');
 
 const prodTable = TABLES.PRODUCTS;
 
@@ -46,7 +42,7 @@ const products = {
 
 module.exports = {
     format,
-    TYPES,
+    PRODUCT_TYPES,
     products,
     games: {
         async total({ filter }) {
@@ -59,7 +55,7 @@ module.exports = {
         },
         async find(id) {
             const result = await products.find(id)
-                .where('type', TYPES.GAME)
+                .where('type', PRODUCT_TYPES.GAME)
                 .then(rows => rows.map(format.select));
 
             let game = null;
@@ -75,7 +71,7 @@ module.exports = {
             const offset = lower;
             const query = db(prodTable)
                 .select('id', 'name', 'meta')
-                .where('type', TYPES.GAME);
+                .where('type', PRODUCT_TYPES.GAME);
 
             for (const f of Object.keys(filter)) {
                 query.where(f, 'LIKE', `%${filter[f]}%`);
@@ -86,14 +82,14 @@ module.exports = {
                 .then(rows => rows.map(format.select));
         },
         async create(obj) {
-            const payload = format.insert(obj, TYPES.GAME);
+            const payload = format.insert(obj, PRODUCT_TYPES.GAME);
             await db(prodTable).insert(payload);
             return { id: payload.id };
 
         },
         async update(id, values) {
             const result = await db(prodTable)
-                .where('type', TYPES.GAME)
+                .where('type', PRODUCT_TYPES.GAME)
                 .where('id', id)
                 .update(format.update(values));
             return result === 1;

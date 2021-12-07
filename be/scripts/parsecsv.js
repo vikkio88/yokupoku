@@ -1,6 +1,6 @@
 const fs = require('fs');
-const DATA_DIR = __dirname;
-const GAMES_CSV = `${DATA_DIR}/games.csv`;
+const DATA_DIR = `${__dirname}/../db/data`;
+const GAMES_CSV = `${DATA_DIR}/dump.csv`;
 
 let data = fs.readFileSync(GAMES_CSV, 'utf-8');
 let lines = data.split(/\r?\n/);
@@ -33,6 +33,7 @@ for (const g of games) {
     }
     g.name = g.name.replace(/~/g, ',');
     g.tags = g.tags.replace(/\|/g, ',');
+    g.links = g.links.replace(/\|/g, ',');
     const tagsList = g.tags.split(',');
     for (const t of tagsList) {
         tags.add(t.trim());

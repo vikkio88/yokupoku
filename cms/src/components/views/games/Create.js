@@ -4,7 +4,7 @@ import {
     SelectInput
 } from 'react-admin';
 import { Row } from 'components/layout';
-import { STORES } from 'enums/games';
+import { STORES, DEVICES } from 'enums/games';
 
 const GameCreate = props => (
     <Create {...props}>
@@ -15,6 +15,7 @@ const GameCreate = props => (
             </Row>
             <Row>
                 <TextInput source="meta.edition" label="Edition" />
+                <SelectInput source="meta.device" label="Device" choices={DEVICES.map(d => ({ id: d, name: d }))} />
                 <SelectInput source="meta.store" label="Store" choices={STORES.map(s => ({ id: s, name: s }))} />
                 <NumberInput source="meta.played" label="Played Time" step={1} min={0} />
                 <NullableBooleanInput source="meta.refunded" label="Refunded?" />

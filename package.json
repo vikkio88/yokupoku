@@ -1,0 +1,27 @@
+{
+  "name": "yokupoku",
+  "version": "1.0.0",
+  "description": "reviews of things I like",
+  "main": "index.js",
+  "scripts": {
+    "dev:cms": "cd cms && npm run dev",
+    "dev:be": "cd be && npm run dev",
+    "dev:fe": "cd fe && npm run dev",
+    "dev:all": "concurrently --kill-others npm:dev:*",
+    "dev:cms-only": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikkio88/yokupoku.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vikkio88/yokupoku/issues"
+  },
+  "homepage": "https://github.com/vikkio88/yokupoku#readme",
+  "dependencies": {
+    "concurrently": "^6.4.0"
+  }
+}

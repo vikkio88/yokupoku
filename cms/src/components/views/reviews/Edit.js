@@ -29,6 +29,7 @@ const ReviewEdit = props => {
                 </Row>
                 <Row>
                     <TextInput source="tags" />
+                    <TextInput source="image" />
                 </Row>
 
                 <Row>

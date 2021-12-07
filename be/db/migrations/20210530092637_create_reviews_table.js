@@ -10,6 +10,7 @@ exports.up = function (knex) {
             .onDelete('CASCADE');
         table.string('title', 255).notNullable();
         table.string('subtitle', 255).notNullable();
+        table.text('image').notNullable();
         table.text('content').notNullable();
 
         // comma separates lists

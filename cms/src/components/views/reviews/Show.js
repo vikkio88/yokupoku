@@ -24,6 +24,10 @@ const Review = props => (
             <BooleanField source="published" />
             <DateField source="createdAt" />
             <DateField source="updatedAt" />
+            <FunctionField
+                label="Image"
+                render={record => <img src={record.image}/>}
+            />
         </SimpleShowLayout>
     </Show>
 );

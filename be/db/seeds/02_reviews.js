@@ -18,6 +18,7 @@ exports.seed = async (knex) => {
                 const review = {
                     title: `${r(reviews.words)} ${r(reviews.words)} ${r(reviews.words)}`,
                     subtitle: `${r(reviews.words)} ${r(reviews.words)} ${r(reviews.words)}`,
+                    image: `https://via.placeholder.com/400`,
                     content: `${r(reviews.words)} ${r(reviews.words)} ${r(reviews.words)} ${r(reviews.words)} ${r(reviews.words)}`,
                     pros: `${r(reviews.words)},${r(reviews.words)}`,
                     cons: `${r(reviews.words)},${r(reviews.words)}`,

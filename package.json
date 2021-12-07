@@ -4,11 +4,16 @@
   "description": "reviews of things I like",
   "main": "index.js",
   "scripts": {
+    "be": "cd be && npm start",
     "dev:cms": "cd cms && npm run dev",
     "dev:be": "cd be && npm run dev",
     "dev:fe": "cd fe && npm run dev",
     "dev:all": "concurrently --kill-others npm:dev:*",
-    "dev:cms-only": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\""
+    "dev:cms-only": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\"",
+    "build:cms": "cd cms && npm run build",
+    "build:fe": "concurrently \"npm:be\" \"cd fe && npm run export\"",
+    "serve:fe": "serve -s fe/out -p 3000",
+    "serve:cms": "concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\""
   },
   "repository": {
     "type": "git",
@@ -22,6 +27,8 @@
   },
   "homepage": "https://github.com/vikkio88/yokupoku#readme",
   "dependencies": {
-    "concurrently": "^6.4.0"
+    "concurrently": "^6.4.0",
+    "node-static": "^0.7.11",
+    "serve": "^13.0.2"
   }
 }

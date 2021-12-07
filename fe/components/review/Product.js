@@ -12,7 +12,7 @@ const Product = ({ product }) => {
                     <h3>🛒 {meta?.store}</h3>
                 </T>
             )}
-            {links?.map((l, i) => <h3>{l}</h3>)}
+            {Array.isArray(links) && links?.map((l, i) => <h3>{l}</h3>)}
         </div>
     );
 };

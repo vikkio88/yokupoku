@@ -131,6 +131,6 @@ module.exports = {
     },
     async purge() {
         await db(TABLES.REVIEWS).delete();
-        return result === 1;
+        return true;
     }
 };

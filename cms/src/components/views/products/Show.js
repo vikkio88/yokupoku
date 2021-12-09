@@ -1,7 +1,8 @@
 import {
     Show, SimpleShowLayout, TextField,
-    DateField, ChipField, NumberField, BooleanField
+    DateField, ChipField
 } from 'react-admin';
+import { JsonField } from "react-admin-json-view";
 
 import { Csl } from 'components/common';
 
@@ -15,7 +16,7 @@ const Product = props => (
             <TextField source="name" />
             <TextField source="type" />
             <ChipField source="genre" />
-            <TextField multiline source="meta" label="Meta" />
+            <JsonField source="meta" addLabel />
             <TextField source="notes" />
             <Csl source="tags" />
             <Csl source="links" />

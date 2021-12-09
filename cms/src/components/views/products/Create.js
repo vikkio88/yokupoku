@@ -1,12 +1,12 @@
 import {
-    Create, SimpleForm, TextInput,
-    NumberInput, NullableBooleanInput, DateInput,
+    Create, SimpleForm, TextInput, DateInput,
     SelectInput
 } from 'react-admin';
+import { JsonInput } from "react-admin-json-view";
 import { Row } from 'components/layout';
 import { TYPES } from 'enums/products';
 
-const Create = props => (
+const PrductCreate = props => (
     <Create {...props}>
         <SimpleForm>
             <Row>
@@ -15,7 +15,9 @@ const Create = props => (
             </Row>
             <Row>
                 <SelectInput source="type" label="Type" choices={TYPES.map(t => ({ id: t, name: t }))} />
-                <TextInput source="meta" label=" Meta"/>
+            </Row>
+            <Row>
+                <JsonInput source="meta" addLabel />
             </Row>
             <Row>
                 <TextInput source="tags" />
@@ -32,4 +34,4 @@ const Create = props => (
     </Create>
 );
 
-export default Create;
+export default PrductCreate;

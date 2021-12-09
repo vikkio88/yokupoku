@@ -1,15 +1,14 @@
 import {
     Edit,
-    SimpleForm, TextInput, NumberInput,
-    NullableBooleanInput, SelectInput, DateInput
+    SimpleForm, TextInput, DateInput
 } from 'react-admin';
-
+import { JsonInput } from "react-admin-json-view";
 import { Row } from 'components/layout';
 
 import Title from './shared/Title';
 
 
-const Edit = props => (
+const PrductEdit = props => (
     <Edit {...props} title={<Title />}>
         <SimpleForm>
             <Row>
@@ -18,7 +17,9 @@ const Edit = props => (
             </Row>
             <Row>
                 <TextInput disabled source="type" />
-                <TextInput source="meta" label=" Meta"/>
+            </Row>
+            <Row>
+                <JsonInput source="meta" addLabel />
             </Row>
             <Row>
                 <TextInput source="tags" />
@@ -35,4 +36,4 @@ const Edit = props => (
     </Edit>
 );
 
-export default Edit;
+export default PrductEdit;

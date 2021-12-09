@@ -7,7 +7,7 @@ const Products = props => (
         <Datagrid rowClick="show" >
             <TextField source="id" />
             <TextField source="name" />
-            <ChipField source="type" label="device" />
+            <ChipField source="type" label="type" />
             <EditButton />
         </Datagrid>
     </List>

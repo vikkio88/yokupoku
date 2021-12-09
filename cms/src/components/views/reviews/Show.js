@@ -26,7 +26,7 @@ const Review = props => (
             <DateField source="updatedAt" />
             <FunctionField
                 label="Image"
-                render={record => <img src={record.image}/>}
+                render={record => <img src={record.image} alt={record.name}/>}
             />
         </SimpleShowLayout>
     </Show>

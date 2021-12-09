@@ -52,6 +52,54 @@ const games = {
 
 
 
+const products = {
+    get: async (req, res) => {
+        let { range, sort, filter } = req.query;
+        filter = filter ? JSON.parse(filter) : {};
+        range = range ? JSON.parse(range) : [0, 10];
+        sort = sort ? JSON.parse(sort) : ['id', 'asc'];
+
+        const total = await model.products.total({ filter });
+        const products = await model.products.get({ range, sort, filter });
+
+        const topRange = Math.min(products.length, range[1]);
+        res.setHeader('Content-Range', `products ${range[0]}-${topRange} / ${total}`);
+        return response(res, products);
+    },
+    find: async (req, res) => {
+        const { id } = req.params;
+        const result = await model.products.find(id);
+        return response(res, result);
+    },
+    create: async (req, res) => {
+        const body = await json(req);
+        if (!body) return unprocessable(res);
+        const result = await model.products.create(body);
+        if (!result) return unprocessable(res);
+        return response(res, result);
+    },
+    update: async (req, res) => {
+        const { id } = req.params;
+        const body = await json(req);
+        if (!id || !body) return unprocessable(res);
+
+        const result = await model.products.update(id, body);
+
+        if (!result) return unprocessable(res);
+        return response(res, { id, ...body });
+    },
+    del: async (req, res) => {
+        const { id } = req.params;
+        if (!id) return notFound(res);
+
+        const result = await model.products.delete(id);
+
+        if (!result) return unprocessable(res);
+
+        return response(res, { id });
+    }
+};
+
 module.exports = {
-    games
+    games, products
 };

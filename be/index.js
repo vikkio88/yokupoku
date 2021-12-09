@@ -29,6 +29,12 @@ module.exports = cors(
             del('/reviews/:id', reviews.del),
             del('/reviews', reviews.purge),
 
+            get('/products', products.products.get),
+            get('/products/:id', products.products.find),
+            put('/products/:id', products.products.update),
+            post('/products', products.products.create),
+            del('/products/:id', products.products.del),
+            
             get('/games', products.games.get),
             get('/games/:id', products.games.find),
             put('/games/:id', products.games.update),

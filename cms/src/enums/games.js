@@ -1,3 +1,4 @@
+
 export const STORES = [
     'steam',
     'gog',

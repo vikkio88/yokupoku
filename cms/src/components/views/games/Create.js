@@ -4,7 +4,7 @@ import {
     SelectInput
 } from 'react-admin';
 import { Row } from 'components/layout';
-import { STORES, DEVICES } from 'enums/games';
+import { STORES, DEVICES } from 'yokupoku-shared/enums/cms/games';
 
 const GameCreate = props => (
     <Create {...props}>

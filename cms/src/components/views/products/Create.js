@@ -4,7 +4,7 @@ import {
 } from 'react-admin';
 import { JsonInput } from "react-admin-json-view";
 import { Row } from 'components/layout';
-import { TYPES } from 'enums/products';
+import { TYPES } from 'yokupoku-shared/enums/cms/products';
 
 const PrductCreate = props => (
     <Create {...props}>

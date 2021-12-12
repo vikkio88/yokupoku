@@ -7,6 +7,7 @@
     "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
     "start": "micro -p 3001",
     "parse:csv": "node scripts/parsecsv.js",
+    "dump:csv": "node scripts/dumpcsv.js",
     "db:purge": "rm db/data/dev.sqlite3",
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run"
@@ -21,7 +22,8 @@
     "micro-cors": "^0.1.1",
     "microrouter": "^3.1.3",
     "sqlite3": "^5.0.2",
-    "ulid": "^2.3.0"
+    "ulid": "^2.3.0",
+    "yokupoku-shared": "../yokupoku-shared"
   },
   "devDependencies": {
     "micro-dev": "^3.0.0"

@@ -1,4 +1,4 @@
-const { TABLES } = require('../enums');
+const { TABLES } = require('yokupoku-shared/enums/db');
 
 exports.up = function (knex) {
     return knex.schema.createTable(TABLES.PRODUCTS, function (table) {

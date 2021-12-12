@@ -1,5 +1,5 @@
 const reviews = require('../data/reviews.json');
-const { TABLES } = require('../enums');
+const { TABLES } = require('yokupoku-shared/enums/db');
 const { format } = require('../../models/reviews');
 
 const r = array => array[Math.floor(Math.random() * array.length)];

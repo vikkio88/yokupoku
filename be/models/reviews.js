@@ -3,7 +3,7 @@
 const { products } = require('./products');
 const { generateId, slugify, csl, nBoolean, now } = require('../libs/utils');
 const db = require('../db');
-const { TABLES } = require('../db/enums');
+const { TABLES } = require('yokupoku-shared/enums/db');
 
 const format = {
     insert(obj, product) {

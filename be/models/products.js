@@ -1,6 +1,6 @@
 const { generateId, csl, now } = require('../libs/utils');
 const db = require('../db');
-const { TABLES, PRODUCT_TYPES } = require('../db/enums');
+const { TABLES, PRODUCT_TYPES } = require('yokupoku-shared/enums/db');
 
 const prodTable = TABLES.PRODUCTS;
 

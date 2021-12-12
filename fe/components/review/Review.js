@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Md from 'react-markdown';
 import * as timeago from 'timeago.js';
 import { Csl, RoundIndicator } from './common';
@@ -8,7 +9,7 @@ import styles from './styles/Review.module.css';
 
 const Review = ({ review }) => {
     const { title, subtitle, content,
-        pros, cons, tags, suggested,
+        pros, cons, tags, suggested, image,
         bsi, rating, updatedAt
     } = review;
 
@@ -28,6 +29,14 @@ const Review = ({ review }) => {
                 <h3 className={styles.date}>
                     last updated: {dateString}
                 </h3>
+            </T>
+            <T>
+                <Image
+                    src={"https://via.placeholder.com/400x600"}
+                    width={445}
+                    height={260}
+                    alt={title}
+                />
             </T>
 
             <div className={styles.content}>

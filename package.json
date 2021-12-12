@@ -10,6 +10,7 @@
     "dev:fe": "cd fe && npm run dev",
     "dev:all": "concurrently --kill-others npm:dev:*",
     "dev:cms-only": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\"",
+    "dev:fe-only": "concurrently --kill-others \"npm:dev:fe\" \"npm:dev:be\"",
     "build:cms": "cd cms && npm run build",
     "build:fe": "concurrently \"npm:be\" \"cd fe && npm run export\"",
     "serve:fe": "serve -s fe/out -p 3000",

@@ -1,10 +1,13 @@
+import { PRODUCT_TYPES } from 'yokupoku-shared/enums/db';
+
 const map = {
-    game: '🎮',
-    movie: '🎥',
-    book: '📚',
-    tv: '📺',
-    music: '🎶',
-    other: '🤷',
+    [PRODUCT_TYPES.GAME]: '🎮',
+    [PRODUCT_TYPES.MOVIE]: '🎥',
+    [PRODUCT_TYPES.BOOK]: '📚',
+    [PRODUCT_TYPES.TV]: '📺',
+    [PRODUCT_TYPES.MUSIC]: '🎶',
+    [PRODUCT_TYPES.COMIC_BOOK]: '🗯️',
+    [PRODUCT_TYPES.OTHER]: '🤷',
 };
 
 

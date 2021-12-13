@@ -6,6 +6,7 @@
     justify-content: flex-start;
     align-items: center;
 }
+
 .date {
     font-size: smaller;
     color: #333333;
@@ -24,8 +25,8 @@
     padding: 1.5em;
 }
 
-.content blockquote{
-    border-left:3px solid #eaeaea;
+.content blockquote {
+    border-left: 3px solid #eaeaea;
     background-color: #fafafa;
     padding: .3em;
     padding-left: .5em;
@@ -78,14 +79,26 @@
     text-align: center;
 }
 
-.pros ul ,
+.pros ul,
 .cons ul {
     text-align: justify;
 }
 
-.pros li ,
+.pros li,
 .cons li {
     margin-top: .5em;
     margin-bottom: .5em;
 }
 
+/* this might need media query so it gets smaller on phone */
+.imageWrapper {
+    max-width: 400px;
+    position: relative;
+}
+
+.imageWrapper img {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+}

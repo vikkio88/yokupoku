@@ -18,6 +18,12 @@ const Review = ({ review }) => {
 
     return (
         <div className={styles.wrapper}>
+            <div className={styles.imageWrapper} >
+                <img
+                    src={image}
+                    alt={title}
+                />
+            </div>
             <h1 className={styles.title}>
                 {title}
             </h1>
@@ -29,14 +35,6 @@ const Review = ({ review }) => {
                 <h3 className={styles.date}>
                     last updated: {dateString}
                 </h3>
-            </T>
-            <T>
-                <Image
-                    src={"https://via.placeholder.com/400x600"}
-                    width={445}
-                    height={260}
-                    alt={title}
-                />
             </T>
 
             <div className={styles.content}>

@@ -1,3 +1,4 @@
 db/data/*.sqlite3
 db/data/*.json
+db/data/dumps/*.json
 db/data/*.csv

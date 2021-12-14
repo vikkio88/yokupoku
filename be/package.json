@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
     "start": "micro -p 3001",
-    "parse:csv": "node scripts/parsecsv.js",
-    "dump:csv": "node scripts/dumpcsv.js",
+    "dump:prods": "node scripts/products/dump.js",
+    "dump:load-prods": "node scripts/products/load.js",
+    "dump:purge": "rm db/data/dumps/*.json",
+    "db:reset": "npm run db:purge && npm run db:migrate",
     "db:purge": "rm db/data/dev.sqlite3",
     "db:migrate": "knex migrate:latest",
     "db:seed": "knex seed:run"

@@ -1,9 +1,9 @@
 // need to update the csv from cms
 const fs = require('fs');
-const { format } = require('../models/products');
+const { format } = require('../../models/products');
 const { TABLES, PRODUCT_TYPES } = require('yokupoku-shared/enums/db');
 
-const db = require('../db');
+const db = require('../../db');
 const DATA_DIR = `${__dirname}/../db/data`;
 
 const metas = ['device', 'store', 'played', 'edition', 'refunded', 'price'];

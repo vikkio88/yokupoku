@@ -8,7 +8,8 @@ const format = {
     insert(obj, type) {
         return {
             ...obj,
-            id: generateId(),
+            // in case we need to load them
+            id: obj.id || generateId(),
             type,
             meta: JSON.stringify(obj?.meta ?? null),
             tags: csl.toString(obj.tags)
@@ -59,8 +60,7 @@ const products = {
         const limit = upper - lower;
         const offset = lower;
         const query = db(prodTable)
-            // could add meta if needed
-            .select('id', 'name', 'type')
+            .select('id', 'name', 'type', 'meta')
             .whereNot('type', PRODUCT_TYPES.GAME);
 
         for (const f of Object.keys(filter)) {

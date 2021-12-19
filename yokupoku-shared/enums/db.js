@@ -1,6 +1,7 @@
 const TABLES = {
     PRODUCTS: 'products',
     REVIEWS: 'reviews',
+    DEVICES: 'devices',
 };
 
 
@@ -14,8 +15,17 @@ const PRODUCT_TYPES = {
     OTHER: 'other',
 };
 
+const DEVICE_TYPES = {
+    GAME_CONSOLE: 'game_console',
+    PC: 'pc',
+    READING: 'reading',
+    MULTIMEDIA: 'multimedia',
+    OTHER: 'other',
+};
+
 
 module.exports = {
     TABLES,
-    PRODUCT_TYPES
+    PRODUCT_TYPES,
+    DEVICE_TYPES
 };

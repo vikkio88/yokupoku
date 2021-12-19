@@ -1,9 +1,9 @@
-const { TABLES } = require('yokupoku-shared/enums/db');
+const { TABLES, PRODUCT_TYPES } = require('yokupoku-shared/enums/db');
 
 exports.up = function (knex) {
     return knex.schema.createTable(TABLES.PRODUCTS, function (table) {
         table.string('id', 255).primary();
-        table.enu('type', ['game', 'movie', 'book', 'tv', 'music', 'other']).defaultTo('game');
+        table.enu('type', Object.values(PRODUCT_TYPES)).defaultTo(PRODUCT_TYPES.OTHER);
         // GAME:
         // store, edition, price, played, refunded
         table.json('meta');

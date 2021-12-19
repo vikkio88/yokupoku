@@ -8,6 +8,12 @@ exports.up = function (knex) {
             .references('id')
             .inTable(TABLES.PRODUCTS)
             .onDelete('CASCADE');
+        
+        table.string('deviceId', 255).defaultTo(null)
+            .references('id')
+            .inTable(TABLES.DEVICES)
+            .onDelete('SET NULL');
+
         table.string('title', 255).notNullable();
         table.string('subtitle', 255).notNullable();
         table.text('image').notNullable();
@@ -25,6 +31,7 @@ exports.up = function (knex) {
         table.bool('suggested').defaultTo(false);
 
         table.bool('published').defaultTo(false);
+        
         table.timestamp('createdAt').defaultTo(knex.fn.now());
         table.timestamp('updatedAt').defaultTo(knex.fn.now());
     });

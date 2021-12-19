@@ -36,6 +36,7 @@ const ReviewCreate = props => (
                 <NumberInput min={0} max={100} source="rating" />
                 <NumberInput min={0} max={100} source="bsi" label="Boredom Speed Index" />
                 <NullableBooleanInput source="suggested" />
+                <NullableBooleanInput source="spoiler" />
             </Row>
             <Row>
                 <NullableBooleanInput source="published" />

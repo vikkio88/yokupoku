@@ -21,6 +21,7 @@ const Review = props => (
             <NumberField source="rating" />
             <NumberField source="bsi" label="Boredom Speed Index" />
             <BooleanField source="suggested" />
+            <BooleanField source="spoiler" />
             <BooleanField source="published" />
             <DateField source="createdAt" />
             <DateField source="updatedAt" />

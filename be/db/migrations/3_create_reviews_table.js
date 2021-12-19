@@ -29,6 +29,7 @@ exports.up = function (knex) {
         // boredom speed index
         table.integer('bsi');
         table.bool('suggested').defaultTo(false);
+        table.bool('spoiler').defaultTo(false);
 
         table.bool('published').defaultTo(false);
         

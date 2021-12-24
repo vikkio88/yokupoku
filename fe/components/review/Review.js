@@ -3,14 +3,14 @@ import Image from 'next/image';
 import Md from 'react-markdown';
 import * as timeago from 'timeago.js';
 import { Csl, RoundIndicator } from './common';
-import { T } from '../common';
+import { T, SpoilerChip } from '../common';
 import styles from './styles/Review.module.css';
 
 
 const Review = ({ review }) => {
     const { title, subtitle, content,
         pros, cons, tags, suggested, image,
-        bsi, rating, updatedAt
+        bsi, rating, spoiler, updatedAt
     } = review;
 
     const [dateString, setDateString] = useState(timeago.format(updatedAt));
@@ -24,6 +24,7 @@ const Review = ({ review }) => {
                     alt={title}
                 />
             </div>
+            {spoiler && <SpoilerChip />}
             <h1 className={styles.title}>
                 {title}
             </h1>

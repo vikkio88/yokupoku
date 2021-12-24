@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import * as timeago from 'timeago.js';
-import { ProductType, T } from '../common';
+import { ProductType, T, SpoilerChip } from '../common';
 import styles from './styles/Review.module.css';
 
 
 const Review = ({ review }) => {
-    const { product, title, slug, updatedAt } = review;
+    const { product, title, slug, spoiler, updatedAt } = review;
     const [dateString, setDateString] = useState(timeago.format(updatedAt));
     useEffect(() => setDateString(timeago.format(updatedAt)));
     return (
@@ -17,6 +17,7 @@ const Review = ({ review }) => {
                     {dateString}
                 </span>
             </T>
+            {spoiler && <SpoilerChip />}
             <strong className={styles.reviewProduct}>
                 {product.name}
             </strong>

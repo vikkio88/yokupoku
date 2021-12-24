@@ -41,8 +41,9 @@ const format = {
             tags: csl.toString(obj.tags),
             pros: csl.toString(obj.pros),
             cons: csl.toString(obj.cons),
-            published: nBoolean(obj.published),
             suggested: nBoolean(obj.suggested),
+            spoiler: nBoolean(obj.spoiler),
+            published: nBoolean(obj.published),
         };
         return formatted;
     },

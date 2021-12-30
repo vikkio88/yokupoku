@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Md from 'react-markdown';
 import * as timeago from 'timeago.js';
 import { Csl, RoundIndicator } from './common';

@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { NextSeo } from 'next-seo';
 import styles from '../../styles/Review.module.css';
 
 import axios from 'axios';
@@ -10,11 +11,26 @@ import { Product, Review } from '../../components/review';
 export default function ReviewPage({ review, product }) {
     return (
         <div className={styles.container}>
+            <NextSeo
+                title={`${product.name} - ${review.title} `}
+                description={`Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention span. tags: ${review.tags}`}
+                openGraph={{
+                    url: `./${review.slug}`,
+                    title: `Review: ${product.name} - ${review.title}`,
+                    description: `Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention span. tags: ${review.tags}`,
+                    images: [
+                        {
+                            url: `${review.image}`,
+                            width: 800,
+                            height: 600,
+                            alt: 'Og Image Alt',
+                            type: 'image/jpeg',
+                        }],
+                }}
+            />
             <Head>
-                <title>{`Review: ${product.name} - ${review.title}`} Yokupoku - Reviews for people with short attention span</title>
                 <meta lang="en" />
                 <meta charSet="utf-8" />
-                <meta name="description" content={`${1} - Yokupoku - reviews for people with short attention span`} />
                 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
                 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
             </Head>

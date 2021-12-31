@@ -12,6 +12,7 @@ const getReview = async (req, res) => {
     const review = await reviewModel.getBySlug(slug);
     if (!review) return notFound(res);
 
+    //TODO: this could be another product too
     const product = await productModels.games.find(review.productId);
     if (!product) return notFound(res);
 

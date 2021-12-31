@@ -1,18 +1,39 @@
-import { ProductType, T } from '../common';
+import { ProductType, Chip, T } from '../common';
+import { Csl } from './common';
 import styles from './styles/Product.module.css';
+import stylesReview from './styles/Review.module.css';
 
 const Product = ({ product }) => {
-    const { name, type, meta, links } = product;
+    const { name, genre, type, meta, links, tags } = product;
     return (
         <div className={styles.wrapper}>
-            <h2><ProductType type={type} /></h2>
+            <h2>
+                {meta?.device && <T title={`${meta.device}`}><ProductType type={type} /></T>}
+                {!(meta?.device) && <ProductType type={type} />}
+
+            </h2>
             <h1>{name}</h1>
-            {meta?.store && (
-                <T title="Store" position="left">
-                    <h3>🛒 {meta?.store}</h3>
+            <T title="Genre" position="left">
+                <h3><Chip>{genre}</Chip></h3>
+            </T>
+            {meta?.played && (
+                <T title="Played Time" position="left">
+                    <h3>⏲️ {meta?.played} hours</h3>
                 </T>
             )}
-            {Array.isArray(links) && links?.map((l, i) => <h3>{l}</h3>)}
+            {meta?.store && (
+                <T title="Store" position="left">
+                    {/* Might want to move this link shit to a component */}
+                    {links && <h3><a href={`${links.split(',')[0]}`} target="_blank">🛒 {meta?.store}</a></h3>}
+                    {!links && <h3>🛒 {meta?.store}</h3>}
+                </T>
+            )}
+
+            <T title="Tags" position="right">
+                <div className={stylesReview.tags}>
+                    <Csl value={tags} />
+                </div>
+            </T>
         </div>
     );
 };

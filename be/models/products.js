@@ -43,6 +43,17 @@ const products = {
         const result = await query;
         return result ? result[0].total : 0;
     },
+    async findAllProducts(id) {
+        const result = await db(prodTable).where('id', id)
+            .then(rows => rows.map(format.select));
+
+        let prod = null;
+        if (Array.isArray(result) && result.length) {
+            prod = result.pop();
+        }
+
+        return prod;
+    },
     async find(id) {
         const result = await db(prodTable).where('id', id)
             .whereNot('type', PRODUCT_TYPES.GAME)

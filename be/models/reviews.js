@@ -113,8 +113,11 @@ module.exports = {
             .then(rows => rows.map(format.select));
     },
     async create(obj) {
-        const result = await products.find(obj.productId);
-        const product = result.length ? result.pop() : null;
+        console.error(obj.productId);
+        const result = await products.findAllProducts(obj.productId);
+        const product = Array.isArray(result) ? result.pop() : result;
+        if (!Boolean(product)) throw Error(`Can't find product ${obj.productId}`);
+
         const payload = format.insert(obj, product);
         await db(TABLES.REVIEWS).insert(payload);
         return { id: payload.id };

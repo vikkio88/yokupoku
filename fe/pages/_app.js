@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
       <DefaultSeo
         {...seo}
       />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </Container>
   );
 }

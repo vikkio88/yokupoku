@@ -2,7 +2,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Footer } from '../components/layout';
 
-import styles from '../styles/About.module.css';
+import styles from '../styles/Home.module.css';
+import stylesAbout from '../styles/About.module.css';
 
 
 
@@ -29,7 +30,7 @@ export default function About() {
                     </h2>
                 </div>
                 <nav className={styles.nav}>
-                    <Link href="/coming-soon">Reviews</Link>
+                    <Link href="/">Reviews</Link>
                     <Link href="/coming-soon">Products</Link>
                     <Link href="/about">
                         <a className={styles.currentRoute}>
@@ -39,7 +40,7 @@ export default function About() {
                     <Link href="/coming-soon">🔎</Link>
                 </nav>
 
-                <div className={styles.content}>
+                <div className={stylesAbout.content}>
                     <h3>What?</h3>
                     <p>
                         <strong>Yokupoku</strong> is just a website containing small reviews of <strong>Games</strong>, <strong>Books</strong>,<strong>Movies</strong> made by someone who has a short attention span.

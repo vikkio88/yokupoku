@@ -28,14 +28,14 @@ export default function About() {
                     </h2>
         </div>
         <nav className={styles.nav}>
-          <Link href="/coming-soon">
-            <a className={styles.currentRoute}>Reviews</a>
+          <Link href="/">
+            <a>Reviews</a>
           </Link>
           <Link href="/coming-soon">
-            <a className={styles.currentRoute}>Products</a>
+            <a>Products</a>
           </Link>
           <Link href="/about">About</Link>
-          <Link href="/coming-soon">
+          <Link href="/">
             <a className={styles.currentRoute}>🔎</a>
           </Link>
         </nav>

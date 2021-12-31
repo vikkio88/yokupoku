@@ -10,7 +10,7 @@ import { Product, Review } from '../../components/review';
 
 export default function ReviewPage({ review, product }) {
     return (
-        <div className={styles.container}>
+        <>
             <NextSeo
                 title={`${product.name} - ${review.title} `}
                 description={`Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention span. tags: ${review.tags}`}
@@ -34,14 +34,18 @@ export default function ReviewPage({ review, product }) {
                 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
                 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
             </Head>
-            <nav className={styles.nav}>
-                <h1><Link href="/">Yokupoku</Link> / Reviews /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
-            </nav>
-            <main className={styles.main}>
-                <Product product={product} />
-                <Review review={review} />
-            </main>
-        </div>
+            <div className={styles.container}>
+                <nav className={styles.nav}>
+                    <h1><Link href="/">Yokupoku</Link> / Reviews /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
+                </nav>
+                <main className={styles.main}>
+                    <Product product={product} />
+                    <Review review={review} />
+                </main>
+
+                <Footer className={styles.footer} />
+            </div>
+        </>
     );
 }
 

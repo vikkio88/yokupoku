@@ -16,8 +16,8 @@ export default function ReviewPage({ review, product }) {
                 description={`Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`}
                 openGraph={{
                     url: `./${review.slug}`,
-                    title: `Review: ${product.name} - ${review.title}`,
-                    description: `Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
+                    title: `Yokupoku - ${product.name} - ${review.title} - review`,
+                    description: `Review of ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
                     images: [
                         {
                             url: `${review.image}`,
@@ -27,6 +27,7 @@ export default function ReviewPage({ review, product }) {
                             type: 'image/jpeg',
                         }],
                 }}
+                twitter={{ image: `${review.image}` }}
             />
             <Head>
                 <meta lang="en" />

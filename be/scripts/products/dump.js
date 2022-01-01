@@ -3,7 +3,6 @@ const { format } = require('../../models/products');
 const { TABLES } = require('yokupoku-shared/enums/db');
 
 const db = require('../../db');
-const DATA_DIR = `${__dirname}/../../db/data`;
 const DUMP_DIR = `${__dirname}/../../db/data/dumps`;
 
 const PRODUCT_FILE_NAME = 'products_dump';

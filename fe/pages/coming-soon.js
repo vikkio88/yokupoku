@@ -13,7 +13,7 @@ export default function About() {
         <title>Yokupoku - Coming Soon - Reviews for people with short attention span</title>
         <meta lang="en" />
         <meta charSet="utf-8" />
-        <meta name="description" content="Yokupoku - About - reviews for people with short attention span" />
+        <meta name="description" content="Yokupoku - About - reviews for people with short attention spans" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>

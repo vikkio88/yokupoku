@@ -13,11 +13,11 @@ export default function ReviewPage({ review, product }) {
         <>
             <NextSeo
                 title={`${product.name} - ${review.title} `}
-                description={`Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention span. tags: ${review.tags}`}
+                description={`Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`}
                 openGraph={{
                     url: `./${review.slug}`,
                     title: `Review: ${product.name} - ${review.title}`,
-                    description: `Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention span. tags: ${review.tags}`,
+                    description: `Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
                     images: [
                         {
                             url: `${review.image}`,

@@ -12,10 +12,10 @@ export default function About() {
     return (
         <div className={styles.container}>
             <Head>
-                <title>Yokupoku - About - Reviews for people with short attention span</title>
+                <title>Yokupoku - About - Reviews for people with short attention spans</title>
                 <meta lang="en" />
                 <meta charSet="utf-8" />
-                <meta name="description" content="Yokupoku - About - reviews for people with short attention span" />
+                <meta name="description" content="Yokupoku - About - reviews for people with short attention spans" />
                 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
                 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
             </Head>
@@ -26,12 +26,12 @@ export default function About() {
                         <h1 className={styles.homeLink}>Yokupoku</h1>
                     </Link>
                     <h2>
-                        Reviews for people with short attention span
+                        Reviews for people with short attention spans
                     </h2>
                 </div>
                 <nav className={styles.nav}>
                     <Link href="/">Reviews</Link>
-                    <Link href="/coming-soon">Products</Link>
+                    <Link href="/products">Products</Link>
                     <Link href="/about">
                         <a className={styles.currentRoute}>
                             About

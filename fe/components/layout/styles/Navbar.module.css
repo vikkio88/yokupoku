@@ -1,0 +1,29 @@
+.currentRoute {
+    background-color: #eaeaea;
+    border-radius: 3px;
+}
+
+.nav {
+    align-self: center;
+    width: 50%;
+    padding: .3em;
+    border-top: 2px solid #eaeaea;
+    border-bottom: 2px solid #eaeaea;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav a {
+  font-size: 1.5em;
+  color: #333333;
+  padding: .3em;
+  margin-left: .3em;
+  margin-right: .3em;
+}
+
+.nav a:hover {
+  background-color: #eaeaea;
+  border-radius: 3px;
+}

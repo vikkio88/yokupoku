@@ -1,6 +1,4 @@
-import Head from 'next/head';
-import Link from 'next/link';
-import { Footer } from '../components/layout';
+import { Footer, Header, Navbar, Title } from '../components/layout';
 
 import styles from '../styles/Home.module.css';
 import stylesAbout from '../styles/About.module.css';
@@ -11,41 +9,18 @@ export default function About() {
 
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Yokupoku - About - Reviews for people with short attention spans</title>
-                <meta lang="en" />
-                <meta charSet="utf-8" />
-                <meta name="description" content="Yokupoku - About - reviews for people with short attention spans" />
-                <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-                <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-            </Head>
+            <Header current="About" />
 
             <main className={styles.main}>
-                <div className={styles.title}>
-                    <Link href="/">
-                        <h1 className={styles.homeLink}>Yokupoku</h1>
-                    </Link>
-                    <h2>
-                        Reviews for people with short attention spans
-                    </h2>
-                </div>
-                <nav className={styles.nav}>
-                    <Link href="/">Reviews</Link>
-                    <Link href="/products">Products</Link>
-                    <Link href="/about">
-                        <a className={styles.currentRoute}>
-                            About
-                        </a>
-                    </Link>
-                    <Link href="/coming-soon">🔎</Link>
-                </nav>
+                <Title />
+                <Navbar current='/about' />
 
                 <div className={stylesAbout.content}>
                     <h3>What?</h3>
                     <p>
                         <strong>Yokupoku</strong> is just a website containing small reviews of <strong>Games</strong>, <strong>Books</strong>,<strong>Movies</strong> made by someone who has a short attention span.
                         <p>Reading <strong>reviews</strong> online gets quite boring, all of those review video on <strong>Youtube</strong>.<br />
-                        25 minutes with ads in the middle to tell you whether a game is worth it or not.</p>
+                            25 minutes with ads in the middle to tell you whether a game is worth it or not.</p>
                         <p>My plan is to make short and sweet reviews of:<br /> <strong>games</strong> I play (<strong>books</strong> I read, <strong>movies</strong> I watch... etc.), not ads, no filler, just few words and whether they are worth consuming or not.</p>
                     </p>
 

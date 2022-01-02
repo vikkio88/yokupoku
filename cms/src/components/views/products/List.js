@@ -1,9 +1,15 @@
-import { List, Datagrid, TextField, ChipField, EditButton } from 'react-admin';
+import { List, Datagrid, TextField, ChipField, EditButton, Filter, TextInput } from 'react-admin';
 
+
+const Filters = props => (
+    <Filter {...props}>
+        <TextInput label="Search" source="name" alwaysOn autoComplete="off" />
+    </Filter>
+);
 
 // the list of Products
 const Products = props => (
-    <List {...props}>
+    <List {...props} filters={<Filters />}>
         <Datagrid rowClick="show" >
             <TextField source="id" />
             <TextField source="name" />

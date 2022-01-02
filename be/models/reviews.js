@@ -1,6 +1,6 @@
 
 // model for REVIEWS table
-const { products } = require('./products');
+const { products, nonGamesProducts } = require('./products');
 const { generateId, slugify, csl, nBoolean, now } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('yokupoku-shared/enums/db');
@@ -114,7 +114,7 @@ module.exports = {
     },
     async create(obj) {
         console.error(obj.productId);
-        const result = await products.findAllProducts(obj.productId);
+        const result = await products.find(obj.productId);
         const product = Array.isArray(result) ? result.pop() : result;
         if (!Boolean(product)) throw Error(`Can't find product ${obj.productId}`);
 

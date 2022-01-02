@@ -8,6 +8,7 @@ import { Reviews, Review, ReviewCreate, ReviewEdit } from 'components/views/revi
 const App = () => {
   return (
     <Admin title="YokuPokuCMS" dataProvider={simpleRestProvider('http://localhost:3001/api')}>
+
       <Resource
         name="games"
         list={Games}
@@ -15,14 +16,19 @@ const App = () => {
         edit={GameEdit}
         create={GameCreate}
       />
-      
+
       <Resource
-        name="products"
+        name="ngproducts"
+        options={{
+          label: "Other Products"
+        }}
         list={Products}
         show={Product}
         edit={ProductEdit}
         create={ProductCreate}
       />
+
+      <Resource name="products" />
 
       <Resource
         name="reviews"

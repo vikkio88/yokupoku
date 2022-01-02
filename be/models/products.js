@@ -34,18 +34,30 @@ const format = {
     }
 };
 
+const genericProductsFormat = {
+    select(obj) {
+        const meta = JSON.parse(obj?.meta ?? null);
+        return {
+            ...obj,
+            name: `${obj.name} (t: ${obj.type} ${meta?.device || ''})`,
+            meta,
+            tags: csl.toString(obj.tags)
+        };
+    }
+};
+
 const products = {
     async total({ filter }) {
-        const query = db(prodTable).count('*', { as: 'total' }).whereNot('type', 'game');
+        const query = db(prodTable).count('*', { as: 'total' });
         for (const f of Object.keys(filter)) {
             query.where(f, 'LIKE', `%${filter[f]}%`);
         }
         const result = await query;
         return result ? result[0].total : 0;
     },
-    async findAllProducts(id) {
+    async find(id) {
         const result = await db(prodTable).where('id', id)
-            .then(rows => rows.map(format.select));
+            .then(rows => rows.map(genericProductsFormat.select));
 
         let prod = null;
         if (Array.isArray(result) && result.length) {
@@ -53,6 +65,32 @@ const products = {
         }
 
         return prod;
+    },
+    get({ range = [0, 9], sort = ['id', 'asc'], filter = {} }) {
+        const [lower, upper] = range;
+        const limit = upper - lower;
+        const offset = lower;
+        const query = db(prodTable)
+            .select('id', 'name', 'type', 'meta');
+
+        for (const f of Object.keys(filter)) {
+            query.where(f, 'LIKE', `%${filter[f]}%`);
+        }
+
+        return query.orderBy(sort[0], sort[1])
+            .limit(limit).offset(offset)
+            .then(rows => rows.map(genericProductsFormat.select));
+    },
+};
+
+const nonGamesProducts = {
+    async total({ filter }) {
+        const query = db(prodTable).count('*', { as: 'total' }).whereNot('type', 'game');
+        for (const f of Object.keys(filter)) {
+            query.where(f, 'LIKE', `%${filter[f]}%`);
+        }
+        const result = await query;
+        return result ? result[0].total : 0;
     },
     async find(id) {
         const result = await db(prodTable).where('id', id)
@@ -106,6 +144,7 @@ module.exports = {
     format,
     PRODUCT_TYPES,
     products,
+    nonGamesProducts,
     games: {
         async total({ filter }) {
             const query = db(prodTable).count('*', { as: 'total' }).where('type', 'game');

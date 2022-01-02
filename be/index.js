@@ -31,9 +31,12 @@ module.exports = cors(
 
             get('/products', products.products.get),
             get('/products/:id', products.products.find),
-            put('/products/:id', products.products.update),
-            post('/products', products.products.create),
-            del('/products/:id', products.products.del),
+
+            get('/ngproducts', products.nonGamesProducts.get),
+            get('/ngproducts/:id', products.nonGamesProducts.find),
+            put('/ngproducts/:id', products.nonGamesProducts.update),
+            post('/ngproducts', products.nonGamesProducts.create),
+            del('/ngproducts/:id', products.nonGamesProducts.del),
             
             get('/games', products.games.get),
             get('/games/:id', products.games.find),

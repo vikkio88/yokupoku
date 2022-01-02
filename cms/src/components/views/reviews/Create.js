@@ -17,7 +17,8 @@ const ReviewCreate = props => (
             <ReferenceInput
                 required
                 label="Product"
-                source="productId" reference="games"
+                /* to have this here I had to add a resource on the main App wrapper wtf */
+                source="productId" reference="products"
                 filterToQuery={searchText => ({ name: searchText })}
             >
                 <AutocompleteInput optionText="name" />

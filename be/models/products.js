@@ -39,7 +39,8 @@ const genericProductsFormat = {
         const meta = JSON.parse(obj?.meta ?? null);
         return {
             ...obj,
-            name: `${obj.name} (t: ${obj.type} ${meta?.device || ''})`,
+            // NB this is used in slug generation of review too
+            name: `${obj.name} (${obj.type} ${meta?.device || ''})`,
             meta,
             tags: csl.toString(obj.tags)
         };

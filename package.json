@@ -15,7 +15,8 @@
     "build:fe": "concurrently \"npm:be\" \"cd fe && npm run export\"",
     "serve:fe": "serve -s fe/out -p 3000",
     "serve:cms": "concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
-    "deploy:prod": "node scripts/deploy-prod.js"
+    "deploy:prod": "node scripts/deploy-prod.js",
+    "sync:data": "node scripts/sync-data-dump.js"
   },
   "repository": {
     "type": "git",

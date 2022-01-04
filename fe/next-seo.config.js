@@ -16,8 +16,9 @@ export default {
       }],
   },
   twitter: {
-    handle: '@vikkio88',
-    site: '@vikkio88',
+    handle: '@yokupokureviews',
+    site: '@yokupokureviews',
+    creator: '@vikkio88',
     title: 'Yokupoku - reviews for people with short attention spans',
     description: 'Reviews for people with short attention spans',
     cardType: 'summary_large_image',

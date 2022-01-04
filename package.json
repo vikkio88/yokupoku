@@ -4,6 +4,7 @@
   "description": "reviews of things I like",
   "main": "index.js",
   "scripts": {
+    "be:stop": "cd be && npm stop",
     "be": "cd be && npm start",
     "dev:cms": "cd cms && npm run dev",
     "dev:be": "cd be && npm run dev",
@@ -12,9 +13,10 @@
     "dev:cms-only": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\"",
     "dev:fe-only": "concurrently --kill-others \"npm:dev:fe\" \"npm:dev:be\"",
     "build:cms": "cd cms && npm run build",
-    "build:fe": "concurrently \"npm:be\" \"cd fe && npm run export\"",
+    "build:fe": "concurrently \"npm:be\" \"cd fe && npm run export && cd .. && npm run be:stop\"",
     "serve:fe": "serve -s fe/out -p 3000",
     "serve:cms": "concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
+    "deploy:dev": "cd fe && npm run deploy:dev",
     "deploy:prod": "node scripts/deploy-prod.js",
     "sync:data": "node scripts/sync-data-dump.js"
   },

@@ -7,13 +7,13 @@
     "build": "next build",
     "start": "next start",
     "export": "next build && next export",
-    "deploy:dev": "npm run export && surge out/ --domain --domain yokupoku-dev.surge.sh",
-    "deploy:prod": "echo \"MISSING SCRIPT\""
+    "deploy:dev": "surge out/ --domain --domain yokupoku-dev.surge.sh"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "next": "^10.2.3",
     "next-seo": "^4.26.0",
+    "next-themes": "^0.0.15",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-markdown": "^6.0.2",

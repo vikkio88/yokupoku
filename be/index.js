@@ -37,7 +37,7 @@ module.exports = cors(
             put('/ngproducts/:id', products.nonGamesProducts.update),
             post('/ngproducts', products.nonGamesProducts.create),
             del('/ngproducts/:id', products.nonGamesProducts.del),
-            
+
             get('/games', products.games.get),
             get('/games/:id', products.games.find),
             put('/games/:id', products.games.update),
@@ -49,6 +49,7 @@ module.exports = cors(
             get('/reviews/:slug', providers.getReview),
         ),
 
+        post('/stop', () => process.exit(0)),
         get('/', misc.fallback),
 
         get('/*', (req, res) => send(res, 404)),

@@ -20,4 +20,11 @@
     text-rendering: optimizelegibility !important;
     line-height: 1.5em;
     padding: 3px 3px;
+    font-size: 20px;
+  }
+
+  .pWrapper {
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
+    width: 90%;
   }

@@ -1,5 +1,6 @@
 import { Container } from 'next/app';
 import { DefaultSeo } from 'next-seo';
+import { ThemeProvider } from 'next-themes';
 
 import seo from '../next-seo.config';
 
@@ -12,7 +13,9 @@ function MyApp({ Component, pageProps }) {
       <DefaultSeo
         {...seo}
       />
-      <Component {...pageProps} />
+      <ThemeProvider>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </Container>
   );
 }

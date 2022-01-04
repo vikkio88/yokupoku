@@ -6,3 +6,9 @@
     font-weight: bold;
     padding: 5px;
 }
+
+
+[data-theme='dark'] .wrapper {
+    background-color: #fff;
+    color: #000;
+}

@@ -16,3 +16,26 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+:root {
+  --background: white;
+  --foreground: black;
+}
+
+[data-theme='dark'] {
+  --background: black;
+  --foreground: white;
+}
+
+html,
+body {
+  color: #000;
+  background: #fff;
+}
+
+[data-theme='dark'],
+[data-theme='dark'] body {
+  color: #fff;
+  background: #000;
+}

@@ -1,3 +1,5 @@
+import { useTheme } from 'next-themes';
+
 const getColour = percent => {
     const r = percent < 50 ? 255 : Math.floor(255 - (percent * 2 - 100) * 255 / 100);
     const g = percent > 50 ? 255 : Math.floor((percent * 2) * 255 / 100);
@@ -10,7 +12,8 @@ const RoundIndicator = ({
     railColour = "#eaeaea", textColour = "black",
     style = {}, children = null, forceText = null
 }) => {
-
+    const { theme } = useTheme();
+    textColour = theme === "dark" ? "white" : textColour;
     const colour = getColour(invertColour ? (max - value) : value);
     const cx = radius;
     const cy = radius;

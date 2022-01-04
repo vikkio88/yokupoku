@@ -46,13 +46,18 @@
 
 .footer {
   align-self: center;
-  height: 50px;
+  min-height: 50px;
   width: 50%;
   border-top: 2px solid #eaeaea;
   border-bottom: 2px solid #eaeaea;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.footer * {
+  margin-top: 5px;
 }
 
 .footer a {

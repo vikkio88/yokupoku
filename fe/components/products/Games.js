@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { T } from '../common';
+import { T, Spinner } from '../common';
 import styles from './styles/Games.module.css';
 
 const Game = ({ name, meta, genre, reviews }) => {
@@ -47,15 +47,21 @@ const renderResults = (games, results) => {
 
 const Games = ({ games = [] }) => {
     const [name, setName] = useState('');
-    games = Boolean(name) ? games.filter((g) => g.name.toLowerCase().includes(name.toLowerCase())) : games;
-    const results = games?.length || 0;
+    const totalGames = games?.length || 0;
+    const filteredGames = Boolean(name) ? games.filter((g) => g.name.toLowerCase().includes(name.toLowerCase())) : games;
+    const results = filteredGames?.length || 0;
 
     return (
         <>
             <h2>Games 🎮</h2>
-            {results > 0 && (<input className='bigInput' type="text" autoComplete="off" placeholder="Filter..." value={name} onChange={({ target: { value } }) => setName(value)} />)}
-            {results > 0 && (<h4>{results} games</h4>)}
-            {renderResults(games, results)}
+            {(totalGames === 0) && <Spinner />}
+            {totalGames > 0 && (<input className='bigInput' type="text" autoComplete="off" placeholder="Filter..." value={name} onChange={({ target: { value } }) => setName(value)} />)}
+            {totalGames > 0 && (
+                <>
+                    <h4>{results} games</h4>
+                    {renderResults(filteredGames, results)}
+                </>
+            )}
         </>
     );
 };

@@ -44,6 +44,21 @@ const genericProductsFormat = {
             meta,
             tags: csl.toString(obj.tags)
         };
+    },
+    feDataSelect(obj, reviews) {
+        reviews = reviews[obj.id] || [];
+        const meta = JSON.parse(obj?.meta ?? null);
+        const tags = csl.toString(obj.tags);
+        const result = { ...obj, meta, tags, reviews };
+
+        return result;
+    },
+    feDataReview(obj) {
+        const { id, slug, title, productId, subtitle, updatedAt, spoiler } = obj;
+        return {
+            id, slug, title, subtitle, updatedAt, spoiler, productId,
+            tags: csl.toString(obj.tags)
+        };
     }
 };
 
@@ -82,6 +97,34 @@ const products = {
             .limit(limit).offset(offset)
             .then(rows => rows.map(genericProductsFormat.select));
     },
+    async getWithReviews() {
+        const reviews = await db(TABLES.REVIEWS).where('published', true).then(rows => rows.map(genericProductsFormat.feDataReview));
+        const indexedReviews = {};
+        for (const review of reviews) {
+            if (Array.isArray(indexedReviews[review.productId])) {
+                indexedReviews[review.productId].push(review);
+                continue;
+            }
+
+            indexedReviews[review.productId] = [review];
+        }
+        const result = await db(TABLES.PRODUCTS).select(
+            'products.*'
+        ).then(rows => rows.map(row => genericProductsFormat.feDataSelect(row, indexedReviews)));
+
+        // indexing results by type
+        const indexedResult = {};
+        for (const product of result) {
+            if (Array.isArray(indexedResult[product.type])) {
+                indexedResult[product.type].push(product);
+                continue;
+            }
+            indexedResult[product.type] = [product];
+
+        }
+
+        return indexedResult;
+    }
 };
 
 const nonGamesProducts = {

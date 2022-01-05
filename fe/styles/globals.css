@@ -17,6 +17,24 @@ a {
   box-sizing: border-box;
 }
 
+.container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 7;
+  max-width: 100%;
+  display: flex;
+  flex-flow: column wrap; 
+}
+
+.main p {
+  text-align: center;
+  font-size: 16px;
+}
+
 
 :root {
   --background: white;
@@ -38,4 +56,15 @@ body {
 [data-theme='dark'] body {
   color: #fff;
   background: #000;
+}
+
+
+/*
+Inputs
+*/
+input.bigInput {
+  border: 0;
+  border-bottom: 2px solid #eaeaea;
+  font-size: 20px;
+  padding: 5px;
 }

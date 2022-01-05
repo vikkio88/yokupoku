@@ -8,10 +8,10 @@ import stylesAbout from '../styles/About.module.css';
 export default function About() {
 
     return (
-        <div className={styles.container}>
+        <div className="container">
             <Header current="About" />
 
-            <main className={styles.main}>
+            <main className="main">
                 <Title />
                 <Navbar current='/about' />
 

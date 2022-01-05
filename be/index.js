@@ -47,6 +47,7 @@ module.exports = cors(
         provider(
             get('/reviews', providers.getPublished),
             get('/reviews/:slug', providers.getReview),
+            get('/products', providers.getProducts),
         ),
 
         post('/stop', () => process.exit(0)),

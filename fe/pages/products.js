@@ -1,22 +1,28 @@
+import { useEffect, useState } from 'react';
 import { Footer, Header, Navbar, Title } from '../components/layout';
 
 import styles from '../styles/Home.module.css';
 import stylesAbout from '../styles/About.module.css';
+import { Games } from '../components/products';
 
 
 
 export default function Products() {
-
+    const [games, setGames] = useState([]);
+    useEffect(async () => {
+        const source = await fetch('/data-providers/games.json');
+        const data = await source.json();
+        setGames(data);
+    }, []);
     return (
-        <div className={styles.container}>
+        <div className="container">
             <Header current="Products" />
-
-            <main className={styles.main}>
+            <main className="main">
                 <Title />
                 <Navbar current='/products' />
 
                 <div className={stylesAbout.content}>
-                    <h2>Here there will be a list of products I am planning to review...</h2>
+                    <Games games={games} />
                 </div>
             </main>
 

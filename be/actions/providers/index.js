@@ -11,19 +11,19 @@ const getReview = async (req, res) => {
     const { slug } = req.params;
     const review = await reviewModel.getBySlug(slug);
     if (!review) return notFound(res);
-
-    //TODO: this could be another product too
-    const product = await productModels.games.find(review.productId);
+    const product = await productModels.products.find(review.productId);
     if (!product) return notFound(res);
-
-    // maybe move this to the model dont care tbh
     review.product && delete review.product;
-
 
     return response(res, { review, product });
 };
 
+const getProducts = async (req, res) => {
+    const products = await productModels.products.getWithReviews();
+    return response(res, products);
+};
+
 
 module.exports = {
-    getPublished, getReview
+    getPublished, getReview, getProducts
 };

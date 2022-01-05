@@ -7,6 +7,7 @@
     "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
     "start": "micro -p 3001",
     "stop": "node scripts/stop.js",
+    "dump:prods:fe": "node scripts/products/dump-fe.js",
     "dump:prods": "node scripts/products/dump.js",
     "dump:revs": "node scripts/reviews/dump.js",
     "dump:load-prods": "node scripts/products/load.js",

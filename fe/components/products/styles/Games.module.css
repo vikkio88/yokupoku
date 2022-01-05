@@ -1,0 +1,42 @@
+.results { 
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: -8px;
+    width: 90%;
+  }
+  
+  .game {
+    flex: auto;
+    height: 100px;
+    min-width: 50px;
+    margin: 0 8px 8px 0;
+    border: 2px solid #eaeaea;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game * {
+      margin-top: 4px;
+  }
+
+  .meta {
+      text-transform: uppercase;
+      font-size: 12px;
+  }
+
+  .info {
+      width: 100%;
+      font-size: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+  }
+
+
+  .info a:hover {
+      cursor: pointer;
+  }

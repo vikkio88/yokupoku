@@ -26,7 +26,7 @@ const Navbar = ({ current }) => {
         <nav className={styles.nav}>
             {ROUTES.map(({ label, route }) => (
                 <Link key={label} href={route} >
-                    <a className={current === route && styles.currentRoute}>{label}</a>
+                    <a className={current === route ? styles.currentRoute : undefined}>{label}</a>
                 </Link>
             ))}
         </nav>

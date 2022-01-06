@@ -28,9 +28,13 @@
 }
 
 [data-theme='dark'] .nav a:hover {
-  color: #fff;
   background-color: #eaeaea;
   color: #333333;
+}
+
+
+[data-theme='dark'] .currentRoute {
+  background-color: #333333;
 }
 
 .nav a:hover {

@@ -9,7 +9,7 @@ const getColour = percent => {
 const RoundIndicator = ({
     radius = 60, stroke = 5, max = 100,
     value = 10, showRail = true, invertColour = false,
-    railColour = "#eaeaea", textColour = "black",
+    railColour = "#eaeaea", textColour = "#333333",
     style = {}, children = null, forceText = null
 }) => {
     const { theme } = useTheme();

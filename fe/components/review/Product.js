@@ -1,7 +1,6 @@
 import { ProductType, Chip, T } from '../common';
 import { Csl } from './common';
 import styles from './styles/Product.module.css';
-import stylesReview from './styles/Review.module.css';
 
 const Product = ({ product }) => {
     const { name, genre, type, meta, links, tags } = product;
@@ -29,8 +28,8 @@ const Product = ({ product }) => {
                 </T>
             )}
 
-            <T title="Tags" position="right">
-                <div className={stylesReview.tags}>
+            <T title="Tags" position="bottom">
+                <div className={styles.tags}>
                     <Csl value={tags} />
                 </div>
             </T>

@@ -1,9 +1,10 @@
 .wrapper {
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
 }
 
 .item {
+    flex: auto;
     padding: .5em;
     border-radius: 3px;
     border: solid 1px #eaeaea;
@@ -14,3 +15,8 @@
 .item:hover {
     background-color: #eaeaea;
 }
+
+[data-theme='dark'] .item:hover {
+    background-color: #eaeaea;
+    color: #333333;
+  }

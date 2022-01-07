@@ -6,6 +6,7 @@
   "scripts": {
     "be:stop": "cd be && npm stop",
     "be": "cd be && npm start",
+    "be:gen:static": "cd be && npm run dump:fe:prods && npm run dump:fe:sitemap",
     "dev:cms": "cd cms && npm run dev",
     "dev:be": "cd be && npm run dev",
     "dev:fe": "cd fe && npm run dev",
@@ -13,7 +14,7 @@
     "dev:cms-only": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\"",
     "dev:fe-only": "concurrently --kill-others \"npm:dev:fe\" \"npm:dev:be\"",
     "build:cms": "cd cms && npm run build",
-    "build:fe": "concurrently \"npm:be\" \"cd fe && npm run export && cd .. && npm run be:stop\"",
+    "build:fe": "concurrently \"npm:be\" \"cd fe && npm run export && cd .. && npm run be:stop && npm run be:gen:static\"",
     "serve:fe": "serve -s fe/out -p 3000",
     "serve:cms": "concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
     "deploy:dev": "cd fe && npm run deploy:dev",

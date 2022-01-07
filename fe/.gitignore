@@ -33,5 +33,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-public/data-providers/*.json
+public/google*.html
 public/sitemap*.xml
+public/robots.txt
+public/data-providers/*.json

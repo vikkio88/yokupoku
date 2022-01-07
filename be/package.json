@@ -7,7 +7,8 @@
     "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
     "start": "micro -p 3001",
     "stop": "node scripts/stop.js",
-    "dump:prods:fe": "node scripts/products/dump-fe.js",
+    "dump:fe:prods": "node scripts/fe/products-dump.js",
+    "dump:fe:sitemap": "node scripts/fe/sitemap-gen.js",
     "dump:prods": "node scripts/products/dump.js",
     "dump:revs": "node scripts/reviews/dump.js",
     "dump:load-prods": "node scripts/products/load.js",
@@ -26,6 +27,7 @@
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
     "microrouter": "^3.1.3",
+    "sitemap": "^7.1.0",
     "sqlite3": "^5.0.2",
     "ulid": "^2.3.0",
     "yokupoku-shared": "../yokupoku-shared"

@@ -6,7 +6,7 @@ import styles from './styles/Games.module.css';
 const Game = ({ name, meta, genre, reviews }) => {
     const hasReviews = Array.isArray(reviews) && reviews.length > 0;
     const hasGenre = Boolean(genre);
-    const played = Boolean(parseInt(meta?.played));
+    const played = Boolean(parseFloat(meta?.played));
     const paid = Boolean(parseInt(meta?.price));
     return (
         <div className={styles.game}>

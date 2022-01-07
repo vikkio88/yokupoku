@@ -7,6 +7,7 @@ const Game = ({ name, meta, genre, reviews }) => {
     const hasReviews = Array.isArray(reviews) && reviews.length > 0;
     const hasGenre = Boolean(genre);
     const played = Boolean(parseInt(meta?.played));
+    const paid = Boolean(parseInt(meta?.price));
     return (
         <div className={styles.game}>
 
@@ -15,8 +16,11 @@ const Game = ({ name, meta, genre, reviews }) => {
                 ({hasGenre && `${genre} `}{meta?.device})
             </div>
             <div className={styles.info}>
-                <T title="Played?" position="bottom">
+                <T title={played ? 'Played' : 'Not Played Yet'} position="bottom">
                     {played ? '✅' : '❌'}
+                </T>
+                <T title={paid ? 'Paid' : 'Freebie'} position="bottom">
+                    {paid ? '💰' : '🆓'}
                 </T>
                 {hasReviews && reviews.map((r, i) => (
                     <Link

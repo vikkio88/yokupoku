@@ -21,7 +21,7 @@
   }
 
   .game * {
-      margin-top: 4px;
+      margin-top: 5px;
   }
 
   .meta {
@@ -34,8 +34,12 @@
       font-size: 20px;
       display: flex;
       flex-direction: row;
-      justify-content: space-evenly;
+      justify-content: center;
       align-items: center;
+  }
+
+  .info * {
+      margin: .3em;
   }
 
 

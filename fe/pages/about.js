@@ -15,7 +15,7 @@ export default function About() {
 
     return (
         <div className="container">
-            <Header current="About" />
+            <Header current="About" url='/about' description={`What's Yokupoku?`}/>
 
             <main className="main">
                 <Title />

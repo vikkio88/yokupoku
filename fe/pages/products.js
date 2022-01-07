@@ -16,7 +16,10 @@ export default function Products() {
     }, []);
     return (
         <div className="container">
-            <Header current="Products" />
+            <Header current="Products"
+                url='/products'
+                description={`A List of of the Video Games that will be reviewed on Yokupoku`}
+            />
             <main className="main">
                 <Title />
                 <Navbar current='/products' />

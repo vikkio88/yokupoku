@@ -113,7 +113,6 @@ module.exports = {
             .then(rows => rows.map(format.select));
     },
     async create(obj) {
-        console.error(obj.productId);
         const result = await products.find(obj.productId);
         const product = Array.isArray(result) ? result.pop() : result;
         if (!Boolean(product)) throw Error(`Can't find product ${obj.productId}`);

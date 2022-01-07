@@ -9,6 +9,7 @@
     "stop": "node scripts/stop.js",
     "dump:fe:prods": "node scripts/fe/products-dump.js",
     "dump:fe:sitemap": "node scripts/fe/sitemap-gen.js",
+    "dump:all": "npm run dump:prods && npm run dump:revs",
     "dump:prods": "node scripts/products/dump.js",
     "dump:revs": "node scripts/reviews/dump.js",
     "dump:load-prods": "node scripts/products/load.js",

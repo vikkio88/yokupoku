@@ -1,7 +1,7 @@
 # yokupoku
 reviews of things I like
 
-[prod](https://yokupoku.surge.sh/)
+[prod](https://yokupoku.website/)
 
 [dev](https://yokupoku-dev.surge.sh/)
 

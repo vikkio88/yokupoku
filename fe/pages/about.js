@@ -56,7 +56,7 @@ export default function About() {
 
                     <h3>How?</h3>
                     <p className={stylesAbout.pWrapper}>
-                        This is just a small <strong>NextJs</strong> website (soon I will release the sourcecode too).
+                        This is just a small <strong>NextJs</strong> website (<a href="https://github.com/vikkio88/yokupoku" target="_blank">SourceCode</a>).
                         <p>I have a database of products I consume and whenever I feel like it I will publish a review.</p>
                         <p>One of the metrics I will use is the <strong>B.S.I.</strong> (Boredom Speed Index 🥱).</p>
                         <p>the BSI, is in percentage, and the lower the better. It will indicate how fast a certain thing gets boring, it can be an amazingly crafted product, but if it get you to boredom quickly, then it is no good.</p>

@@ -15,10 +15,10 @@ export default function Products({ lastUpdated }) {
     const [updatedAtString, setUpdatedAtString] = useState(lastUpdated);
 
     useEffect(async () => {
+        setUpdatedAtString(timeago.format(lastUpdated));
         const source = await fetch('/data-providers/games.json');
         const data = await source.json();
         setGames(data);
-        setUpdatedAtString(timeago.format(lastUpdated));
     }, []);
     return (
         <div className="container">

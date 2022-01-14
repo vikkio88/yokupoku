@@ -124,6 +124,34 @@ const products = {
         }
 
         return indexedResult;
+    },
+    async getWithReviewsOrdered() {
+        const reviews = await db(TABLES.REVIEWS).where('published', true).then(rows => rows.map(genericProductsFormat.feDataReview));
+        const indexedReviews = {};
+        for (const review of reviews) {
+            if (Array.isArray(indexedReviews[review.productId])) {
+                indexedReviews[review.productId].push(review);
+                continue;
+            }
+
+            indexedReviews[review.productId] = [review];
+        }
+        const result = await db(TABLES.PRODUCTS).select(
+            'products.*'
+        ).orderBy('updatedAt', 'desc').then(rows => rows.map(row => genericProductsFormat.feDataSelect(row, indexedReviews)));
+
+        // indexing results by type
+        const indexedResult = {};
+        for (const product of result) {
+            if (Array.isArray(indexedResult[product.type])) {
+                indexedResult[product.type].push(product);
+                continue;
+            }
+            indexedResult[product.type] = [product];
+
+        }
+
+        return indexedResult;
     }
 };
 

@@ -11,18 +11,21 @@ const ReviewCreate = props => (
     <Create {...props}>
         <SimpleForm>
             <Row>
+
+                <ReferenceInput
+                    required
+                    label="Product"
+                    /* to have this here I had to add a resource on the main App wrapper wtf */
+                    source="productId" reference="products"
+                    filterToQuery={searchText => ({ name: searchText })}
+                >
+                    <AutocompleteInput optionText="name" />
+                </ReferenceInput>
+            </Row>
+            <Row>
                 <TextInput source="title" required />
                 <TextInput source="subtitle" required />
             </Row>
-            <ReferenceInput
-                required
-                label="Product"
-                /* to have this here I had to add a resource on the main App wrapper wtf */
-                source="productId" reference="products"
-                filterToQuery={searchText => ({ name: searchText })}
-            >
-                <AutocompleteInput optionText="name" />
-            </ReferenceInput>
             <MdInput source="content" />
             <Row>
                 <TextInput source="pros" />

@@ -45,6 +45,7 @@ module.exports = cors(
             del('/games/:id', products.games.del),
         ),
         provider(
+            get('/meta', misc.meta),
             get('/reviews', providers.getPublished),
             get('/reviews/:slug', providers.getReview),
             get('/products', providers.getProducts),

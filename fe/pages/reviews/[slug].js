@@ -61,7 +61,6 @@ export async function getStaticProps({ params }) {
     return {
         props: { review, product }
     };
-
 }
 
 export async function getStaticPaths() {

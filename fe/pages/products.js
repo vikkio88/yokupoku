@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import * as timeago from 'timeago.js';
+import { T } from '../components/common';
 import { Footer, Header, Navbar, Title } from '../components/layout';
 
-import styles from '../styles/Home.module.css';
-import stylesAbout from '../styles/About.module.css';
+import styles from '../styles/Products.module.css';
 import { Games } from '../components/products';
 
 
 
-export default function Products() {
+export default function Products({ lastUpdated }) {
+
     const [games, setGames] = useState([]);
+    const [updatedAtString, setUpdatedAtString] = useState(lastUpdated);
+
     useEffect(async () => {
         const source = await fetch('/data-providers/games.json');
         const data = await source.json();
         setGames(data);
+        setUpdatedAtString(timeago.format(lastUpdated));
     }, []);
     return (
         <div className="container">
@@ -24,8 +30,13 @@ export default function Products() {
                 <Title />
                 <Navbar current='/products' />
 
-                <div className={stylesAbout.content}>
+                <div className={styles.content}>
+                    <T title={lastUpdated} position="left">
+                        <div className={styles.updated}>last update: {updatedAtString}</div>
+                    </T>
+
                     <Games games={games} />
+
                 </div>
             </main>
 
@@ -34,3 +45,13 @@ export default function Products() {
         </div>
     );
 };
+
+
+export async function getStaticProps() {
+    const response = await axios.get(`http://localhost:3001/provider/meta`);
+    const { lastUpdated } = response.data;
+
+    return {
+        props: { lastUpdated }
+    };
+}

@@ -9,11 +9,13 @@ import styles from './styles/Review.module.css';
 const Review = ({ review }) => {
     const { title, subtitle, content,
         pros, cons, tags, suggested, image,
-        bsi, rating, spoiler, updatedAt
+        bsi, rating, spoiler, updatedAt, createdAt
     } = review;
 
-    const [dateString, setDateString] = useState(timeago.format(updatedAt));
-    useEffect(() => setDateString(timeago.format(updatedAt)));
+    const [updatedAtDateString, setUpdatedAtDateString] = useState(timeago.format(updatedAt));
+    useEffect(() => {
+        setUpdatedAtDateString(timeago.format(updatedAt));
+    });
 
     return (
         <div className={styles.wrapper}>
@@ -31,9 +33,10 @@ const Review = ({ review }) => {
                 {subtitle}
             </h2>
 
+
             <T title={updatedAt} position="bottom">
                 <h3 className={styles.date}>
-                    last updated: {dateString}
+                    {updatedAt !== createdAt ? 'updated:' : 'published:'} {updatedAtDateString}
                 </h3>
             </T>
 

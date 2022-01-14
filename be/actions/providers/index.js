@@ -7,6 +7,11 @@ const getPublished = async (req, res) => {
     return response(res, reviews);
 };
 
+const getLatestReviews = async (req, res) => {
+    const reviews = await reviewModel.getLatest();
+    return response(res, reviews);
+};
+
 const getReview = async (req, res) => {
     const { slug } = req.params;
     const review = await reviewModel.getBySlug(slug);
@@ -25,5 +30,5 @@ const getProducts = async (req, res) => {
 
 
 module.exports = {
-    getPublished, getReview, getProducts
+    getPublished, getLatestReviews, getReview, getProducts
 };

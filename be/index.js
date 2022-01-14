@@ -47,6 +47,7 @@ module.exports = cors(
         provider(
             get('/meta', misc.meta),
             get('/reviews', providers.getPublished),
+            get('/reviews/latest', providers.getLatestReviews),
             get('/reviews/:slug', providers.getReview),
             get('/products', providers.getProducts),
         ),

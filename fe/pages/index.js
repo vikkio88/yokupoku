@@ -26,7 +26,7 @@ export default function Home({ reviews }) {
 }
 
 export async function getStaticProps() {
-  const response = await axios.get('http://localhost:3001/provider/reviews');
+  const response = await axios.get('http://localhost:3001/provider/reviews/latest');
 
   return {
     props: {

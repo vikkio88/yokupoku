@@ -6,13 +6,13 @@ import styles from './styles/Review.module.css';
 
 
 const Review = ({ review }) => {
-    const { product, title, slug, spoiler, updatedAt } = review;
-    const [dateString, setDateString] = useState(timeago.format(updatedAt));
-    useEffect(() => setDateString(timeago.format(updatedAt)));
+    const { product, title, slug, spoiler, createdAt } = review;
+    const [dateString, setDateString] = useState(timeago.format(createdAt));
+    useEffect(() => setDateString(timeago.format(createdAt)));
     return (
         <div className={styles.reviewListItem}>
             <ProductType type={product.type} />
-            <T title={updatedAt}>
+            <T title={createdAt}>
                 <span className={styles.reviewDate}>
                     {dateString}
                 </span>

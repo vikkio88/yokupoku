@@ -24,11 +24,28 @@ const getReview = async (req, res) => {
 };
 
 const getProducts = async (req, res) => {
-    const products = await productModels.products.getWithReviews();
+    const products = await productModels.products.getIndexedByTypeWithReviews();
+    return response(res, products);
+};
+
+const getProduct = async (req, res) => {
+    const { slug } = req.params;
+    const product = await productModels.products.getBySlug(slug);
+    if (!product) return notFound(res);
+    const reviews = await reviewModel.getByProductId(product.id);
+    product.reviews = reviews;
+
+    return response(res, product);
+};
+
+const getReviewedProducts = async (req, res) => {
+    const unfilteredProducts = await productModels.products.getWithReviews();
+    const products = unfilteredProducts.filter(p => Array.isArray(p.reviews) && p.reviews.length > 0);
     return response(res, products);
 };
 
 
 module.exports = {
-    getPublished, getLatestReviews, getReview, getProducts
+    getPublished, getLatestReviews, getReview,
+    getProducts, getProduct, getReviewedProducts
 };

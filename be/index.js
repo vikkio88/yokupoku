@@ -50,6 +50,10 @@ module.exports = cors(
             get('/reviews/latest', providers.getLatestReviews),
             get('/reviews/:slug', providers.getReview),
             get('/products', providers.getProducts),
+            get('/products/:slug', providers.getProduct),
+            
+            // mixed
+            get('/reviewed-products', providers.getReviewedProducts),
         ),
 
         post('/stop', () => process.exit(0)),

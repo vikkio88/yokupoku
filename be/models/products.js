@@ -1,6 +1,7 @@
 const { generateId, csl, now, slugify } = require('../libs/utils');
 const db = require('../db');
 const { TABLES, PRODUCT_TYPES, GAMES_STORES } = require('yokupoku-shared/enums/db');
+const { getBySlug } = require('./reviews');
 
 const prodTable = TABLES.PRODUCTS;
 
@@ -97,6 +98,17 @@ const products = {
         const result = await query;
         return result ? result[0].total : 0;
     },
+    async getBySlug(slug) {
+        const result = await db(prodTable).where('slug', slug)
+            .then(rows => rows.map(genericProductsFormat.select));
+
+        let prod = null;
+        if (Array.isArray(result) && result.length) {
+            prod = result.pop();
+        }
+
+        return prod;
+    },
     async find(id) {
         const result = await db(prodTable).where('id', id)
             .then(rows => rows.map(genericProductsFormat.select));
@@ -129,6 +141,23 @@ const products = {
             .then(rows => rows.map(genericProductsFormat.select));
     },
     async getWithReviews() {
+        const reviews = await db(TABLES.REVIEWS).where('published', true).then(rows => rows.map(genericProductsFormat.feDataReview));
+        const indexedReviews = {};
+        for (const review of reviews) {
+            if (Array.isArray(indexedReviews[review.productId])) {
+                indexedReviews[review.productId].push(review);
+                continue;
+            }
+
+            indexedReviews[review.productId] = [review];
+        }
+        const result = await db(TABLES.PRODUCTS).select(
+            'products.*'
+        ).then(rows => rows.map(row => genericProductsFormat.feDataSelect(row, indexedReviews)));
+
+        return result;
+    },
+    async getIndexedByTypeWithReviews() {
         const reviews = await db(TABLES.REVIEWS).where('published', true).then(rows => rows.map(genericProductsFormat.feDataReview));
         const indexedReviews = {};
         for (const review of reviews) {

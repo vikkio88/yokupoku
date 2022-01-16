@@ -37,7 +37,8 @@ export default function ReviewPage({ review, product }) {
             </Head>
             <div className={styles.container}>
                 <nav className={styles.nav}>
-                    <h1><Link href="/">Yokupoku</Link> / Reviews /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
+                    {/*                                              ↓ TO LINK TO REVIEWS PAGE eventually */}
+                    <h1><Link href="/">Yokupoku</Link> / <Link href="/">Reviews</Link> /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
                 </nav>
                 <main className={styles.main}>
                     <Product product={product} />

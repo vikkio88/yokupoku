@@ -1,0 +1,27 @@
+.wrapper {
+    padding-top: .5em;
+    margin-bottom: 2em;
+
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+
+
+    text-align: center;
+}
+
+.wrapper * {
+    margin: .3em;
+}
+
+.wrapper h3 {
+    margin-top: 1px;
+    margin-bottom: 5px;
+}
+
+.tags {
+    margin-top: 0em;
+    text-align: center;
+}
+

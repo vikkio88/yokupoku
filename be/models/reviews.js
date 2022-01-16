@@ -69,7 +69,7 @@ module.exports = {
             'products.name as productName', 'products.type as productType'
         ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
             .where('published', true)
-            .where('slug', slug)
+            .where('reviews.slug', slug)
             .then(rows => rows.map(format.select));
 
         let review = null;
@@ -127,6 +127,12 @@ module.exports = {
             ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
             .where('reviews.id', id)
             .then(rows => rows.map(format.select));
+    },
+    async getByProductId(productId) {
+        return db(TABLES.REVIEWS)
+            .select()
+            .where('productId', productId)
+            .then(rows => rows.map(format.selectMany));
     },
     async create(obj) {
         const result = await products.find(obj.productId);

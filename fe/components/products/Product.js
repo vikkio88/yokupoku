@@ -1,4 +1,4 @@
-import { Csl, ProductType, Chip, T } from '../common';
+import { ProductType, Chip, T, Csl } from '../common';
 import styles from './styles/Product.module.css';
 
 const Product = ({ product }) => {

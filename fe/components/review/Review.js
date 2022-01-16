@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import Md from 'react-markdown';
 import * as timeago from 'timeago.js';
-import { Csl, RoundIndicator } from './common';
-import { T, SpoilerChip } from '../common';
+import { T, SpoilerChip, Csl, RoundIndicator } from '../common';
 import styles from './styles/Review.module.css';
 
 

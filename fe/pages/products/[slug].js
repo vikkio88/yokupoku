@@ -7,7 +7,7 @@ import styles from '../../styles/Review.module.css';
 import axios from 'axios';
 import { Footer } from '../../components/layout';
 
-import { Product } from '../../components/products';
+import { Product, Reviews } from '../../components/products';
 
 export default function ReviewPage({ product }) {
     return (
@@ -42,15 +42,7 @@ export default function ReviewPage({ product }) {
                 </nav>
                 <main className={styles.main}>
                     <Product product={product} />
-
-                    <h3>Reviews</h3>
-                    <ul>
-                        {product.reviews.map(r => (
-                            <li key={r.id}>
-                                {r.updatedAt} - {r.title} {r.subtitle}
-                            </li>
-                        ))}
-                    </ul>
+                    <Reviews reviews={product.reviews} />
                 </main>
 
                 <Footer className={styles.footer} />

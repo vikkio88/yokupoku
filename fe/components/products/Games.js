@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { T, Spinner } from '../common';
 import styles from './styles/Games.module.css';
 
-const Game = ({ name, meta, genre, reviews }) => {
+const Game = ({ slug, name, meta, genre, reviews }) => {
     const hasReviews = Array.isArray(reviews) && reviews.length > 0;
     const hasGenre = Boolean(genre);
     const played = Boolean(parseFloat(meta?.played));
@@ -22,15 +22,14 @@ const Game = ({ name, meta, genre, reviews }) => {
                 <T title={paid ? 'Paid' : 'Freebie'} position="bottom">
                     {paid ? '💰' : '🆓'}
                 </T>
-                {hasReviews && reviews.map((r, i) => (
+                {hasReviews && (
                     <Link
-                        key={r.id}
-                        href={`/reviews/${r.slug}`}
-                        title={`Review # ${i + 1} - ${r.title}`}
+                        href={`/products/${slug}`}
+                        title={`Product Details`}
                     >
                         ➡️
                     </Link>
-                ))}
+                )}
             </div>
         </div>
     );

@@ -13,6 +13,7 @@ const PrductEdit = props => (
         <SimpleForm>
             <Row>
                 <TextInput disabled label="Id" source="id" />
+                <TextInput source="slug" />
                 <TextInput source="name" />
             </Row>
             <Row>

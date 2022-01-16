@@ -1,17 +1,30 @@
-const { generateId, csl, now } = require('../libs/utils');
+const { generateId, csl, now, slugify } = require('../libs/utils');
 const db = require('../db');
-const { TABLES, PRODUCT_TYPES } = require('yokupoku-shared/enums/db');
+const { TABLES, PRODUCT_TYPES, GAMES_STORES } = require('yokupoku-shared/enums/db');
 
 const prodTable = TABLES.PRODUCTS;
 
+const SLUGEABLE_STORES = GAMES_STORES.slice(0, 8);
+
 const format = {
+    generateProductSlug(prod) {
+        const info = [
+            prod.name, prod.type,
+            prod.device,
+            SLUGEABLE_STORES.includes(prod.store) ? prod.store : null
+        ].filter(i => Boolean(i));
+        return slugify(info.join(' '));
+    },
     insert(obj, type) {
+        const slug = this.generateProductSlug(genericProductsFormat.selectForSlug(obj));
+        const meta = JSON.stringify(obj?.meta ?? null);
         return {
             ...obj,
             // in case we need to load them
             id: obj.id || generateId(),
+            slug,
             type,
-            meta: JSON.stringify(obj?.meta ?? null),
+            meta,
             tags: csl.toString(obj.tags)
         };
     },
@@ -43,6 +56,19 @@ const genericProductsFormat = {
             name: `${obj.name} (${obj.type} ${meta?.device || ''})`,
             meta,
             tags: csl.toString(obj.tags)
+        };
+    },
+    selectForSlug(obj) {
+        let meta = null;
+        try { meta = JSON.parse(obj?.meta ?? null); } catch (err) { meta = obj?.meta; }
+        console.log({ name: obj.name, meta });
+        return {
+            id: obj.id,
+            // this is used only in the slug generation
+            name: obj.name,
+            type: obj.type,
+            device: meta?.device || null,
+            store: meta?.store || null,
         };
     },
     feDataSelect(obj, reviews) {
@@ -82,12 +108,17 @@ const products = {
 
         return prod;
     },
+    //this is only used in slug generation migration
+    getAll() {
+        return db(prodTable)
+            .select('id', 'name', 'type', 'meta').then(rows => rows.map(genericProductsFormat.selectForSlug));
+    },
     get({ range = [0, 9], sort = ['id', 'asc'], filter = {} }) {
         const [lower, upper] = range;
         const limit = upper - lower;
         const offset = lower;
         const query = db(prodTable)
-            .select('id', 'name', 'type', 'meta');
+            .select('id', 'name', 'type', 'meta', 'slug');
 
         for (const f of Object.keys(filter)) {
             query.where(f, 'LIKE', `%${filter[f]}%`);

@@ -24,8 +24,28 @@ const DEVICE_TYPES = {
 };
 
 
+// For games
+const GAMES_STORES = [
+    'steam',
+    'gog',
+    'origin',
+    'epic',
+    'battle.net',
+    'ubi',
+    'itch.io',
+    'nintendo:eshop',
+    'playstation:store',
+    // first 9 used for slug
+    'other',
+    'physicalsupport',
+    'amazon',
+    'amazon:used',
+];
+
+
 module.exports = {
     TABLES,
     PRODUCT_TYPES,
+    GAMES_STORES,
     DEVICE_TYPES
 };

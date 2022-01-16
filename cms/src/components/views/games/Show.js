@@ -12,6 +12,7 @@ const Game = props => (
     <Show {...props} title={<Title />}>
         <SimpleShowLayout>
             <TextField source="id" />
+            <TextField source="slug" />
             <TextField source="type" />
             <TextField source="name" />
             <TextField source="meta.edition" label="Edition" />

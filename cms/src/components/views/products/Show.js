@@ -13,6 +13,7 @@ const Product = props => (
     <Show {...props} title={<Title />}>
         <SimpleShowLayout>
             <TextField source="id" />
+            <TextField source="slug" />
             <TextField source="name" />
             <TextField source="type" />
             <ChipField source="genre" />

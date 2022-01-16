@@ -1,7 +1,6 @@
 const { generateId, csl, now, slugify } = require('../libs/utils');
 const db = require('../db');
 const { TABLES, PRODUCT_TYPES, GAMES_STORES } = require('yokupoku-shared/enums/db');
-const { getBySlug } = require('./reviews');
 
 const prodTable = TABLES.PRODUCTS;
 

@@ -1,6 +1,6 @@
 
 // model for REVIEWS table
-const { products, nonGamesProducts } = require('./products');
+const { products } = require('./products');
 const { generateId, slugify, csl, nBoolean, now } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('yokupoku-shared/enums/db');

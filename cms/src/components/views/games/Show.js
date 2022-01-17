@@ -1,6 +1,7 @@
 import {
     Show, SimpleShowLayout, TextField,
-    DateField, ChipField, NumberField, BooleanField
+    DateField, ChipField, NumberField,
+    BooleanField, FunctionField
 } from 'react-admin';
 
 import { Csl } from 'components/common';
@@ -29,6 +30,10 @@ const Game = props => (
             <DateField source="consumed" />
             <DateField source="createdAt" />
             <DateField source="updatedAt" />
+            <FunctionField
+                label="Image"
+                render={record => <img src={record.image} alt={record.name} />}
+            />
         </SimpleShowLayout>
     </Show >
 );

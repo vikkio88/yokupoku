@@ -18,6 +18,5 @@ exports.up = async function (knex) {
 };
 
 exports.down = function (knex) {
-
     return knex.schema.alterTable(TABLES.PRODUCTS, function (table) { table.dropColumn('slug'); });
 };

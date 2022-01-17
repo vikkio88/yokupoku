@@ -1,6 +1,6 @@
 import {
     Show, SimpleShowLayout, TextField,
-    DateField, ChipField
+    DateField, ChipField, FunctionField
 } from 'react-admin';
 import { JsonField } from "react-admin-json-view";
 
@@ -25,6 +25,10 @@ const Product = props => (
             <DateField source="consumed" />
             <DateField source="createdAt" />
             <DateField source="updatedAt" />
+            <FunctionField
+                label="Image"
+                render={record => <img src={record.image} alt={record.name}/>}
+            />
         </SimpleShowLayout>
     </Show >
 );

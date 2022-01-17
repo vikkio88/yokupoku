@@ -35,6 +35,7 @@ const GameEdit = props => (
                 <TextInput source="links" />
             </Row>
             <Row>
+                <TextInput source="image" />
                 <TextInput multiline source="notes" />
             </Row>
             <Row>

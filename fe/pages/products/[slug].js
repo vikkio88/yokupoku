@@ -21,14 +21,14 @@ export default function ReviewPage({ product }) {
                     description: `Details of ${product.name} - Yokupoku - Reviews for people with short attention spans. tags: ${product.tags}`,
                     images: [
                         {
-                            url: `https://yokupoku.website/backdrop.png`,
+                            url: `${product.image}`,
                             width: 640,
                             height: 480,
-                            alt: 'Yokupoku',
-                            type: 'image/png',
+                            alt: `${product.name}`,
+                            type: 'image/jpg',
                         }],
                 }}
-                twitter={{ image: 'https://yokupoku.website/backdrop.png' }}
+                twitter={{ image: `${product.image}` }}
             />
             <Head>
                 <meta lang="en" />

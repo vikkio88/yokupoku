@@ -2,15 +2,20 @@ import { ProductType, Chip, T, Csl } from '../common';
 import styles from './styles/Product.module.css';
 
 const Product = ({ product }) => {
-    const { name, genre, type, meta, links, tags } = product;
+    const { name, genre, type, meta, links, image, tags } = product;
     return (
         <div className={styles.wrapper}>
             <h2>
                 {meta?.device && <T title={`${meta.device}`}><ProductType type={type} /></T>}
                 {!(meta?.device) && <ProductType type={type} />}
-
             </h2>
             <h1>{name}</h1>
+            <div className={styles.imageWrapper} >
+                <img
+                    src={image}
+                    alt={name}
+                />
+            </div>
             <T title="Genre" position="left">
                 <h3><Chip>{genre}</Chip></h3>
             </T>

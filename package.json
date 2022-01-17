@@ -20,7 +20,8 @@
     "serve:cms": "concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
     "deploy:dev": "cd fe && npm run deploy:dev",
     "deploy:prod": "node scripts/deploy-prod.js",
-    "sync:data": "npm run be:dump:all && node scripts/sync-data-dump.js"
+    "sync:data": "npm run be:dump:all && node scripts/sync-data-dump.js",
+    "meta:grab": "zx scripts/meta-grab.js"
   },
   "repository": {
     "type": "git",
@@ -35,9 +36,14 @@
   "homepage": "https://github.com/vikkio88/yokupoku#readme",
   "dependencies": {
     "@samkirkland/ftp-deploy": "^1.1.1",
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
     "concurrently": "^6.4.0",
     "dotenv": "^10.0.0",
+    "imgbb-uploader": "^1.3.5",
     "node-static": "^0.7.11",
-    "serve": "^13.0.2"
+    "serve": "^13.0.2",
+    "sharp": "^0.29.3",
+    "zx": "^4.2.0"
   }
 }

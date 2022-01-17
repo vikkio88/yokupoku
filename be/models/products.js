@@ -139,6 +139,10 @@ const products = {
             .limit(limit).offset(offset)
             .then(rows => rows.map(genericProductsFormat.select));
     },
+    async getOnlyWithReviews() {
+        const unfilteredProducts = await this.getWithReviews();
+        return unfilteredProducts.filter(p => Array.isArray(p.reviews) && p.reviews.length > 0);
+    },
     async getWithReviews() {
         const reviews = await db(TABLES.REVIEWS).where('published', true).then(rows => rows.map(genericProductsFormat.feDataReview));
         const indexedReviews = {};

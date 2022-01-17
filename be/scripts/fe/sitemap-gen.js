@@ -1,13 +1,14 @@
 const fs = require('fs');
-const { Readable } = require('stream');
 const { SitemapStream, streamToPromise } = require('sitemap');
 const DUMP_DIR = `${__dirname}/../../../fe/public/`;
 const reviewModel = require('../../models/reviews');
+const productModel = require('../../models/products');
 
 const HOST = 'https://yokupoku.website/';
 const SITEMAPS = {
     MAIN: 'sitemap.xml',
     REVIEWS: 'sitemap-reviews.xml',
+    PRODUCTS: 'sitemap-products.xml',
 };
 
 const MAIN_LINKS = [
@@ -64,6 +65,32 @@ const sitemapReviewsGen = async () => {
     }
 };
 
+const sitemapProductsGen = async () => {
+    try {
+        const smStream = new SitemapStream({
+            hostname: HOST
+        });
+        const products = await productModel.products.getOnlyWithReviews();
+
+        products.forEach(prod => {
+            smStream.write({
+                url: `/products/${prod.slug}`,
+                changefreq: 'weekly',
+                img: `${prod.image}`,
+                priority: 0.9
+            });
+        });
+        smStream.end();
+
+        const sitemapOutput = (await streamToPromise(smStream)).toString();
+        return sitemapOutput;
+
+    } catch (e) {
+        console.error(e);
+        process.exit(1);
+    }
+};
+
 
 const generate = async () => {
     console.log('Generating FE static content:');
@@ -74,10 +101,15 @@ const generate = async () => {
     data = await sitemapReviewsGen();
     console.log(`\t saving ${SITEMAPS.REVIEWS}`);
     fs.writeFileSync(`${DUMP_DIR}/${SITEMAPS.REVIEWS}`, data);
+    
+    data = await sitemapProductsGen();
+    console.log(`\t saving ${SITEMAPS.PRODUCTS}`);
+    fs.writeFileSync(`${DUMP_DIR}/${SITEMAPS.PRODUCTS}`, data);
 
     console.log('\t generating robots.txt');
     try {
         const robots = `Sitemap: ${HOST}${SITEMAPS.MAIN}
+Sitemap: ${HOST}${SITEMAPS.PRODUCTS}
 Sitemap: ${HOST}${SITEMAPS.REVIEWS}
 User-agent: *
 Allow: /*

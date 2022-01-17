@@ -39,8 +39,7 @@ const getProduct = async (req, res) => {
 };
 
 const getReviewedProducts = async (req, res) => {
-    const unfilteredProducts = await productModels.products.getWithReviews();
-    const products = unfilteredProducts.filter(p => Array.isArray(p.reviews) && p.reviews.length > 0);
+    const products = await productModels.products.getOnlyWithReviews();
     return response(res, products);
 };
 

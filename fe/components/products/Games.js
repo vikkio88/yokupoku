@@ -7,7 +7,7 @@ const Game = ({ slug, name, meta, genre, reviews }) => {
     const hasReviews = Array.isArray(reviews) && reviews.length > 0;
     const hasGenre = Boolean(genre);
     const played = Boolean(parseFloat(meta?.played));
-    const paid = Boolean(parseInt(meta?.price));
+    const paid = Boolean(parseFloat(meta?.price));
     return (
         <div className={styles.game}>
 

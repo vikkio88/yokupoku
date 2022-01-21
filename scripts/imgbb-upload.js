@@ -7,7 +7,8 @@ if (args.length < 1) {
     console.error('need image path');
     process.exit(1);
 }
-const path = args[1];
+const path = args[0];
+console.log(`uploading: ${path}`);
 
 const main = async path => {
     try {

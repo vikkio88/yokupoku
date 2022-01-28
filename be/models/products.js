@@ -53,7 +53,7 @@ const genericProductsFormat = {
         return {
             ...obj,
             // NB this is used in slug generation of review too
-            name: `${obj.name} (${obj.type} ${meta?.device || ''})`,
+            name: `${obj.name} (${obj.type}${meta?.device ? ` ${meta?.device}` : ''})`,
             meta,
             tags: csl.toString(obj.tags)
         };
@@ -189,7 +189,8 @@ const products = {
         return indexedResult;
     },
     async getWithReviewsOrdered() {
-        const reviews = await db(TABLES.REVIEWS).where('published', true).then(rows => rows.map(genericProductsFormat.feDataReview));
+        const reviews = await db(TABLES.REVIEWS).where('published', true)
+            .then(rows => rows.map(genericProductsFormat.feDataReview));
         const indexedReviews = {};
         for (const review of reviews) {
             if (Array.isArray(indexedReviews[review.productId])) {
@@ -202,9 +203,9 @@ const products = {
         const result = await db(TABLES.PRODUCTS).select(
             'products.*'
         )
-        .orderBy('updatedAt', 'desc')
-        .orderBy('createdAt', 'desc')
-        .then(rows => rows.map(row => genericProductsFormat.feDataSelect(row, indexedReviews)));
+            .orderBy('updatedAt', 'desc')
+            .orderBy('createdAt', 'desc')
+            .then(rows => rows.map(row => genericProductsFormat.feDataSelect(row, indexedReviews)));
 
         // indexing results by type
         const indexedResult = {};

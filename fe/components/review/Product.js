@@ -14,6 +14,11 @@ const Product = ({ product }) => {
             <T title="Genre" position="left">
                 <h3><Chip>{genre}</Chip></h3>
             </T>
+            {meta?.author && (
+                <T title="Author" position="left">
+                    <h3>✍️ {meta?.author}</h3>
+                </T>
+            )}
             {meta?.played && (
                 <T title="Played Time" position="left">
                     <h3>⏲️ {meta?.played} hours</h3>

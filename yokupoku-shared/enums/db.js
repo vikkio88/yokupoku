@@ -35,7 +35,8 @@ const GAMES_STORES = [
     'itch.io',
     'nintendo:eshop',
     'playstation:store',
-    // first 9 used for slug
+    'xbox:store',
+    // used for slug
     'other',
     'physicalsupport',
     'amazon',
@@ -43,9 +44,13 @@ const GAMES_STORES = [
 ];
 
 
+const SLUGEABLE_STORES = GAMES_STORES.slice(0, 9);
+
+
 module.exports = {
     TABLES,
     PRODUCT_TYPES,
     GAMES_STORES,
+    SLUGEABLE_STORES,
     DEVICE_TYPES
 };

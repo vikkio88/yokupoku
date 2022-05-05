@@ -201,8 +201,8 @@ const products = {
         const result = await db(TABLES.PRODUCTS).select(
             'products.*'
         )
-            .orderBy('updatedAt', 'desc')
             .orderBy('createdAt', 'desc')
+            .orderBy('updatedAt', 'desc')
             .then(rows => rows.map(row => genericProductsFormat.feDataSelect(row, indexedReviews)));
 
         // indexing results by type

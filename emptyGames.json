@@ -13,5 +13,20 @@
         "tags": "",
         "links": "",
         "image": null
+    },
+    {
+        "name": "",
+        "genre": "",
+        "meta": {
+            "device": "pc",
+            "store": "steam",
+            "played": 0,
+            "edition": null,
+            "refunded": false,
+            "price": 0
+        },
+        "tags": "",
+        "links": "",
+        "image": ""
     }
 ]

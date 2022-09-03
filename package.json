@@ -20,7 +20,7 @@
     "serve:cms": "concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
     "deploy:dev": "cd fe && npm run deploy:dev",
     "deploy:prod": "node scripts/deploy-prod.js",
-    "sync:data": "npm run be:dump:all && node scripts/sync-data-dump.js",
+    "sync:data": "node scripts/sync-data-dump.js",
     "m:g": "npm run meta:grab",
     "meta:grab": "zx scripts/meta-grab.js",
     "img:up": "node scripts/imgbb-upload.js"

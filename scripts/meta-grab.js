@@ -1,5 +1,5 @@
 require('dotenv').config();
-const imgbbUploader = require("imgbb-uploader");
+const imgUploader = require('./imgUploader');
 const sharp = require('sharp');
 const axios = require('axios');
 const cheerio = require('cheerio');
@@ -33,10 +33,10 @@ const main = async url => {
             fileToUpload = 'image.jpg';
         }
 
-        const resp = await imgbbUploader(IMG_API_KEY, fileToUpload);
+        const result = await imgUploader(fileToUpload);
         await $`rm ${fileToUpload}`;
 
-        console.log('Image uploaded:', { url: resp.url, display: resp.display_url });
+        console.log('Image uploaded:', result);
     } catch (error) {
         console.error(error);
         process.exit(1);

@@ -1,7 +1,6 @@
 require('dotenv').config();
-const imgbbUploader = require("imgbb-uploader");
+const imgup = require('./imgUploader');
 
-const { IMG_API_KEY } = process.env;
 const args = process.argv.slice(2);
 if (args.length < 1) {
     console.error('need image path');
@@ -12,8 +11,9 @@ console.log(`uploading: ${path}`);
 
 const main = async path => {
     try {
-        const resp = await imgbbUploader(IMG_API_KEY, path);
-        console.log('Image uploaded:', { url: resp.url, display: resp.display_url });
+        const result = await imgup(path);
+        console.log(result);
+        console.log(`Uploaded Successful!`);
     } catch (error) {
         console.error(error);
         process.exit(1);
@@ -21,5 +21,4 @@ const main = async path => {
 
     process.exit(0);
 };
-
 main(path);

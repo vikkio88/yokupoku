@@ -23,7 +23,7 @@
     "sync:data": "node scripts/sync-data-dump.js",
     "m:g": "npm run meta:grab",
     "meta:grab": "zx scripts/meta-grab.js",
-    "img:up": "node scripts/imgbb-upload.js"
+    "img:up": "node scripts/img-upload.js"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
     "cheerio": "^1.0.0-rc.10",
     "concurrently": "^6.4.0",
     "dotenv": "^10.0.0",
-    "imgbb-uploader": "^1.3.5",
+    "imgbox-js": "^1.0.35",
     "node-static": "^0.7.11",
     "serve": "^13.0.2",
     "sharp": "^0.29.3",

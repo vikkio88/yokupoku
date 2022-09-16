@@ -51,7 +51,7 @@ module.exports = cors(
             get('/reviews/:slug', providers.getReview),
             get('/products', providers.getProducts),
             get('/products/:slug', providers.getProduct),
-            
+
             // mixed
             get('/reviewed-products', providers.getReviewedProducts),
         ),
@@ -64,3 +64,6 @@ module.exports = cors(
         options('/*', (req, res) => send(res, 200))
     )
 );
+
+process.on('SIGTERM', () => process.exit(0));
+process.on('SIGINT', () => process.exit(0));

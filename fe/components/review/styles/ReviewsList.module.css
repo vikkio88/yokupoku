@@ -6,7 +6,7 @@
 
 .li {
     padding: .5em;
-    border-bottom: 1px white solid;
+    border-bottom: 1px black solid;
     margin: .5em;
     display: flex;
     flex-wrap: wrap;
@@ -15,9 +15,22 @@
     align-items: center;
 }
 
+.li {
+    border-bottom: 1px black solid;
+}
+
 .li a {
-    color: white;
+    color: black;
     font-weight: bold;
+}
+
+
+[data-theme='dark'] .li {
+    border-bottom: 1px white solid;
+}
+
+[data-theme='dark'] .li a {
+    color: white;
 }
 
 .li a:hover {

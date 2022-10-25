@@ -5,6 +5,8 @@ const { generateId, slugify, csl, nBoolean, now } = require('../libs/utils');
 const db = require('../db');
 const { TABLES } = require('yokupoku-shared/enums/db');
 
+const MAX_LATEST_REVIEWS = 15;
+
 const format = {
     insert(obj, product) {
         if (obj.product) delete obj.product;
@@ -26,11 +28,13 @@ const format = {
                 id: obj.productId,
                 name: obj.productName || null,
                 type: obj.productType || null,
+                slug: obj.productSlug || null,
             },
         };
 
         formatted.productName && delete formatted.productName;
         formatted.productType && delete formatted.productType;
+        formatted.productSlug && delete formatted.productSlug;
 
         return formatted;
     },
@@ -81,7 +85,7 @@ module.exports = {
     },
     async getPublished() {
         const result = await db(TABLES.REVIEWS).select('reviews.*',
-            'products.name as productName', 'products.type as productType'
+            'products.name as productName', 'products.type as productType', 'products.slug as productSlug'
         ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
             .where('published', true).orderBy('updatedAt', 'desc')
             .then(rows => rows.map(format.select));
@@ -91,7 +95,7 @@ module.exports = {
         const result = await db(TABLES.REVIEWS).select('reviews.*',
             'products.name as productName', 'products.type as productType'
         ).innerJoin(TABLES.PRODUCTS, 'products.id', '=', 'reviews.productId')
-            .where('published', true).orderBy('createdAt', 'desc')
+            .where('published', true).orderBy('createdAt', 'desc').limit(MAX_LATEST_REVIEWS)
             .then(rows => rows.map(format.select));
         return result;
     },

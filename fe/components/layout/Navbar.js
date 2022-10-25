@@ -3,8 +3,12 @@ import styles from './styles/Navbar.module.css';
 
 const ROUTES = [
     {
-        label: 'Reviews',
+        label: 'Home',
         route: '/'
+    },
+    {
+        label: 'Reviews',
+        route: '/reviews'
     },
     {
         label: 'Products',

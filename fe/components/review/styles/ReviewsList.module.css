@@ -1,0 +1,32 @@
+.ul {
+    list-style: none;
+
+
+}
+
+.li {
+    padding: .5em;
+    border-bottom: 1px white solid;
+    margin: .5em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.li a {
+    color: white;
+    font-weight: bold;
+}
+
+.li a:hover {
+    text-decoration: underline;
+}
+
+.reviewsButtons {
+    min-width: 3em;
+    display: flex;
+    flex-direction: center;
+    justify-content: space-between;
+}

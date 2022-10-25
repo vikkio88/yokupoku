@@ -1,11 +1,14 @@
+import axios from 'axios';
 import { Footer, Header, Navbar, Title } from '../components/layout';
+import { ReviewsList } from '../components/review';
 
 import styles from '../styles/Home.module.css';
-import stylesAbout from '../styles/About.module.css';
+import stylesReviews from '../styles/Reviews.module.css';
 
 
 
-export default function Reviews() {
+
+export default function Reviews({ reviews }) {
 
     return (
         <div className={styles.container}>
@@ -15,8 +18,8 @@ export default function Reviews() {
                 <Title />
                 <Navbar current='/reviews' />
 
-                <div className={stylesAbout.content}>
-                    <h2>Here there will be a list reviews...</h2>
+                <div className={stylesReviews.content}>
+                    <ReviewsList reviews={reviews} />
                 </div>
             </main>
 
@@ -25,3 +28,13 @@ export default function Reviews() {
         </div>
     );
 };
+
+export async function getStaticProps() {
+    const response = await axios.get('http://localhost:3001/provider/reviews');
+
+    return {
+        props: {
+            reviews: response.data
+        }
+    };
+}

@@ -8,7 +8,7 @@
   flex: 7;
   max-width: 100%;
   display: flex;
-  flex-flow: column wrap; 
+  flex-flow: column wrap;
 }
 
 .main p {
@@ -62,4 +62,18 @@
 
 .footer a {
   margin-left: 3px;
+}
+
+.reviewsCount {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewsCount h2 {
+  margin: 0;
+}
+.reviewsCount h3 {
+  margin: 0;
 }

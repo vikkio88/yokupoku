@@ -3,10 +3,13 @@ import Link from 'next/link';
 import { T, Spinner } from '../common';
 import styles from './styles/Games.module.css';
 
+const hasReviews = ({ reviews }) => Array.isArray(reviews) && reviews.length > 0;
+const wasPlayed = ({ meta }) => Boolean(parseFloat(meta?.played));
+
 const Game = ({ slug, name, meta, genre, reviews }) => {
-    const hasReviews = Array.isArray(reviews) && reviews.length > 0;
+    const isReviews = hasReviews({ reviews });
+    const played = wasPlayed({ meta });
     const hasGenre = Boolean(genre);
-    const played = Boolean(parseFloat(meta?.played));
     const paid = Boolean(parseFloat(meta?.price));
     return (
         <div className={styles.game}>
@@ -22,7 +25,7 @@ const Game = ({ slug, name, meta, genre, reviews }) => {
                 <T title={paid ? 'Paid' : 'Freebie'} position="bottom">
                     {paid ? '💰' : '🆓'}
                 </T>
-                {hasReviews && (
+                {isReviews && (
                     <Link
                         href={`/products/${slug}`}
                         title={`Product Details`}
@@ -50,15 +53,36 @@ const renderResults = (games, results) => {
 
 const Games = ({ games = [] }) => {
     const [name, setName] = useState('');
+    const [playedOnly, setPlayedOnly] = useState(false);
+    const [reviewedOnly, setReviewedOnly] = useState(false);
     const totalGames = games?.length || 0;
-    const filteredGames = Boolean(name) ? games.filter((g) => g.name.toLowerCase().includes(name.toLowerCase())) : games;
+
+    let filteredGames = Boolean(name) ? games.filter((g) => g.name.toLowerCase().includes(name.toLowerCase())) : games;
+    filteredGames = playedOnly ? filteredGames.filter(wasPlayed) : filteredGames;
+    filteredGames = reviewedOnly ? filteredGames.filter(hasReviews) : filteredGames;
     const results = filteredGames?.length || 0;
 
     return (
         <>
             <h2>Games 🎮</h2>
             {(totalGames === 0) && <Spinner />}
-            {totalGames > 0 && (<input className='bigInput' type="text" autoComplete="off" placeholder="Filter..." value={name} onChange={({ target: { value } }) => setName(value)} />)}
+            {totalGames > 0 && (
+                <div className={styles.filters}>
+                    <input className='bigInput' type="text" autoComplete="off" placeholder="Filter..." value={name} onChange={({ target: { value } }) => setName(value)} />
+                    <T title="Show Only Played Games">
+                        <div>
+                            <label for="playedOnly">🎮</label>
+                            <input id="playedOnly" type="checkbox" value={playedOnly} onChange={() => setPlayedOnly(!playedOnly)} />
+                        </div>
+                    </T>
+                    <T title="Show Only Reviewed Games">
+                        <div>
+                            <label for="reviewedOnly">✍️</label>
+                            <input id="reviewedOnly" type="checkbox" value={reviewedOnly} onChange={() => setReviewedOnly(!reviewedOnly)} />
+                        </div>
+                    </T>
+                </div>
+            )}
             {totalGames > 0 && (
                 <>
                     <h4>{results} games</h4>
@@ -70,4 +94,4 @@ const Games = ({ games = [] }) => {
 };
 
 
-export default Games;;
+export default Games;;;

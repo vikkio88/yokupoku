@@ -43,8 +43,8 @@ const GameEdit = props => (
                 <DateInput source="consumed" />
             </Row>
             <Row>
-                <DateInput disabled source="createdAt" />
-                <DateInput disabled source="updatedAt" />
+                <DateInput source="createdAt" />
+                <DateInput source="updatedAt" />
             </Row>
         </SimpleForm>
     </Edit>

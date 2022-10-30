@@ -1,6 +1,6 @@
 import {
     Edit, SimpleForm, TextInput, NumberInput,
-    NullableBooleanInput, DateInput
+    NullableBooleanInput, DateInput, DateTimeInput
 } from 'react-admin';
 import MdInput from 'ra-input-markdown';
 import { Row } from 'components/layout';
@@ -43,8 +43,8 @@ const ReviewEdit = props => {
                 </Row>
 
                 <Row>
-                    <DateInput disabled source="createdAt" />
-                    <DateInput disabled source="updatedAt" />
+                    <DateTimeInput source="createdAt" />
+                    <DateTimeInput source="updatedAt" />
                 </Row>
             </SimpleForm>
         </Edit>

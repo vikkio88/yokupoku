@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "export": "next build && next export",
-    "deploy:dev": "surge out/ --domain --domain yokupoku-dev.surge.sh"
+    "deploy:dev": "surge out/ --domain --domain yokupoku-dev.surge.sh",
+    "deploy:prod": "surge out/ --domain --domain yokupoku.surge.sh"
   },
   "dependencies": {
     "axios": "^0.21.1",

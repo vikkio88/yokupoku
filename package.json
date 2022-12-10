@@ -17,7 +17,8 @@
     "build:cms": "cd cms && npm run build",
     "build:fe": "concurrently \"npm:be\" \"npm run be:gen:static && cd fe && npm run export && cd .. && npm run be:stop\"",
     "serve:fe": "serve -s fe/out -p 3000",
-    "serve:cms": "concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
+    "serve:cms": "npm run o:cms && concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
+    "o:cms": "node scripts/open-cms.js",
     "deploy:dev": "cd fe && npm run deploy:dev",
     "deploy:prod": "cd fe && npm run deploy:prod",
     "sync:data": "node scripts/sync-data-dump.js",
@@ -44,8 +45,9 @@
     "dotenv": "^10.0.0",
     "imgbox-js": "^1.0.35",
     "node-static": "^0.7.11",
+    "open": "^8.4.0",
     "serve": "^14.0.0",
-    "sharp": "^0.29.3",
+    "sharp": "^0.31.2",
     "zx": "^4.2.0"
   }
 }

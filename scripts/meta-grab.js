@@ -4,21 +4,28 @@ const sharp = require('sharp');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const { IMG_API_KEY } = process.env;
 const args = process.argv.slice(2);
 if (args.length < 1) {
     console.error('need website url');
     process.exit(1);
 }
 const url = args[1];
+
 const resize = args[2];
 const resizePercentage = 50;
-//const resize = args[2] || '50%';
+// const resize = args[2] || '50%';
 
 const main = async url => {
+    const { image, tags, title } = await getInfoFromSteam(url);
+    const imageUrl = await reupImage(image);
+    console.log({ title, imageUrl, tagsStr : tags.join(', ') });
+
+    process.exit(0);
+};
+
+const reupImage = async image => {
     try {
-        const { image } = await getImage(url);
-        console.log(`image url ${image}`);
+        console.log(`Getting Image from: ${image}`);
         const filename = (new URL(image)).pathname.split('/').pop().trim();
         await $`wget -O downloaded.jpg ${image}`;
         let fileToUpload = 'downloaded.jpg';
@@ -37,23 +44,30 @@ const main = async url => {
         await $`rm ${fileToUpload}`;
 
         console.log('Image uploaded:', result);
+        return result
     } catch (error) {
         console.error(error);
-        process.exit(1);
+        return;
     }
-
-    process.exit(0);
 };
 
-const getImage = async url => {
+const getInfoFromSteam = async url => {
     const page = await axios.get(url, { headers: { 'User-Agent': 'Twitterbot/1.0' } });
     const ch = cheerio.load(page.data);
 
-    const title = ch('meta[property="og:title"]').attr('content') || ch('title').text() || ch('meta[name="title"]').attr('content');
-    const description = ch('meta[property="og:description"]').attr('content') || ch('meta[name="description"]').attr('content');
-    const site_name = ch('meta[property="og:site_name"]').attr('content');
+    let title = ch('meta[property="og:title"]').attr('content') || ch('title').text() || ch('meta[name="title"]').attr('content');
+    title = title.replace("on Steam", "").trim();
     const image = ch('meta[property="og:image"]').attr('content') || ch('meta[property="og:image:url"]').attr('content');
-    const result = { title: title, description: description, site_name: site_name, image: image };
+    const tagsItems = ch(".app_tag");
+    const tags = [];
+    tagsItems.each(function (i, el) {
+        const a = ch(this).text().trim().toLocaleLowerCase();
+        tags.push(a);
+    });
+
+    tags.pop();
+
+    const result = { title, image, tags };
 
 
     return result;

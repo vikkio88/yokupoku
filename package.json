@@ -24,7 +24,10 @@
     "sync:data": "node scripts/sync-data-dump.js",
     "m:g": "npm run meta:grab",
     "meta:grab": "zx scripts/meta-grab.js",
-    "img:up": "node scripts/img-upload.js"
+    "img:up": "node scripts/img-upload.js",
+    "game:import": "node scripts/import-games.js data/games.json",
+    "bdeploy:dev": "npm run build:fe && npm run deploy:dev",
+    "bdeploy:all": "npm run bdeploy:dev && npm run deploy:prod"
   },
   "repository": {
     "type": "git",
@@ -40,6 +43,7 @@
   "dependencies": {
     "@samkirkland/ftp-deploy": "^1.1.1",
     "axios": "^0.24.0",
+    "basic-ftp": "^5.0.3",
     "cheerio": "^1.0.0-rc.10",
     "concurrently": "^6.4.0",
     "dotenv": "^10.0.0",

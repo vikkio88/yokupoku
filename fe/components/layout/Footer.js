@@ -6,7 +6,7 @@ const Footer = ({ className }) => {
             <footer className={className}>
                 <span>
                     made with ♥ by <a
-                        href="https://mastodon.gamedev.place/@vikkio"
+                        href="https://livellosegreto.it/@vikkio"
                         target="_blank"
                         rel="me"
                     >vikkio</a>

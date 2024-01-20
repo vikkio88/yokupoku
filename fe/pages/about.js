@@ -3,13 +3,6 @@ import { Footer, Header, Navbar, Title } from '../components/layout';
 import styles from '../styles/About.module.css';
 
 
-const SOCIAL_MEDIA_LINKS = [
-    { label: '/YokupokuReviews on Facebook', link: 'https://www.facebook.com/yokupokureviews' },
-    { label: '@YokupokuReviews on Twitter', link: 'https://twitter.com/yokupokureviews/' },
-];
-
-
-
 export default function About({ version }) {
 
     return (
@@ -27,13 +20,6 @@ export default function About({ version }) {
                         <p>Reading <strong>reviews</strong> online gets quite boring, all of those review video on <strong>Youtube</strong>.<br />
                             25 minutes with ads in the middle to tell you whether a game is worth it or not.</p>
                         <p>My plan is to make short and sweet reviews of:<br /> <strong>games</strong> I play (<strong>books</strong> I read, <strong>movies</strong> I watch... etc.), not ads, no filler, just few words and whether they are worth consuming or not.</p>
-
-                        <p>
-                            You can find <strong>Yokupoku</strong> on social media here:
-                            <ul>
-                                {SOCIAL_MEDIA_LINKS.map(({ label, link }, i) => <li key={`sm_${i}`}><a href={link} target="_blank">{label}</a></li>)}
-                            </ul>
-                        </p>
                     </p>
 
                     <h3>Who?</h3>

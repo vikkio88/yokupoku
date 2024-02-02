@@ -19,6 +19,7 @@
 .nav h1 {
     margin-left: 2em;
 }
+
 .nav h1 a {
     color: inherit;
 }
@@ -27,9 +28,10 @@
     color: lightgrey;
     cursor: pointer;
 }
-.nav h4, 
+
+.nav h4,
 .nav h3 {
-    margin-left: 1em ;
+    margin-left: 1em;
 }
 
 @media only screen and (max-width: 600px) {

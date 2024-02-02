@@ -5,7 +5,7 @@ import { T, SpoilerChip, Csl, RoundIndicator } from '../common';
 import styles from './styles/Review.module.css';
 
 
-const Review = ({ review }) => {
+const Review = ({ review, additionalTags = [] }) => {
     const { title, subtitle, content,
         pros, cons, tags, suggested, image,
         bsi, rating, spoiler, updatedAt, createdAt
@@ -84,7 +84,7 @@ const Review = ({ review }) => {
             </div>
             <div className={styles.tags}>
                 <h2>Tags</h2>
-                <Csl value={tags} />
+                <Csl value={`${tags},${additionalTags}`} />
             </div>
         </div>
     );

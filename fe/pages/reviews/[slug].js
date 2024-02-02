@@ -37,11 +37,11 @@ export default function ReviewPage({ review, product }) {
             </Head>
             <div className={styles.container}>
                 <nav className={styles.nav}>
-                    <h1><Link href="/">Yokupoku</Link> / <Link href="/reviews">Reviews</Link> /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
+                    <h1 className={styles.pulse}><Link href="/">Yokupoku</Link> / <Link href="/reviews">Reviews</Link> /</h1> <h3>{`${product.name}`} - </h3> <h4>{`${review.title}`}</h4>
                 </nav>
                 <main className={styles.main}>
-                    <Product product={product} />
-                    <Review review={review} />
+                    <Product product={product} hideTags />
+                    <Review review={review} additionalTags={product.tags} />
                 </main>
 
                 <Footer className={styles.footer} />

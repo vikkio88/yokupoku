@@ -1,7 +1,7 @@
 import { Csl, ProductType, Chip, T } from '../common';
 import styles from './styles/Product.module.css';
 
-const Product = ({ product }) => {
+const Product = ({ product, hideTags = false }) => {
     const { name, genre, type, meta, links, tags } = product;
     return (
         <div className={styles.wrapper}>
@@ -32,12 +32,18 @@ const Product = ({ product }) => {
                 </T>
             )}
 
-            <T title="Tags" position="bottom">
-                <div className={styles.tags}>
-                    <Csl value={tags} />
-                </div>
-            </T>
+            {!hideTags && (
+                <T title="Tags" position="bottom">
+                    <div className={styles.tags}>
+                        <Csl value={tags} />
+                    </div>
+                </T>
+            )}
+
+
+
         </div>
+
     );
 };
 

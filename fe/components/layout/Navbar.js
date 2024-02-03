@@ -18,10 +18,10 @@ const ROUTES = [
         label: 'About',
         route: '/about'
     },
-    {
-        label: '🔎',
-        route: '/coming-soon'
-    },
+    // {
+    //     label: '🔎',
+    //     route: '/coming-soon'
+    // },
 ];
 
 

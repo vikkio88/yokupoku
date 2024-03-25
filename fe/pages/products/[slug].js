@@ -16,7 +16,7 @@ export default function ReviewPage({ product }) {
                 title={`${product.name} - product details `}
                 description={`Product: ${product.name} - Yokupoku - Reviews for people with short attention spans. tags: ${product.tags}`}
                 openGraph={{
-                    url: `./${product.slug}`,
+                    url: `/products/${product.slug}`,
                     title: `Yokupoku - ${product.name}`,
                     description: `Details of ${product.name} - Yokupoku - Reviews for people with short attention spans. tags: ${product.tags}`,
                     images: [

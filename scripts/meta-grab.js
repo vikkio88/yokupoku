@@ -18,7 +18,7 @@ const resizePercentage = 50;
 const main = async url => {
     const { image, tags, title } = await getInfoFromSteam(url);
     const imageUrl = await reupImage(image);
-    console.log({ title, imageUrl, tagsStr : tags.join(', ') });
+    console.log({ title, imageUrl, tagsStr: tags.join(', ') });
 
     process.exit(0);
 };
@@ -44,7 +44,7 @@ const reupImage = async image => {
         await $`rm ${fileToUpload}`;
 
         console.log('Image uploaded:', result);
-        return result
+        return result;
     } catch (error) {
         console.error(error);
         return;
@@ -74,3 +74,7 @@ const getInfoFromSteam = async url => {
 };
 
 main(url);
+
+module.exports = {
+    getInfoFromSteam, reupImage
+};

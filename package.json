@@ -25,7 +25,8 @@
     "m:g": "npm run meta:grab",
     "meta:grab": "zx scripts/meta-grab.js",
     "img:up": "node scripts/img-upload.js",
-    "game:import": "node scripts/import-games.js data/games.json",
+    "game:grab": "zx scripts/game-grab.js",
+    "games:import": "node scripts/import-games.js data/games.json",
     "bdeploy:dev": "npm run build:fe && npm run deploy:dev",
     "bdeploy:all": "npm run bdeploy:dev && npm run deploy:prod"
   },

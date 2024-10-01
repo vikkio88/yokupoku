@@ -42,8 +42,6 @@ const reupImage = async image => {
 
         const result = await imgUploader(fileToUpload);
         await $`rm ${fileToUpload}`;
-
-        console.log('Image uploaded:', result);
         return result;
     } catch (error) {
         console.error(error);

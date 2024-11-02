@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "web:dev": "micro -p 3001",
     "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
     "start": "micro -p 3001",
     "stop": "node scripts/stop.js",
@@ -34,6 +35,10 @@
     "yokupoku-shared": "../yokupoku-shared"
   },
   "devDependencies": {
-    "micro-dev": "^3.0.0"
+    "micro-dev": "^3.0.0",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }

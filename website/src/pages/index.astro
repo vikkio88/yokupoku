@@ -1,0 +1,92 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import { ProductType } from "../libs/enums";
+import type { Review } from "../libs/types";
+
+let response = await fetch("http://localhost:3001/provider/reviews/latest");
+const latestReviews = (await response.json()) as Review[];
+
+response = await fetch("http://localhost:3001/provider/reviews");
+let allReviews = (await response.json()) as Review[];
+const total = allReviews.length;
+---
+
+<Layout title="Yokupoku - Reviews for people with short attention spans">
+  <header slot="head">
+    <h2 class="">Yokupoku</h2>
+    <h3>Reviews for people with short attention spans</h3>
+  </header>
+  <main>
+    <h3>{total} Reviews 👍👎</h3>
+    <ul role="list" class="link-card-grid">
+      {
+        latestReviews.map((r) => (
+          <Card
+            type={r.product.type as ProductType}
+            href={`/reviews/${r.slug}`}
+            title={r.product.name}
+            body={`${r.title} - ${r.subtitle}`}
+          />
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  .astro-a {
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translatex(-50%);
+    width: 220px;
+    height: auto;
+    z-index: -1;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  .instructions {
+    margin-bottom: 2rem;
+    border: 1px solid rgba(var(--accent-light), 25%);
+    background: linear-gradient(
+      rgba(var(--accent-dark), 66%),
+      rgba(var(--accent-dark), 33%)
+    );
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .link-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    gap: 2rem;
+    padding: 0;
+  }
+
+  header > h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+  
+  h3 {
+    font-size: 1rem;
+    text-align: center;
+    color: rgb(var(--accent-light));
+  }
+</style>

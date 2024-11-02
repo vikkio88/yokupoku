@@ -1,0 +1,46 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+import Navbar from "../components/Navbar.astro";
+import "../styles/main.css";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <slot name="seo">
+      <meta
+        name="description"
+        content={`Yokupoku - Reviews for people with short attention span - ${title}`}
+      />
+    </slot>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot name="head">
+      <header>
+        <h1>{title}</h1>
+      </header>
+    </slot>
+    <slot name="navbar">
+      <Navbar />
+    </slot>
+    <slot />
+  </body>
+</html>
+
+<style>
+  header > h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+</style>

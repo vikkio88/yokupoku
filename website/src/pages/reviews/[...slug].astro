@@ -1,0 +1,113 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { Review } from "../../libs/types";
+import { parse } from "marked";
+import { SEO } from "astro-seo";
+
+export async function getStaticPaths() {
+  const response = await fetch("http://localhost:3001/provider/reviews");
+  const reviews = await response.json();
+  return reviews.map((review: Review) => {
+    return {
+      params: { slug: review.slug },
+      props: { review },
+    };
+  });
+}
+
+const { review }: { review: Review } = Astro.props;
+const renderedContent = parse(review.content);
+---
+
+<Layout title={`${review.product.name} - ${review.title}`}>
+  <Fragment slot="head" />
+  <SEO
+    slot="seo"
+    title={`${review.product.name} - ${review.title}`}
+    description={`Review: ${review.product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`}
+    openGraph={{
+      basic: {
+        title: `Yokupoku - ${review.product.name} - ${review.title} - review`,
+        type: "article",
+        image: `${review.image}`,
+        url: `/reviews/${review.slug}`,
+      },
+      optional: {
+        description: `Review of ${review.product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
+      },
+    }}
+    twitter={{
+      image: `${review.image}`,
+    }}
+    extend={{
+      link: [{ rel: "icon", href: "/favicon.ico" }],
+      meta: [
+        {
+          name: "twitter:image",
+          content: `${review.image}`,
+        },
+        {
+          name: "twitter:title",
+          content: `Yokupoku - ${review.product.name} - ${review.title} - review`,
+        },
+        {
+          name: "twitter:description",
+          content: `Review of ${review.product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
+        },
+      ],
+    }}
+  />
+  <h1>{review.product.name}</h1>
+  <h2>
+    {review.title}
+  </h2>
+  <h3>
+    {review.subtitle}
+  </h3>
+  <div class="img">
+    <img src={review.image} alt={`${review.product.name} Review Image`} />
+  </div>
+  <article set:html={renderedContent} />
+</Layout>
+<style>
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(var(--accent-light));
+    margin: 0;
+  }
+  h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    text-align: center;
+    color: rgb(var(--accent-light));
+  }
+
+  div.img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  div.img > img {
+    max-height: 300px;
+  }
+
+  article {
+    margin: 0 auto;
+    line-height: 1.6rem;
+    font-size: 1.1rem;
+    text-align: justify;
+    margin-top: 3rem;
+    width: 80vw;
+  }
+</style>

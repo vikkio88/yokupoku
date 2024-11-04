@@ -1,18 +1,23 @@
 ---
-import ProductTypeChip from "../components/common/ProductTypeChip.astro";
+import ProductTypeChip from "./common/ProductTypeChip.astro";
 import type { ProductType } from "../libs/enums";
+import type { Review } from "../libs/types";
+import TimeAgo from "./common/TimeAgo";
 
 interface Props {
-  type?: ProductType;
-  title: string;
-  body: string;
-  href: string;
+  review: Review;
 }
 
-const { href, title, body, type } = Astro.props;
+const { review: r } = Astro.props;
+
+const type = r.product.type as ProductType;
+const href = `/reviews/${r.slug}`;
+const createdTime = new Date(r.createdAt);
+const title = r.product.name;
+const body = `${r.title} - ${r.subtitle}`;
 ---
 
-<li class="link-card">
+<li class="cardWrapper">
   <ProductTypeChip type={type} />
 
   <a href={href}>
@@ -20,13 +25,20 @@ const { href, title, body, type } = Astro.props;
       {title}
       <span>&rarr;</span>
     </h2>
+    <span class="createdTime">
+      <span class="hide">{createdTime.toLocaleDateString()}</span>
+      <TimeAgo client:load dateTime={createdTime} />
+    </span>
     <p>
       {body}
     </p>
   </a>
 </li>
 <style>
-  .link-card {
+  .hide {
+    display: none;
+  }
+  .cardWrapper {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -34,23 +46,23 @@ const { href, title, body, type } = Astro.props;
 
     padding: 1px;
     background-color: #23262d;
-    border-radius: 7px;
+    border-radius: var(--bradius);
     background-position: 100%;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
-  .link-card > a {
+  .cardWrapper > a {
     line-height: 1.4;
     padding: calc(1.5rem - 1px);
     border-radius: 8px;
     opacity: 0.8;
   }
 
-  .link-card:hover > a,
-  .link-card:hover > a > h2 {
+  .cardWrapper:hover > a,
+  .cardWrapper:hover > a > h2 {
     color: #23262d;
   }
 
-  .link-card > div.type {
+  .cardWrapper > div.type {
     margin: 0 auto;
   }
   h2 {
@@ -62,11 +74,15 @@ const { href, title, body, type } = Astro.props;
     margin-top: 0.5rem;
     margin-bottom: 0;
   }
-  .link-card:is(:hover, :focus-within) {
+  .cardWrapper:is(:hover, :focus-within) {
     background-position: 0;
     background-image: var(--accent-gradient);
   }
-  .link-card:is(:hover, :focus-within) h2 {
+  .cardWrapper:is(:hover, :focus-within) h2 {
     color: rgb(var(--accent-light));
+  }
+
+  span.createdTime {
+    font-size: 0.9rem;
   }
 </style>

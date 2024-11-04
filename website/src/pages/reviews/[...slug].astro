@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import type { Review } from "../../libs/types";
 import { parse } from "marked";
 import { SEO } from "astro-seo";
+import { csv } from "../../libs/csv";
 
 export async function getStaticPaths() {
   const response = await fetch("http://localhost:3001/provider/reviews");
@@ -17,10 +18,12 @@ export async function getStaticPaths() {
 
 const { review }: { review: Review } = Astro.props;
 const renderedContent = parse(review.content);
+const pros = csv(review.pros);
+const cons = csv(review.cons);
 ---
 
 <Layout title={`${review.product.name} - ${review.title}`}>
-  <Fragment slot="head" />
+  <Fragment slot="head"></Fragment>
   <SEO
     slot="seo"
     title={`${review.product.name} - ${review.title}`}
@@ -68,6 +71,22 @@ const renderedContent = parse(review.content);
     <img src={review.image} alt={`${review.product.name} Review Image`} />
   </div>
   <article set:html={renderedContent} />
+  <div class="proscons">
+    <div class="pros">
+      <h1>Pros 😍</h1>
+      <ul>
+        {pros.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+    <div class="cons">
+      <h1>Pros 🤮</h1>
+      <ul>
+        {cons.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="scores"></div>
+  <div class="tags"></div>
 </Layout>
 <style>
   h1 {
@@ -99,15 +118,66 @@ const renderedContent = parse(review.content);
   }
 
   div.img > img {
-    max-height: 300px;
+    max-width: 50vw;
+  }
+  @media (max-width: 768px) {
+    div.img > img {
+      max-width: 80vw;
+    }
   }
 
   article {
-    margin: 0 auto;
+    padding: 1rem;
     line-height: 1.6rem;
     font-size: 1.1rem;
-    text-align: justify;
-    margin-top: 3rem;
-    width: 80vw;
+    /* text-align: justify; */
+    margin: 1rem;
+  }
+
+  article p {
+    all: unset;
+  }
+
+  .proscons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 2rem;
+    padding: 1rem 2rem;
+  }
+
+  .proscons > div {
+    border-radius: var(--bradius);
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pros {
+    color: var(--accent-green);
+    background-color: var(--accent-green-light);
+  }
+
+  .pros > h1 {
+    color: var(--accent-green);
+  }
+
+  .cons {
+    color: var(--accent-red);
+    background-color: var(--accent-red-light);
+  }
+
+  .cons > h1 {
+    color: var(--accent-red);
+  }
+
+  .proscons h1 {
+    font-size: 1.4rem;
+  }
+  .proscons li {
+    font-size: 1.2rem;
   }
 </style>

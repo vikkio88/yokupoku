@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import ReviewCard from "../components/ReviewCard.astro";
 import { ProductType } from "../libs/enums";
 import type { Review } from "../libs/types";
 
@@ -18,18 +18,9 @@ const total = allReviews.length;
     <h3>Reviews for people with short attention spans</h3>
   </header>
   <main>
-    <h3>{total} Reviews 👍👎</h3>
+    <h3>So far {total} Reviews 👍👎</h3>
     <ul role="list" class="link-card-grid">
-      {
-        latestReviews.map((r) => (
-          <Card
-            type={r.product.type as ProductType}
-            href={`/reviews/${r.slug}`}
-            title={r.product.name}
-            body={`${r.title} - ${r.subtitle}`}
-          />
-        ))
-      }
+      {latestReviews.map((r) => <ReviewCard review={r} />)}
     </ul>
   </main>
 </Layout>
@@ -83,7 +74,7 @@ const total = allReviews.length;
     line-height: 1;
     text-align: center;
   }
-  
+
   h3 {
     font-size: 1rem;
     text-align: center;

@@ -12,14 +12,16 @@ const allReviews = (await response.json()) as Review[];
       {
         allReviews.map((r) => (
           <li>
-            <h3 class="product">{r.product.name}</h3>
+            <a href={`/products/${r.product.slug}`}>
+              <h3 class="product">{r.product.name}</h3>
+            </a>
             <a href={`/reviews/${r.slug}`}>
               <h3 class="review">
                 <span>{r.title}</span>
                 <span>{r.subtitle}</span>
               </h3>
             </a>
-            <div>
+            <div class="navigation">
               {r.suggested ? "👍" : "👎"}
               <a href={`/reviews/${r.slug}`}>&rarr;</a>
             </div>
@@ -49,6 +51,11 @@ const allReviews = (await response.json()) as Review[];
     align-items: center;
   }
 
+  ul {
+    all: unset;
+    margin: 0 2rem;
+  }
+
   ul > li {
     list-style-type: none;
     padding: 1rem;
@@ -74,5 +81,9 @@ const allReviews = (await response.json()) as Review[];
 
   li:is(:hover, :focus-within) > a > h3 {
     color: #23262d;
+  }
+
+  .navigation a {
+    font-size: 2rem;
   }
 </style>

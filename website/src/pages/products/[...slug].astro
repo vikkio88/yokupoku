@@ -1,6 +1,8 @@
 ---
+import ProductTypeChip from "../../components/common/ProductTypeChip.astro";
 import Layout from "../../layouts/Layout.astro";
-import type { Product } from "../../libs/types";
+import Tags from "../../components/common/Tags.astro";
+import type { Product, Review } from "../../libs/types";
 
 export async function getStaticPaths() {
   const response = await fetch(
@@ -10,25 +12,128 @@ export async function getStaticPaths() {
   return products.map((product: Product) => {
     return {
       params: { slug: product.slug },
-      props: { product },
+      props: {},
     };
   });
 }
 
 const { slug } = Astro.params;
-const { product }: { product: Product } = Astro.props;
+const response = await fetch(`http://localhost:3001/provider/products/${slug}`);
+const product = (await response.json()) as Product;
 const { name, genre, type, meta, links, image, tags } = product;
 ---
 
 <Layout title={`${name} - product details `}>
+  <Fragment slot="head"></Fragment>
   <main>
     <h2>
-      {meta?.device && meta.device}
+      <ProductTypeChip type={type} />
     </h2>
     <h1>{name}</h1>
 
-    <img src={image} alt={name} />
+    <div class="img">
+      <img src={image} alt={`${name} Product`} />
+    </div>
 
-    <h3>{genre}</h3>
+    <h3 title="genre" class="chip-reverse">{genre}</h3>
+    <div>
+      {meta?.played && <h3 title="Played Time">⏲️ {meta?.played} hours</h3>}
+      {
+        meta?.store && (
+          <Fragment>
+            {links && (
+              <h3 title="Store">
+                <a href={`${links.split(",")[0]}`} target="_blank">
+                  🛒 {meta?.store}
+                </a>
+              </h3>
+            )}
+            {!links && <h3 title="Store">🛒 {meta?.store}</h3>}
+          </Fragment>
+        )
+      }
+    </div>
+    <div class="tags">
+      <Tags tagStrings={tags} />
+    </div>
+
+    <div class="reviews">
+      {
+        product.reviews.map((r) => (
+          <a href={`/reviews/${r.slug}`}>
+            <div class="chip review">
+              <h2>{r.title}</h2>
+              <h3>{r.subtitle}</h3>
+              <h3>&rarr;</h3>
+            </div>
+          </a>
+        ))
+      }
+    </div>
   </main>
 </Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h3 {
+    padding: 0.5rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 2rem;
+  }
+
+  .reviews {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .review {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: 100%;
+  }
+
+  .review > h2 {
+    margin: 0;
+  }
+  .review > h3 {
+    margin: 0;
+  }
+
+  .review:is(:hover, :focus-within) > h2 {
+    color: #23262d;
+  }
+  .review:is(:hover, :focus-within) > h3 {
+    color: #23262d;
+  }
+  .review:is(:hover, :focus-within) {
+    background-position: 0;
+    background-image: var(--accent-gradient);
+  }
+  .review:is(:hover, :focus-within) h2 {
+    color: #23262d;
+  }
+
+  span.createdTime {
+    font-size: 0.9rem;
+  }
+</style>

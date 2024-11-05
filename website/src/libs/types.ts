@@ -25,6 +25,23 @@ export type Review = {
   updatedAt: string;
 };
 
+export type ReviewDetails = {
+  product: Product;
+  review: Omit<Review, "product">;
+};
+
+export type ReviewCompact = {
+  id: string;
+  productId: string;
+  slug: string;
+  spoiler: number;
+  subtitle: string;
+  tags: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type Product = {
   consumed: string | null;
   createdAt: string;
@@ -43,16 +60,7 @@ export type Product = {
   name: string;
   notes: string | null;
   released: string | null;
-  reviews: {
-    id: string;
-    productId: string;
-    slug: string;
-    spoiler: number;
-    subtitle: string;
-    tags: string;
-    title: string;
-    updatedAt: string;
-  }[];
+  reviews: ReviewCompact[];
   slug: string;
   tags: string;
   type: string;

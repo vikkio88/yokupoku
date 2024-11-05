@@ -1,6 +1,72 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import alex from "../../public/imgs/alexkidd.avif";
+import { Image } from "astro:assets";
 ---
+
 <Layout title="About">
-    <main></main>
+  <main>
+    <p>
+      <h2>What is Yokupoku</h2>
+      <div class="plogo">
+        <Image src={alex} alt="Alex Kidd" width={200}/>
+      </div>
+      <strong>Yokupoku</strong> is a space for quick, no-nonsense reviews on games,
+      books, movies, and more. Fed up with drawn-out YouTube reviews and overly detailed
+      write-ups, I wanted to create a spot for short, honest takes with no filler
+      or ads, just a few words to say if something is worth your time or not.
+    </p>
+    <p>
+      <h2>Who am I</h2>
+      I’m a gamer and nerd with a huge backlog of media, so I started this project
+      to keep track of what is actually enjoyable. Reviews here are guided by my
+      personal "<strong>Boredom Speed Index</strong>" (BSI), a simple metric
+      showing how fast something loses its charm. My takes might differ from
+      yours, but that’s life. Take what resonates and leave the rest.
+    </p>
+
+    <p>
+      <h2>How</h2>
+      This website is an <a href="https://astro.build">Astro</a> project. It used
+      to be a <a href="https://nextjs.org">Next.js</a> site, but then I decided to
+      migrate it. The source code is here on <a
+        href="https://github.com/vikkio88/yokupoku"
+        >github.com/vikkio88/yokupoku</a
+      >.
+    </p>
+  </main>
 </Layout>
+
+<style>
+  main {
+    text-align: justify;
+    padding: 1rem;
+    line-height: 1.6rem;
+    font-size: 1.3rem;
+    margin: 1rem;
+  }
+
+  p {
+    margin-top: 3rem;
+  }
+
+  .plogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  strong {
+    font-weight: bolder;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+</style>

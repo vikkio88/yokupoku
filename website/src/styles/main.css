@@ -34,7 +34,37 @@ a {
   color: white;
   text-decoration: none;
 }
+
 code {
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+div.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+div.img > img {
+  max-width: 50vw;
+}
+@media (max-width: 768px) {
+  div.img > img {
+    max-width: 80vw;
+  }
+}
+
+.chip {
+  border-radius: var(--bradius);
+  background-color: #23262d;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.chip-reverse {
+  border-radius: var(--bradius);
+  color: #23262d;
+  background-color: white;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }

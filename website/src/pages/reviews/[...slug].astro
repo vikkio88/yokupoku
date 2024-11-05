@@ -1,42 +1,53 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import type { Review } from "../../libs/types";
+import type { Review, ReviewDetails } from "../../libs/types";
 import { parse } from "marked";
 import { SEO } from "astro-seo";
 import { csv } from "../../libs/csv";
+import Score from "../../components/common/Score.astro";
+import Tags from "../../components/common/Tags.astro";
 
 export async function getStaticPaths() {
-  const response = await fetch("http://localhost:3001/provider/reviews");
-  const reviews = await response.json();
-  return reviews.map((review: Review) => {
+  let resp = await fetch("http://localhost:3001/provider/reviews");
+  const reviews = (await resp.json()) as Review[];
+
+  return reviews.map((r: Review) => {
     return {
-      params: { slug: review.slug },
-      props: { review },
+      params: { slug: r.slug },
+      props: { slug: r.slug },
     };
   });
 }
 
-const { review }: { review: Review } = Astro.props;
+interface Props {
+  slug: string;
+}
+
+const { slug }: Props = Astro.props;
+
+const resp = await fetch(`http://localhost:3001/provider/reviews/${slug}`);
+const { review, product } = (await resp.json()) as ReviewDetails;
+
 const renderedContent = parse(review.content);
 const pros = csv(review.pros);
 const cons = csv(review.cons);
 ---
 
-<Layout title={`${review.product.name} - ${review.title}`}>
+<Layout title={`${product.name} - ${review.title}`}>
   <Fragment slot="head"></Fragment>
   <SEO
     slot="seo"
-    title={`${review.product.name} - ${review.title}`}
-    description={`Review: ${review.product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`}
+    title={`${product.name} - ${review.title}`}
+    description={`Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`}
     openGraph={{
       basic: {
-        title: `Yokupoku - ${review.product.name} - ${review.title} - review`,
+        title: `Yokupoku - ${product.name} - ${review.title} - review`,
         type: "article",
         image: `${review.image}`,
         url: `/reviews/${review.slug}`,
       },
       optional: {
-        description: `Review of ${review.product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
+        description: `Review of ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
       },
     }}
     twitter={{
@@ -51,16 +62,18 @@ const cons = csv(review.cons);
         },
         {
           name: "twitter:title",
-          content: `Yokupoku - ${review.product.name} - ${review.title} - review`,
+          content: `Yokupoku - ${product.name} - ${review.title} - review`,
         },
         {
           name: "twitter:description",
-          content: `Review of ${review.product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
+          content: `Review of ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
         },
       ],
     }}
   />
-  <h1>{review.product.name}</h1>
+  <a href={`/products/${product.slug}`}>
+    <h1>{product.name}</h1>
+  </a>
   <h2>
     {review.title}
   </h2>
@@ -68,7 +81,7 @@ const cons = csv(review.cons);
     {review.subtitle}
   </h3>
   <div class="img">
-    <img src={review.image} alt={`${review.product.name} Review Image`} />
+    <img src={review.image} alt={`${product.name} Review Screenshot`} />
   </div>
   <article set:html={renderedContent} />
   <div class="proscons">
@@ -85,8 +98,29 @@ const cons = csv(review.cons);
       </ul>
     </div>
   </div>
-  <div class="scores"></div>
-  <div class="tags"></div>
+  <div class="scores">
+    <div title="Boredom Speed Index or how fast it gets boring (%)">
+      <h3>BSI 🥱</h3>
+      <Score invertColour value={review.bsi} />
+    </div>
+
+    <div title="Rating out of 100">
+      <h3>Rating 🧐</h3>
+      <Score value={review.rating} />
+    </div>
+
+    <div title={`${review.suggested ? "YES!" : "NOPE!"}`}>
+      <h3>Suggested</h3>
+      <Score
+        value={100}
+        invertColour={!review.suggested}
+        forceText={review.suggested ? "👍" : "👎"}
+      />
+    </div>
+  </div>
+  <div class="tags">
+    <Tags tagStrings={[review.tags, product.tags]} />
+  </div>
 </Layout>
 <style>
   h1 {
@@ -108,22 +142,6 @@ const cons = csv(review.cons);
     font-size: 1rem;
     text-align: center;
     color: rgb(var(--accent-light));
-  }
-
-  div.img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-  }
-
-  div.img > img {
-    max-width: 50vw;
-  }
-  @media (max-width: 768px) {
-    div.img > img {
-      max-width: 80vw;
-    }
   }
 
   article {
@@ -179,5 +197,34 @@ const cons = csv(review.cons);
   }
   .proscons li {
     font-size: 1.2rem;
+  }
+
+  .scores {
+    margin: 1rem 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .scores > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 2rem;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 </style>

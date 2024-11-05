@@ -159,9 +159,17 @@ const cons = csv(review.cons);
   .proscons {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     gap: 2rem;
     padding: 1rem 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .proscons {
+      gap: .5rem;
+      padding: 0 0.2rem;
+    }
+
   }
 
   .proscons > div {

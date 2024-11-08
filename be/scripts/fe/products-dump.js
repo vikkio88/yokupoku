@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { now } = require('../../libs/utils');
 const { products } = require('../../models/products');
-const DUMP_DIR = `${__dirname}/../../../fe/public/data-providers`;
+const { DUMP_DIR } = require("./const");
 
 const dump = async () => {
     console.log('Saving New FE Product Dump');

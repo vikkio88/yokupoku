@@ -2,7 +2,6 @@
 import TimeAgo from "../../components/common/react/TimeAgo";
 import Layout from "../../layouts/Layout.astro";
 import Games from "../../components/productsFilter/Games";
-import type { load } from "cheerio";
 let response = await fetch(`http://localhost:3001/provider/meta`);
 const meta = await response.json();
 ---

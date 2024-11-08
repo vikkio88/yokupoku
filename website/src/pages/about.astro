@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import alex from "../../public/imgs/alexkidd.avif";
+import astro from "../../public/imgs/astro.png";
+import vikkio from "../../public/imgs/vikkio.png";
 import { Image } from "astro:assets";
 ---
 
@@ -9,7 +11,7 @@ import { Image } from "astro:assets";
     <p>
       <h2>What is Yokupoku</h2>
       <div class="plogo">
-        <Image src={alex} alt="Alex Kidd" width={200}/>
+        <Image src={alex} alt="Alex Kidd" width={200} />
       </div>
       <strong>Yokupoku</strong> is a space for quick, no-nonsense reviews on games,
       books, movies, and more. Fed up with drawn-out YouTube reviews and overly detailed
@@ -18,6 +20,9 @@ import { Image } from "astro:assets";
     </p>
     <p>
       <h2>Who am I</h2>
+      <div class="plogo">
+        <Image src={vikkio} alt="Vikkio Face" width={120} />
+      </div>
       I’m a gamer and nerd with a huge backlog of media, so I started this project
       to keep track of what is actually enjoyable. Reviews here are guided by my
       personal "<strong>Boredom Speed Index</strong>" (BSI), a simple metric
@@ -27,12 +32,18 @@ import { Image } from "astro:assets";
 
     <p>
       <h2>How</h2>
+      <div class="plogo">
+        <Image src={astro} alt="Astro Logo" width={120} />
+      </div>
       This website is an <a href="https://astro.build">Astro</a> project. It used
       to be a <a href="https://nextjs.org">Next.js</a> site, but then I decided to
-      migrate it. The source code is here on <a
-        href="https://github.com/vikkio88/yokupoku"
-        >github.com/vikkio88/yokupoku</a
-      >.
+      migrate it.
+      <p>
+        The source code is available here: <a
+          href="https://github.com/vikkio88/yokupoku"
+          >github.com/vikkio88/yokupoku</a
+        >.
+      </p>
     </p>
   </main>
 </Layout>
@@ -46,7 +57,7 @@ import { Image } from "astro:assets";
     margin: 1rem;
   }
 
-  p {
+  p ~ p {
     margin-top: 3rem;
   }
 
@@ -54,7 +65,7 @@ import { Image } from "astro:assets";
     display: flex;
     align-items: center;
     justify-content: center;
-
+    margin-bottom: 1rem;
   }
 
   h2 {

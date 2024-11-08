@@ -1,12 +1,18 @@
-import t from "timeago.js";
+import { format } from "timeago.js";
 interface Props {
-  dateTime: Date;
+  dateTime: Date | string;
 }
 
 const TimeAgo = (props: Props) => {
   const { dateTime } = props;
   return (
-    <span title={dateTime.toLocaleDateString()}>{t.format(dateTime)}</span>
+    <span
+      title={
+        dateTime instanceof Date ? dateTime.toLocaleDateString() : dateTime
+      }
+    >
+      {format(dateTime)}
+    </span>
   );
 };
 

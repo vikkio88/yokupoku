@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ReviewCard from "../components/ReviewCard.astro";
-import { ProductType } from "../libs/enums";
 import type { Review } from "../libs/types";
 
 let response = await fetch("http://localhost:3001/provider/reviews/latest");

@@ -42,6 +42,15 @@ export type ReviewCompact = {
   updatedAt: string;
 };
 
+export type Meta = {
+  device: string;
+  edition: string | null;
+  played: number;
+  price: number;
+  refunded: boolean;
+  store: string;
+}
+
 export type Product = {
   consumed: string | null;
   createdAt: string;
@@ -49,14 +58,7 @@ export type Product = {
   id: string;
   image: string;
   links: string;
-  meta: {
-    device: string;
-    edition: string | null;
-    played: number;
-    price: number;
-    refunded: boolean;
-    store: string;
-  };
+  meta: Meta;
   name: string;
   notes: string | null;
   released: string | null;

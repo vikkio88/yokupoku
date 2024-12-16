@@ -21,7 +21,7 @@ module.exports = {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: './db/data/stage.sqlite3'
+      filename: './db/data/dev.sqlite3'
     },
     migrations: {
       directory: 'db/migrations',
@@ -33,7 +33,7 @@ module.exports = {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: './db/data/db.sqlite3'
+      filename: './db/data/dev.sqlite3'
     },
     migrations: {
       directory: 'db/migrations',

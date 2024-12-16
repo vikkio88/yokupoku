@@ -7,7 +7,8 @@
     "web:dev": "micro -p 3001",
     "cms:dev": "micro -p 3001",
     "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
-    "start": "micro -p 3001",
+    "dev:hono": "bun run --watch ./hono.ts",
+    "start": "micro-dev -p 3001",
     "stop": "node scripts/stop.js",
     "dump:fe:prods": "node scripts/fe/products-dump.js",
     "dump:fe:sitemap": "node scripts/fe/sitemap-gen.js",
@@ -26,6 +27,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^5.0.1",
+    "hono": "^4.6.14",
     "knex": "^0.95.6",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",

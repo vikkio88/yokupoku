@@ -1,0 +1,20 @@
+#root {
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: auto;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+nav {
+  min-height: 5rem;
+  padding: 2rem;
+}
+main {
+  padding: 1rem;
+  flex: 4;
+}

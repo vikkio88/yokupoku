@@ -1,19 +1,21 @@
-import {
-  Admin,
-  Resource,
-  ListGuesser,
-  // EditGuesser,
-  // ShowGuesser,
-} from "react-admin";
-
-import dataProvider from "./dataProvider";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { Products, Reviews } from "./pages";
+import Nav from "./components/layout/Nav";
 
 function App() {
   return (
-    <Admin dataProvider={dataProvider}>
-      <Resource name="games" list={ListGuesser} />
-      <Resource name="reviews" list={ListGuesser} />
-    </Admin>
+    <>
+      <h1>Stuff</h1>
+      <Nav />
+      <main>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Products />} />
+            <Route path="/reviews" element={<Reviews />} />
+          </Routes>
+        </BrowserRouter>
+      </main>
+    </>
   );
 }
 

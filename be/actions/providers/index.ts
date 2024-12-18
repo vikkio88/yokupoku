@@ -1,7 +1,7 @@
 import type { Context } from "hono";
+import { notFound } from "../formatters";
 
-const { response, notFound } = require("../formatters");
-const reviewModel = require("../../models/reviews");
+import reviewModel from "../../models/reviews";
 const productModels = require("../../models/products");
 
 const getPublished = async (c: Context) => {
@@ -11,15 +11,16 @@ const getPublished = async (c: Context) => {
 
 const getLatestReviews = async (c: Context) => {
   const reviews = await reviewModel.getLatest();
+  console.log({ reviews });
   return c.json(reviews);
 };
 
 const getReview = async (c: Context) => {
   const slug = c.req.param("slug");
   const review = await reviewModel.getBySlug(slug);
-  if (!review) return c.json({}, 404);
+  if (!review) return notFound(c);
   const product = await productModels.products.find(review.productId);
-  if (!product) return c.json({}, 404);
+  if (!product) return notFound(c);
   review.product && delete review.product;
 
   return c.json({ review, product });
@@ -33,7 +34,7 @@ const getProducts = async (c: Context) => {
 const getProduct = async (c: Context) => {
   const slug = c.req.param("slug");
   const product = await productModels.products.getBySlug(slug);
-  if (!product) return c.json({}, 404);
+  if (!product) return notFound(c);
   const reviews = await reviewModel.getByProductId(product.id);
   product.reviews = reviews;
 
@@ -45,7 +46,7 @@ const getReviewedProducts = async (c: Context) => {
   return c.json(products);
 };
 
-module.exports = {
+export default {
   getPublished,
   getLatestReviews,
   getReview,

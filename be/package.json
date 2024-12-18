@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "web:dev": "micro -p 3001",
-    "cms:dev": "micro -p 3001",
-    "dev": "micro-dev -p 3001 --ignore ./db/data/dev.sqlite3",
-    "dev:hono": "bun run --watch ./hono.ts",
-    "start": "micro-dev -p 3001",
+    "web:dev": "bun start",
+    "cms:dev": "bun dev",
+    "dev": "bun run --watch ./index.ts",
+    "dev:hono": "bun run --watch ./index.ts",
+    "start": "bun ./index.ts",
     "stop": "node scripts/stop.js",
     "dump:fe:prods": "node scripts/fe/products-dump.js",
     "dump:fe:sitemap": "node scripts/fe/sitemap-gen.js",
@@ -20,25 +20,21 @@
     "db:reset": "npm run db:purge && npm run db:migrate",
     "db:purge": "rm db/data/dev.sqlite3",
     "db:migrate": "knex migrate:latest",
-    "db:seed": "knex seed:run"
+    "db:seed": "knex seed:run",
+    "db:backup": "bun scripts/dbBackup.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^5.0.1",
     "hono": "^4.6.14",
     "knex": "^0.95.6",
-    "micro": "^9.3.4",
-    "micro-cors": "^0.1.1",
-    "microrouter": "^3.1.3",
     "sitemap": "^7.1.0",
     "sqlite3": "^5.0.2",
     "ulid": "^2.3.0",
     "yokupoku-shared": "../yokupoku-shared"
   },
   "devDependencies": {
-    "micro-dev": "^3.0.0",
     "@types/bun": "latest"
   },
   "peerDependencies": {

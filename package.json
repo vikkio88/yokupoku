@@ -15,7 +15,7 @@
     "website/",
     "be/",
     "yokupoku-shared/",
-    "cms"
+    "cms/"
   ],
   "scripts": {
     "be": "cd be && bun start",

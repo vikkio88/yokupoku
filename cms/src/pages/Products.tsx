@@ -79,7 +79,7 @@ export default function Products() {
 
   const debounced = useDebouncedCallback((value: string) => {
     setSearchValue(value);
-  }, 600);
+  }, 800);
 
   return (
     <>

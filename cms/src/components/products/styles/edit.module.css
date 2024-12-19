@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad);
+}
+
+.form > label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.form input {
+    min-width: 20rem;
+    padding: .3rem;
+}
+
+.form textarea {
+    min-height: 10rem;
+}

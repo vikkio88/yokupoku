@@ -19,10 +19,10 @@ export interface Product {
   notes: string | null;
   slug: string;
   image: string | null;
-  released: Date | null;
-  consumed: Date | null;
-  createdAt: Date;
-  updatedAt: Date;
+  released: Date | null | string;
+  consumed: Date | null | string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }
 
 export interface Device {
@@ -32,7 +32,7 @@ export interface Device {
   meta: Record<string, any>;
   links: string | null;
   notes: string | null;
-  ownedFrom: Date | null;
+  ownedFrom: Date | null | string;
 }
 
 export interface Review {
@@ -52,6 +52,6 @@ export interface Review {
   suggested: boolean;
   spoiler: boolean;
   published: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }

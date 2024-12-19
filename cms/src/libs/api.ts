@@ -85,7 +85,8 @@ export const productsApi = {
       }
     );
   },
-  find: (id: string) => fetchApi(`/products/${id}`, { method: "GET" }),
+  find: (id: string): Promise<Response<Product>> =>
+    fetchApi(`/products/${id}`, { method: "GET" }),
 };
 
 // Non-Games Products API

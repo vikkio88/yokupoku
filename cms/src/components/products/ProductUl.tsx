@@ -1,4 +1,4 @@
-import { Product } from "yokupoku-shared/types";
+import { Product } from "yokupoku-shared";
 import ProductLi from "./ProductLi";
 import s from "./styles/product.module.css";
 

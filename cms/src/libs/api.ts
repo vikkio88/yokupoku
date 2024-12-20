@@ -1,4 +1,4 @@
-import type { Product, Review } from "yokupoku-shared/types";
+import type { Product, Review } from "yokupoku-shared";
 const BASE_URL = "http://localhost:3001/api";
 
 type FetchOptions = {

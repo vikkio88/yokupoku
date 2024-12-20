@@ -14,10 +14,32 @@
 }
 
 .form input {
-    min-width: 20rem;
-    padding: .3rem;
+  min-width: 20rem;
+  padding: 0.3rem;
 }
 
 .form textarea {
-    min-height: 10rem;
+  min-height: 10rem;
+}
+.form {
+  /* Styles for all invalid fields */
+  [aria-invalid="true"] {
+    border: 2px solid red;
+    background-color: #ffe6e6; /* Light red background */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+  }
+
+  /* Optional: Add specific styles when the field is focused */
+  [aria-invalid="true"]:focus {
+    border-color: darkred;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 1);
+  }
+
+  /* Style error messages adjacent to the invalid input */
+  [aria-invalid="true"] + .error {
+    display: block;
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em;
+  }
 }

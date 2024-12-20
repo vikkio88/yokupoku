@@ -1,4 +1,4 @@
-import { Product } from "yokupoku-shared/types";
+import { Product } from "yokupoku-shared";
 import s from "./styles/product.module.css";
 import { useNavigate } from "react-router";
 

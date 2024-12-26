@@ -1,7 +1,10 @@
-import { Product } from "yokupoku-shared";
+import { Meta, Product } from "yokupoku-shared";
 import s from "./styles/edit.module.css";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { productValidators } from "./validators/product";
+import { productsApi } from "../../libs/api";
+import { useState } from "react";
+import Spinner from "../shared/spinner";
 
 type Props = {
   product: Product;
@@ -10,13 +13,27 @@ type Props = {
 type MetaProduct = Omit<Product, "meta"> & { meta: string };
 
 export default function Edit({ product }: Props) {
+  const [isUpdating, setIsUpdating] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<MetaProduct>();
-  const onSubmit: SubmitHandler<MetaProduct> = (data) => console.log({ data });
-  console.log(errors?.type?.message);
+  const onSubmit: SubmitHandler<MetaProduct> = async (data) => {
+    const product: Product = { ...data, meta: JSON.parse(data.meta) as Meta };
+    setIsUpdating(true);
+    const res = await productsApi.update(product);
+    console.log(res);
+    setIsUpdating(false);
+  };
+  if (isUpdating) {
+    return (
+      <div className="f cc aic">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <label>
@@ -95,15 +112,6 @@ export default function Edit({ product }: Props) {
       </label>
       {errors.links && <span className="error">{errors.links.message}</span>}
       <label>
-        Notes:
-        <textarea
-          {...register("notes")}
-          aria-invalid={errors.notes ? "true" : "false"}
-          name="notes"
-          defaultValue={product.notes || ""}
-        />
-      </label>
-      <label>
         Slug:
         <input
           {...register("slug", productValidators.slug)}
@@ -181,6 +189,15 @@ export default function Edit({ product }: Props) {
               : ""
           }
           readOnly
+        />
+      </label>
+      <label>
+        Notes:
+        <textarea
+          {...register("notes")}
+          aria-invalid={errors.notes ? "true" : "false"}
+          name="notes"
+          defaultValue={product.notes || ""}
         />
       </label>
       <div className="f rc">

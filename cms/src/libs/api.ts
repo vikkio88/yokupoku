@@ -87,13 +87,19 @@ export const productsApi = {
   },
   find: (id: string): Promise<Response<Product>> =>
     fetchApi(`/products/${id}`, { method: "GET" }),
+  update: (product: Product): Promise<Response<Product>> => {
+    if (product.type === "game") {
+      return gamesApi.update(product.id, product);
+    }
+    return nonGamesProductsApi.update(product.id, product);
+  },
 };
 
 // Non-Games Products API
 export const nonGamesProductsApi = {
   getAll: () => fetchApi("/ngproducts", { method: "GET" }),
   find: (id: string) => fetchApi(`/ngproducts/${id}`, { method: "GET" }),
-  update: (id: string, data: Product) =>
+  update: (id: string, data: Product): Promise<Response<Product>> =>
     fetchApi(`/ngproducts/${id}`, { method: "PUT", body: data }),
   create: (data: Product) =>
     fetchApi("/ngproducts", { method: "POST", body: data }),
@@ -117,7 +123,7 @@ export const gamesApi = {
     );
   },
   find: (id: string) => fetchApi(`/games/${id}`, { method: "GET" }),
-  update: (id: string, data: Product) =>
+  update: (id: string, data: Product): Promise<Response<Product>> =>
     fetchApi(`/games/${id}`, { method: "PUT", body: data }),
   create: (data: Product) => fetchApi("/games", { method: "POST", body: data }),
   delete: (id: string) => fetchApi(`/games/${id}`, { method: "DELETE" }),

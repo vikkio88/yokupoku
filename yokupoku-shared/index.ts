@@ -72,6 +72,8 @@ export interface Product {
   createdAt: Date | string;
   updatedAt: Date | string;
 }
+// this is used for parsing/editing meta
+export type MetaProduct = Omit<Product, "meta"> & { meta: string };
 
 export interface Device {
   id: string;

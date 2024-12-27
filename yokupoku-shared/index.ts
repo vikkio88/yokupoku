@@ -54,8 +54,7 @@ export const GAMES_STORES = [
   "amazon:used",
 ] as const;
 
-export type Meta =
-  Record<string, string|boolean|number>
+export type Meta = Record<string, string | boolean | number>;
 export interface Product {
   id: string;
   type: ProductType;
@@ -104,6 +103,19 @@ export interface Review {
   published: boolean;
   createdAt: Date | string;
   updatedAt: Date | string;
+}
+
+export interface ProductLi {
+  id: string;
+  name: string;
+  type: ProductType;
+}
+export interface ReviewLi {
+  id: string;
+  title: string;
+  slug: string;
+  productId: string;
+  product: ProductLi;
 }
 
 export default {

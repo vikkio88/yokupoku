@@ -1,20 +1,24 @@
 import type { Context } from "hono";
 
 import { notFound, unprocessable } from "../formatters";
-const model = require("../../models/reviews");
+const model = require("../../models/reviews").default;
 
 export const get = async (c: Context) => {
-  let range: string | number[] | undefined = c.req.query("range");
   let sort = c.req.query("sort");
-  range = (range ? JSON.parse(range) : [0, 10]) as number[];
-  sort = sort ? JSON.parse(sort) : ["products.id", "asc"];
+  const filter = c.req.query("q");
+  const rangeStart: string | undefined = c.req.query("rs");
+  const rangeEnd: string | undefined = c.req.query("re");
+  const range = (
+    rangeStart && rangeEnd ? [rangeStart, rangeEnd] : [0, 10]
+  ) as number[];
+  sort = sort ? JSON.parse(sort) : ["id", "desc"];
 
   const total = await model.total();
   const reviews = await model.get({ range, sort });
 
   c.res.headers.append(
     "Content-Range",
-    `reviews ${range[0]}-${range[1]} / ${total}`
+    `${range[0]}-${range[1]} / ${total}`
   );
   return c.json(reviews);
 };

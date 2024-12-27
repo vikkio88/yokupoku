@@ -34,7 +34,9 @@ export default function Products() {
 
   return (
     <>
-      <h1>Products</h1>
+      <div className="f r cc">
+        <h1>Products</h1>
+      </div>
       {isLoading && <Spinner />}
       {!isLoading && data && (
         <>
@@ -42,6 +44,7 @@ export default function Products() {
             <form onSubmit={onSearch}>
               <input
                 type="text"
+                className="mw50"
                 ref={searchRef}
                 placeholder="Search product by name..."
                 defaultValue={searchValue}

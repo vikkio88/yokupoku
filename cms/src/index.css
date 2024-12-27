@@ -18,3 +18,7 @@ main {
   padding: 1rem;
   flex: 4;
 }
+
+.mw50 {
+  min-width: 50vw;
+}

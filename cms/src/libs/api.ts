@@ -1,4 +1,4 @@
-import type { Product, Review } from "yokupoku-shared";
+import type { Product, Review, ReviewLi } from "yokupoku-shared";
 const BASE_URL = "http://localhost:3001/api";
 
 type FetchOptions = {
@@ -57,7 +57,12 @@ async function fetchApi<T>(
 
 // Reviews API
 export const reviewsApi = {
-  getAll: () => {
+  getAll: (
+    page = 0,
+    size = 30,
+    filter?: string
+  ): Promise<Response<ReviewLi[]>> => {
+    console.log({ page, size, filter });
     return fetchApi("/reviews", { method: "GET" });
   },
   find: (id: string) => fetchApi(`/reviews/${id}`, { method: "GET" }),

@@ -64,7 +64,7 @@ const sitemapReviewsGen = async () => {
     const smStream = new SitemapStream({
       hostname: HOST,
     });
-    const reviews = await reviewModel.getPublished();
+    const reviews = await reviewModel.default.getPublished();
 
     reviews.forEach((review) => {
       smStream.write({

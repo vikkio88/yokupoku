@@ -1,0 +1,82 @@
+.results {
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: -8px;
+  width: 90%;
+}
+
+.game {
+  border-radius: var(--bradius);
+  background-color: #23262d;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  flex: auto;
+  height: 100px;
+  min-width: 50px;
+  margin: 0 8px 8px 0;
+
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-position: 100%;
+}
+
+.game * {
+  margin-top: 5px;
+}
+
+.meta {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.info {
+  width: 100%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.info * {
+  margin: 0.3em;
+}
+
+.info a:hover {
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.loader {
+  border: 10px solid #333333; /* Light grey */
+  border-top: 8px solid #eaeaea; /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.checks {
+    padding: 1rem;
+}
+
+.filter > label {
+    font-size: 1.4rem;
+}

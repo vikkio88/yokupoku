@@ -1,0 +1,25 @@
+---
+const PRODUCT_TYPES = {
+    GAME: 'game',
+    MOVIE: 'movie',
+    BOOK: 'book',
+    TV: 'tv',
+    MUSIC: 'music',
+    COMIC_BOOK: 'comic_book',
+    OTHER: 'other',
+};
+const map = {
+  [PRODUCT_TYPES.GAME]: "🎮",
+  [PRODUCT_TYPES.MOVIE]: "🎥",
+  [PRODUCT_TYPES.BOOK]: "📚",
+  [PRODUCT_TYPES.TV]: "📺",
+  [PRODUCT_TYPES.MUSIC]: "🎶",
+  [PRODUCT_TYPES.COMIC_BOOK]: "🗯️",
+  [PRODUCT_TYPES.OTHER]: "🤷",
+};
+
+const { type } = Astro.props;
+---
+
+{!Object.keys(map).includes(type) && null}
+{Object.keys(map).includes(type) && <span title={type}>{map[type]}</span>}

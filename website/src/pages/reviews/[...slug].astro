@@ -1,0 +1,233 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { Review, ReviewDetails } from "../../libs/types";
+import { parse } from "marked";
+import { SEO } from "astro-seo";
+import { csv } from "../../libs/csv";
+import Score from "../../components/common/Score.astro";
+import Tags from "../../components/common/Tags.astro";
+
+export async function getStaticPaths() {
+  let resp = await fetch("http://localhost:3001/provider/reviews");
+  const reviews = (await resp.json()) as Review[];
+
+  return reviews.map((r: Review) => {
+    return {
+      params: { slug: r.slug },
+      props: { slug: r.slug },
+    };
+  });
+}
+
+interface Props {
+  slug: string;
+}
+
+const { slug }: Props = Astro.props;
+
+const resp = await fetch(`http://localhost:3001/provider/reviews/${slug}`);
+const { review, product } = (await resp.json()) as ReviewDetails;
+
+const renderedContent = parse(review.content);
+const pros = csv(review.pros);
+const cons = csv(review.cons);
+---
+
+<Layout title={`${product.name} - ${review.title}`}>
+  <Fragment slot="head"></Fragment>
+  <SEO
+    slot="seo"
+    title={`${product.name} - ${review.title}`}
+    description={`Review: ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`}
+    openGraph={{
+      basic: {
+        title: `Yokupoku - ${product.name} - ${review.title} - review`,
+        type: "article",
+        image: `${review.image}`,
+        url: `/reviews/${review.slug}`,
+      },
+      optional: {
+        description: `Review of ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
+      },
+    }}
+    twitter={{
+      image: `${review.image}`,
+    }}
+    extend={{
+      link: [{ rel: "icon", href: "/favicon.ico" }],
+      meta: [
+        {
+          name: "twitter:image",
+          content: `${review.image}`,
+        },
+        {
+          name: "twitter:title",
+          content: `Yokupoku - ${product.name} - ${review.title} - review`,
+        },
+        {
+          name: "twitter:description",
+          content: `Review of ${product.name} - ${review.title} - ${review.subtitle} - Yokupoku - Reviews for people with short attention spans. tags: ${review.tags}`,
+        },
+      ],
+    }}
+  />
+  <a href={`/products/${product.slug}`}>
+    <h1>{product.name}</h1>
+  </a>
+  <h2>
+    {review.title}
+  </h2>
+  <h3>
+    {review.subtitle}
+  </h3>
+  <div class="img">
+    <img src={review.image} alt={`${product.name} Review Screenshot`} />
+  </div>
+  <article set:html={renderedContent} />
+  <div class="proscons">
+    <div class="pros">
+      <h1>Pros 😍</h1>
+      <ul>
+        {pros.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+    <div class="cons">
+      <h1>Pros 🤮</h1>
+      <ul>
+        {cons.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="scores">
+    <div title="Boredom Speed Index or how fast it gets boring (%)">
+      <h3>BSI 🥱</h3>
+      <Score invertColour value={review.bsi} />
+    </div>
+
+    <div title="Rating out of 100">
+      <h3>Rating 🧐</h3>
+      <Score value={review.rating} />
+    </div>
+
+    <div title={`${review.suggested ? "YES!" : "NOPE!"}`}>
+      <h3>Suggested</h3>
+      <Score
+        value={100}
+        invertColour={!review.suggested}
+        forceText={review.suggested ? "👍" : "👎"}
+      />
+    </div>
+  </div>
+  <div class="tags">
+    <Tags tagStrings={[review.tags, product.tags]} />
+  </div>
+</Layout>
+<style>
+  h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: rgb(var(--accent-light));
+    margin: 0;
+  }
+  h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    text-align: center;
+    color: rgb(var(--accent-light));
+  }
+
+  article {
+    padding: 1rem;
+    line-height: 1.6rem;
+    font-size: 1.1rem;
+    margin: 1rem;
+  }
+
+  .proscons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .proscons {
+      gap: 0.5rem;
+      padding: 0 0.2rem;
+    }
+  }
+
+  .proscons > div {
+    border-radius: var(--bradius);
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pros {
+    color: var(--accent-green);
+    background-color: var(--accent-green-light);
+  }
+
+  .pros > h1 {
+    color: var(--accent-green);
+  }
+
+  .cons {
+    color: var(--accent-red);
+    background-color: var(--accent-red-light);
+  }
+
+  .cons > h1 {
+    color: var(--accent-red);
+  }
+
+  .proscons h1 {
+    font-size: 1.4rem;
+  }
+  .proscons li {
+    font-size: 1.2rem;
+  }
+
+  .scores {
+    margin: 1rem 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .scores > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 2rem;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+</style>

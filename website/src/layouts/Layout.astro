@@ -1,0 +1,87 @@
+---
+interface Props {
+  title: string;
+}
+
+import { SEO } from "astro-seo";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/main.css";
+
+
+const { title } = Astro.props;
+
+const description = `Yokupoku - ${title} reviews for people with short attention spans`;
+const enrichedTitle = `Yokupoku - ${title} - Reviews for people with short attention spans`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <slot name="seo">
+      <meta
+        name="description"
+        content={`${title}`}
+      />
+      <SEO
+        title={enrichedTitle}
+        description={description}
+        openGraph={{
+          basic: {
+            title: enrichedTitle,
+            type: "blog",
+            image: `/imgs/backdrop.png`,
+          },
+          optional: {
+            description: description,
+          },
+        }}
+        twitter={{ image: `/imgs/backdrop.png` }}
+        extend={{
+          link: [{ rel: "icon", href: "/favicon.ico" }],
+          meta: [
+            {
+              name: "twitter:image",
+              content: `/imgs/backdrop.png`,
+            },
+            {
+              name: "twitter:title",
+              content: `Yokupoku - ${title}`,
+            },
+            {
+              name: "twitter:description",
+              content: enrichedTitle,
+            },
+          ],
+        }}
+      />
+    </slot>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot name="head">
+      <header>
+        <h1>{title}</h1>
+      </header>
+    </slot>
+    <slot name="navbar">
+      <Navbar />
+    </slot>
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<style>
+  header > h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+</style>

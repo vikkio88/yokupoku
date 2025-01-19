@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --accent: 136, 58, 234;
+  --accent-light: 224, 204, 250;
+  --accent-dark: 49, 10, 101;
+  --accent-green: #155724;
+  --accent-green-light: #d4edda;
+  --accent-red: #721c24;
+  --accent-red-light: #f8d7da;
+  --bradius: 7px;
+  --accent-gradient: linear-gradient(
+    45deg,
+    rgb(var(--accent)),
+    rgb(var(--accent-light)) 30%,
+    white 60%
+  );
+}
+html {
+  font-family: system-ui, sans-serif;
+  background: #13151a;
+  color: white;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: white;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+code {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+div.img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+div.img > img {
+  max-width: 50vw;
+}
+@media (max-width: 768px) {
+  div.img > img {
+    max-width: 80vw;
+  }
+}
+
+.chip {
+  border-radius: var(--bradius);
+  background-color: #23262d;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.chip-reverse {
+  border-radius: var(--bradius);
+  color: #23262d;
+  background-color: white;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+input[type=text] {
+  padding: 1rem 0.5rem;
+  font-size: 1.2rem;
+ 
+}
+
+input[type="checkbox"] {
+  transform: scale(2);
+  margin: 1rem;
+}
+
+
+/*
+Flex utils
+*/
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+}

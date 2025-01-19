@@ -1,58 +1,31 @@
 {
   "name": "yokupoku",
-  "version": "1.0.0",
-  "description": "reviews of things I like",
-  "main": "index.js",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/cheerio": "^0.22.35",
+    "cheerio": "^1.0.0",
+    "imgbox-js": "^1.0.35"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "workspaces": [
+    "website/",
+    "be/",
+    "yokupoku-shared/",
+    "cms/"
+  ],
   "scripts": {
-    "be:stop": "cd be && npm stop",
-    "be": "cd be && npm start",
-    "be:dump:all": "cd be && npm run dump:all",
-    "be:gen:static": "cd be && npm run dump:fe:prods && npm run dump:fe:sitemap",
-    "dev:cms": "cd cms && npm run dev",
-    "dev:be": "cd be && npm run dev",
-    "dev:fe": "cd fe && npm run dev",
-    "dev:all": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\" \"npm:dev:fe\"",
-    "dev:cms-only": "concurrently --kill-others \"npm:dev:cms\" \"npm:dev:be\"",
-    "dev:fe-only": "concurrently --kill-others \"npm:dev:fe\" \"npm:dev:be\"",
-    "build:cms": "cd cms && npm run build",
-    "build:fe": "concurrently \"npm:be\" \"npm run be:gen:static && cd fe && npm run export && cd .. && npm run be:stop\"",
-    "serve:fe": "serve -s fe/out -p 3000",
-    "serve:cms": "npm run o:cms && concurrently --kill-others \"serve -s cms/build -p 3002\" \"npm:be\"",
-    "o:cms": "node scripts/open-cms.js",
-    "deploy:dev": "cd fe && npm run deploy:dev",
-    "deploy:prod": "cd fe && npm run deploy:prod",
-    "sync:data": "node scripts/sync-data-dump.js",
-    "m:g": "npm run meta:grab",
-    "meta:grab": "zx scripts/meta-grab.js",
-    "img:up": "node scripts/img-upload.js",
-    "game:grab": "zx scripts/game-grab.js",
-    "games:import": "node scripts/import-games.js data/games.json",
-    "bdeploy:dev": "npm run build:fe && npm run deploy:dev",
-    "bdeploy:all": "npm run bdeploy:dev && npm run deploy:prod"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vikkio88/yokupoku.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vikkio88/yokupoku/issues"
-  },
-  "homepage": "https://github.com/vikkio88/yokupoku#readme",
-  "dependencies": {
-    "@samkirkland/ftp-deploy": "^1.1.1",
-    "axios": "^0.24.0",
-    "basic-ftp": "^5.0.3",
-    "cheerio": "^1.0.0-rc.10",
-    "concurrently": "^6.4.0",
-    "dotenv": "^10.0.0",
-    "imgbox-js": "^1.0.35",
-    "node-static": "^0.7.11",
-    "open": "^8.4.0",
-    "serve": "^14.0.0",
-    "sharp": "^0.31.2",
-    "zx": "^4.2.0"
+    "be": "cd be && bun start",
+    "be:stop": "cd be && bun stop",
+    "cms": "bun run --filter '*' cms:dev",
+    "web": "bun run --filter '*' web:dev",
+    "web:clean": "cd website && rm -rf dist",
+    "build:web": "bun build:static-assets && cd website && bun run build",
+    "build:static-assets": "cd be &&  bun run dump:fe:prods && bun run dump:fe:sitemap",
+    "game:grab": "bun scripts/gameGrab.ts",
+    "games:import": "bun scripts/gamesImport.ts"
   }
 }

@@ -1,0 +1,85 @@
+---
+import ProductTypeChip from "./common/ProductTypeChip.astro";
+import type { ProductType } from "../libs/enums";
+import type { Review } from "../libs/types";
+import TimeAgo from "./common/react/TimeAgo";
+
+interface Props {
+  review: Review;
+}
+
+const { review: r } = Astro.props;
+
+const type = r.product.type as ProductType;
+const href = `/reviews/${r.slug}`;
+const createdTime = new Date(r.createdAt);
+const title = r.product.name;
+const body = `${r.title} - ${r.subtitle}`;
+---
+
+<li class="cardWrapper chip">
+  <ProductTypeChip type={type} />
+
+  <a href={href}>
+    <h2>
+      {title}
+      <span>➡️</span>
+    </h2>
+    <span class="createdTime">
+      <span class="hide">{createdTime.toLocaleDateString()}</span>
+      <TimeAgo client:load dateTime={createdTime} />
+    </span>
+    <p>
+      {body}
+    </p>
+  </a>
+</li>
+<style>
+  .hide {
+    display: none;
+  }
+  .cardWrapper {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 1px;
+    background-position: 100%;
+  }
+  .cardWrapper > a {
+    line-height: 1.4;
+    padding: calc(1.5rem - 1px);
+    border-radius: 8px;
+    opacity: 0.8;
+  }
+
+  .cardWrapper:hover > a,
+  .cardWrapper:hover > a > h2 {
+    color: #23262d;
+  }
+
+  .cardWrapper > div.type {
+    margin: 0 auto;
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+  .cardWrapper:is(:hover, :focus-within) {
+    background-position: 0;
+    background-image: var(--accent-gradient);
+  }
+  .cardWrapper:is(:hover, :focus-within) h2 {
+    color: rgb(var(--accent-light));
+  }
+
+  span.createdTime {
+    font-size: 0.9rem;
+  }
+</style>

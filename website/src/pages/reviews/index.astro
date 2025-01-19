@@ -1,0 +1,94 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { Review } from "../../libs/types";
+
+const response = await fetch("http://localhost:3001/provider/reviews");
+const allReviews = (await response.json()) as Review[];
+---
+
+<Layout title="Reviews">
+  <main>
+    <ul>
+      {
+        allReviews.map((r) => (
+          <li>
+            <a class="product" href={`/products/${r.product.slug}`}>
+              <h3 class="product">{r.product.name}</h3>
+            </a>
+            <a href={`/reviews/${r.slug}`}>
+              <h3 class="review">
+                <span>{r.title}</span>
+                <span>{r.subtitle}</span>
+              </h3>
+            </a>
+            <div class="navigation">
+              {r.suggested ? "👍" : "👎"}
+              <a href={`/reviews/${r.slug}`}>➡️</a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  a.product:hover {
+    text-decoration: underline;
+  }
+
+  h3.product {
+    font-size: 1.5rem;
+    font-weight: bolder;
+  }
+
+  h3.review {
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  ul {
+    all: unset;
+    margin: 0 2rem;
+  }
+
+  ul > li {
+    list-style-type: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #23262d;
+    border-radius: 7px;
+    background-position: 100%;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  li:is(:hover, :focus-within) {
+    background-position: 0;
+    background-image: var(--accent-gradient);
+    color: #23262d;
+  }
+
+  li:is(:hover, :focus-within) > div > a {
+    color: #23262d;
+  }
+
+  li:is(:hover, :focus-within) > a > h3 {
+    color: #23262d;
+  }
+
+  .navigation a {
+    font-size: 1.5rem;
+  }
+</style>

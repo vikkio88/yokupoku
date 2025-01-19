@@ -1,0 +1,41 @@
+---
+import { csv } from "../../libs/csv";
+
+interface Props {
+  tagStrings: string | string[];
+}
+
+const { tagStrings } = Astro.props;
+
+let tags = new Set<string>();
+const ts = Array.isArray(tagStrings) ? tagStrings : [tagStrings];
+for (const t of ts) {
+  tags = new Set([...tags, ...csv(t)]);
+}
+---
+
+{
+  [...tags].map((t) => (
+    <div class="chip">
+      <span>#</span>
+      {t}
+    </div>
+  ))
+}
+
+<style>
+  div {
+    padding: 0.5rem;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .2rem;
+  }
+
+  div > span {
+    font-size: 1.8rem;
+  }
+</style>

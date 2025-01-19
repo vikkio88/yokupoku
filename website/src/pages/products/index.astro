@@ -1,0 +1,28 @@
+---
+import TimeAgo from "../../components/common/react/TimeAgo";
+import Layout from "../../layouts/Layout.astro";
+import Games from "../../components/productsFilter/Games";
+let response = await fetch(`http://localhost:3001/provider/meta`);
+const meta = await response.json();
+---
+
+<Layout title="Products">
+  <main>
+    <div title={meta.lastUpdate}>
+      Last Update: <TimeAgo client:load dateTime={meta.lastUpdate} />
+    </div>
+    <div class="games">
+      <Games client:load />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main,
+  .games {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+</style>

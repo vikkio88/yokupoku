@@ -1,0 +1,172 @@
+---
+import { SEO } from "astro-seo";
+import ProductTypeChip from "../../components/common/ProductTypeChip.astro";
+import Layout from "../../layouts/Layout.astro";
+import Tags from "../../components/common/Tags.astro";
+import type { Product } from "../../libs/types";
+import TimeAgo from "../../components/common/react/TimeAgo";
+
+export async function getStaticPaths() {
+  const response = await fetch(
+    "http://localhost:3001/provider/reviewed-products"
+  );
+  const products = await response.json();
+  return products.map((product: Product) => {
+    return {
+      params: { slug: product.slug },
+      props: {},
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const response = await fetch(`http://localhost:3001/provider/products/${slug}`);
+const product = (await response.json()) as Product;
+const { name, genre, type, meta, links, image, tags } = product;
+---
+
+<Layout title={`${name} - product details `}>
+  <Fragment slot="head"></Fragment>
+  <SEO
+    slot="seo"
+    title={`${product.name} - Yokupoku`}
+    description={`Reviews for: ${product.name} - Yokupoku - Reviews for people with short attention spans. tags: ${tags}`}
+    openGraph={{
+      basic: {
+        title: `Yokupoku - ${product.name} - info and reviews`,
+        type: "article",
+        image: `${image}`,
+        url: `/products/${slug}`,
+      },
+      optional: {
+        description: `Review of ${product.name} - Yokupoku - Reviews for people with short attention spans. tags: ${tags}`,
+      },
+    }}
+    twitter={{
+      image: `${image}`,
+    }}
+    extend={{
+      link: [{ rel: "icon", href: "/favicon.ico" }],
+      meta: [
+        {
+          name: "twitter:image",
+          content: `${image}`,
+        },
+        {
+          name: "twitter:title",
+          content: `Yokupoku - ${product.name} - info and reviews`,
+        },
+        {
+          name: "twitter:description",
+          content: `${product.name} - info and reviews - Yokupoku - Reviews for people with short attention spans. tags: ${tags}`,
+        },
+      ],
+    }}
+  />
+  <main>
+    <h2>
+      <ProductTypeChip type={type} />
+    </h2>
+    <h1>{name}</h1>
+
+    <h3 title="genre" class="chip-reverse">{genre}</h3>
+    <div class="img">
+      <img src={image} alt={`${name} Product`} />
+    </div>
+
+    <div class="row">
+      {meta?.played && <h3 title="Played Time">⏲️ {meta?.played} hours</h3>}
+      {
+        meta?.store && (
+          <Fragment>
+            {links && (
+              <h3 title="Store">
+                <a href={`${links.split(",")[0]}`} target="_blank">
+                  🛒 {meta?.store}
+                </a>
+              </h3>
+            )}
+            {!links && <h3 title="Store">🛒 {meta?.store}</h3>}
+          </Fragment>
+        )
+      }
+    </div>
+    <div class="tags">
+      <Tags tagStrings={tags} />
+    </div>
+
+    <div class="reviews">
+      {
+        product.reviews.map((r) => (
+          <a href={`/reviews/${r.slug}`}>
+            <div class="chip review">
+              <h2>{r.title}</h2>
+              <h3>{r.subtitle}</h3>
+              <TimeAgo client:visible dateTime={new Date(r.createdAt)} />
+              <h3>➡️</h3>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h3 {
+    padding: 0.5rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 2rem;
+  }
+
+  .reviews {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .review {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: 100%;
+  }
+
+  .review > h2 {
+    margin: 0;
+  }
+  .review > h3 {
+    margin: 0;
+  }
+
+  .review:is(:hover, :focus-within) {
+    color: #23262d;
+  }
+  .review:is(:hover, :focus-within) {
+    background-position: 0;
+    background-image: var(--accent-gradient);
+  }
+
+  span.createdTime {
+    font-size: 0.9rem;
+  }
+</style>

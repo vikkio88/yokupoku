@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+import type { Review } from "../libs/types";
+
+let response = await fetch("http://localhost:3001/provider/reviews/latest");
+const latestReviews = (await response.json()) as Review[];
+
+response = await fetch("http://localhost:3001/provider/reviews");
+let allReviews = (await response.json()) as Review[];
+const total = allReviews.length;
+---
+
+<Layout title="Yokupoku - Reviews for people with short attention spans">
+  <header slot="head">
+    <h2 class="">Yokupoku</h2>
+    <h3>Reviews for people with short attention spans</h3>
+  </header>
+  <main>
+    <h3>So far {total} Reviews 👍👎</h3>
+    <ul role="list" class="reviewsGrid">
+      {latestReviews.map((r) => <ReviewCard review={r} />)}
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 98vw;
+    padding: 1rem;
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  
+
+  .reviewsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+    gap: 2rem;
+    padding: 0;
+  }
+
+  header > h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 1rem;
+    text-align: center;
+    color: rgb(var(--accent-light));
+  }
+</style>

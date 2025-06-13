@@ -8,8 +8,8 @@ const meta = await response.json();
 
 <Layout title="Products">
   <main>
-    <div title={meta.lastUpdate}>
-      Last Update: <TimeAgo client:load dateTime={meta.lastUpdate} />
+    <div title={new Date(meta.lastUpdated).toLocaleString()}>
+      Last Update: <TimeAgo client:load dateTime={meta.lastUpdated} />
     </div>
     <div class="games">
       <Games client:load />

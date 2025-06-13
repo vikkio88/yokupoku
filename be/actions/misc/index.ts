@@ -7,7 +7,7 @@ const pong = (c: Context) => {
 
 const meta = (c: Context) => {
   return c.json({
-    lastUpdated: now(),
+    lastUpdated: new Date(),
     version: require("child_process")
       .execSync("git rev-parse --short HEAD")
       .toString()

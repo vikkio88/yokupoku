@@ -25,6 +25,7 @@
     "web:clean": "cd website && rm -rf dist",
     "build:web": "bun build:static-assets && cd website && bun run build",
     "build:static-assets": "cd be && bun run dump:fe:prods && bun run dump:fe:sitemap",
+    "backup": "cd be && bun scripts/dbBackup.ts",
     "game:grab": "bun scripts/gameGrab.ts",
     "games:import": "bun scripts/gamesImport.ts",
     "deploy:web": "cd website && bunx surge --domain yokupoku.surge.sh dist/",

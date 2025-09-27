@@ -1,9 +1,8 @@
-import { eq, like, ne, desc, asc, and, not } from "drizzle-orm";
+import { eq, ne, like, and, asc, desc, not, count } from "drizzle-orm";
 import db from "../db"; // drizzle db instance
-
+import { products, reviews } from "../drizzle/schema";
 import { generateId, csl, now, slugify } from "../libs/utils";
 import { PRODUCT_TYPES, SLUGEABLE_STORES } from "yokupoku-shared/enums/db";
-import { products, reviews } from "../drizzle/schema";
 
 const format = {
   generateProductSlug(prod: any) {
@@ -94,7 +93,17 @@ const genericProductsFormat = {
   },
 };
 
-export const productsApi = {
+export const productsRepo = {
+  async total({ filter }: { filter?: string }) {
+    const conditions = [] as any[];
+    if (filter) conditions.push(like(products.name, `%${filter}%`));
+    const [{ count: total }] = await db
+      .select({ count: count(products.id) })
+      .from(products)
+      .where(and(...conditions));
+    return total;
+  },
+
   async getBySlug(slug: string) {
     const rows = await db
       .select()
@@ -122,6 +131,42 @@ export const productsApi = {
       .then((rows) => rows.map(genericProductsFormat.selectForSlug));
   },
 
+  async get({
+    range = [0, 9],
+    sort = ["id", "asc"],
+    filter = null,
+  }: {
+    range?: [number, number];
+    sort?: [string, "asc" | "desc"];
+    filter?: string | null;
+  }) {
+    const [lower, upper] = range;
+    const limit = upper - lower;
+    const offset = lower;
+    const conditions = [] as any[];
+    if (filter) conditions.push(like(products.name, `%${filter}%`));
+
+    const rows = await db
+      .select({
+        id: products.id,
+        name: products.name,
+        type: products.type,
+        meta: products.meta,
+        slug: products.slug,
+      })
+      .from(products)
+      .where(and(...conditions))
+      .orderBy(
+        sort[1] === "asc"
+          ? asc((products as any)[sort[0]])
+          : desc((products as any)[sort[0]])
+      )
+      .limit(limit)
+      .offset(offset);
+
+    return rows.map(genericProductsFormat.select);
+  },
+
   async getWithReviews() {
     const reviewRows = await db.query.reviews.findMany({
       where: not(eq(reviews.published, 0)),
@@ -138,16 +183,15 @@ export const productsApi = {
   },
 };
 
-// --- nonGamesProducts (same structure) ---
-export const nonGamesProductsApi = {
+export const nonGamesProductsRepo = {
   async total({ filter }: { filter?: string }) {
     const conditions = [ne(products.type, PRODUCT_TYPES.GAME)];
     if (filter) conditions.push(like(products.name, `%${filter}%`));
-    const [{ count }] = await db
-      .select({ count: db.fn.count(products.id).as("count") })
+    const [{ count: total }] = await db
+      .select({ count: count(products.id) })
       .from(products)
       .where(and(...conditions));
-    return count;
+    return total;
   },
 
   async find(id: string) {
@@ -157,6 +201,41 @@ export const nonGamesProductsApi = {
       .where(and(eq(products.id, id), ne(products.type, PRODUCT_TYPES.GAME)));
     const mapped = rows.map(format.select);
     return mapped.length ? mapped.pop() : null;
+  },
+
+  async get({
+    range = [0, 9],
+    sort = ["id", "asc"],
+    filter = null,
+  }: {
+    range?: [number, number];
+    sort?: [string, "asc" | "desc"];
+    filter?: string | null;
+  }) {
+    const [lower, upper] = range;
+    const limit = upper - lower;
+    const offset = lower;
+    const conditions = [ne(products.type, PRODUCT_TYPES.GAME)];
+    if (filter) conditions.push(like(products.name, `%${filter}%`));
+
+    const rows = await db
+      .select({
+        id: products.id,
+        name: products.name,
+        type: products.type,
+        meta: products.meta,
+      })
+      .from(products)
+      .where(and(...conditions))
+      .orderBy(
+        sort[1] === "asc"
+          ? asc((products as any)[sort[0]])
+          : desc((products as any)[sort[0]])
+      )
+      .limit(limit)
+      .offset(offset);
+
+    return rows.map(format.select);
   },
 
   async create(obj: any) {
@@ -177,4 +256,86 @@ export const nonGamesProductsApi = {
     const result = await db.delete(products).where(eq(products.id, id));
     return result.rowsAffected === 1;
   },
+};
+
+export const gamesRepo = {
+  async total({ filter }: { filter?: string }) {
+    const conditions = [eq(products.type, PRODUCT_TYPES.GAME)];
+    if (filter) conditions.push(like(products.name, `%${filter}%`));
+    const [{ count: total }] = await db
+      .select({ count: count(products.id) })
+      .from(products)
+      .where(and(...conditions));
+    return total;
+  },
+
+  async find(id: string) {
+    const rows = await db
+      .select()
+      .from(products)
+      .where(and(eq(products.id, id), eq(products.type, PRODUCT_TYPES.GAME)));
+    const mapped = rows.map(format.select);
+    return mapped.length ? mapped.pop() : null;
+  },
+
+  async get({
+    range = [0, 9],
+    sort = ["id", "asc"],
+    filter = null,
+  }: {
+    range?: [number, number];
+    sort?: [string, "asc" | "desc"];
+    filter?: string | null;
+  }) {
+    const [lower, upper] = range;
+    const limit = upper - lower;
+    const offset = lower;
+    const conditions = [eq(products.type, PRODUCT_TYPES.GAME)];
+    if (filter) conditions.push(like(products.name, `%${filter}%`));
+
+    const rows = await db
+      .select({
+        id: products.id,
+        name: products.name,
+        meta: products.meta,
+      })
+      .from(products)
+      .where(and(...conditions))
+      .orderBy(
+        sort[1] === "asc"
+          ? asc((products as any)[sort[0]])
+          : desc((products as any)[sort[0]])
+      )
+      .limit(limit)
+      .offset(offset);
+
+    return rows.map(format.select);
+  },
+
+  async create(obj: any) {
+    const payload = format.insert(obj, PRODUCT_TYPES.GAME);
+    await db.insert(products).values(payload);
+    return { id: payload.id };
+  },
+
+  async update(id: string, values: any) {
+    const result = await db
+      .update(products)
+      .set(format.update(values))
+      .where(and(eq(products.id, id), eq(products.type, PRODUCT_TYPES.GAME)));
+    return result.rowsAffected === 1;
+  },
+
+  async delete(id: string) {
+    const result = await db.delete(products).where(eq(products.id, id));
+    return result.rowsAffected === 1;
+  },
+};
+
+export default {
+  format,
+  PRODUCT_TYPES,
+  products: productsRepo,
+  nonGamesProducts: nonGamesProductsRepo,
+  games: gamesRepo,
 };

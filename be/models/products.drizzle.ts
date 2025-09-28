@@ -181,6 +181,20 @@ export const productsRepo = {
       genericProductsFormat.feDataSelect(row, reviewsMap)
     );
   },
+  async getWithReviewsOrdered() {
+    const reviewRows = await db.query.reviews.findMany({
+      where: not(eq(reviews.published, 0)),
+    });
+    const reviewsMap: Record<string, any[]> = {};
+    for (const r of reviewRows.map(genericProductsFormat.feDataReview)) {
+      if (!reviewsMap[r.productId]) reviewsMap[r.productId] = [];
+      reviewsMap[r.productId].push(r);
+    }
+    const prodRows = await db.select().from(products);
+    return prodRows.map((row) =>
+      genericProductsFormat.feDataSelect(row, reviewsMap)
+    );
+  },
 };
 
 export const nonGamesProductsRepo = {

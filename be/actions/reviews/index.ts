@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 
 import { notFound, unprocessable } from "../formatters";
-const model = require("../../models/reviews").default;
+import model from "../../models/reviews.drizzle";
 
 export const get = async (c: Context) => {
   let sort = c.req.query("sort");
@@ -16,10 +16,7 @@ export const get = async (c: Context) => {
   const total = await model.total();
   const reviews = await model.get({ range, sort });
 
-  c.res.headers.append(
-    "Content-Range",
-    `${range[0]}-${range[1]} / ${total}`
-  );
+  c.res.headers.append("Content-Range", `${range[0]}-${range[1]} / ${total}`);
   return c.json(reviews);
 };
 

@@ -14,8 +14,8 @@ export const products = sqliteTable(
     notes: text("notes"),
     released: numeric("released").default(sql`null`),
     consumed: numeric("consumed").default(sql`null`),
-    createdAt: numeric("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: numeric("updated_at").default(sql`CURRENT_TIMESTAMP`),
+    createdAt: numeric("createdAt").default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: numeric("updatedAt").default(sql`CURRENT_TIMESTAMP`),
     slug: text("slug", { length: 255 }),
     image: text("image"),
   },
@@ -52,10 +52,10 @@ export const reviews = sqliteTable(
   {
     id: text("id", { length: 255 }).primaryKey(),
     slug: text("slug", { length: 255 }).notNull(),
-    productId: text("product_id", { length: 255 })
+    productId: text("productId", { length: 255 })
       .notNull()
       .references(() => products.id, { onDelete: "cascade" }),
-    deviceId: text("device_id", { length: 255 })
+    deviceId: text("deviceId", { length: 255 })
       .references(() => devices.id, { onDelete: "set null" }),
     title: text("title", { length: 255 }).notNull(),
     subtitle: text("subtitle", { length: 255 }).notNull(),
@@ -69,8 +69,8 @@ export const reviews = sqliteTable(
     suggested: integer("suggested").default(0),
     spoiler: integer("spoiler").default(0),
     published: integer("published").default(0),
-    createdAt: numeric("created_at").default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: numeric("updated_at").default(sql`CURRENT_TIMESTAMP`),
+    createdAt: numeric("createdAt").default(sql`CURRENT_TIMESTAMP`),
+    updatedAt: numeric("updatedAt").default(sql`CURRENT_TIMESTAMP`),
   },
   (table) => [
     uniqueIndex("reviews_slug_unique").on(table.slug),

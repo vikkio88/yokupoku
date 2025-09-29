@@ -7,7 +7,7 @@ export const products = sqliteTable(
   {
     id: text("id", { length: 255 }).primaryKey(),
     type: text("type").default("other"),
-    meta: numeric("meta"),
+    meta: text("meta", { mode: "json" }),
     name: text("name", { length: 255 }).notNull(),
     genre: text("genre", { length: 255 }),
     tags: text("tags"),

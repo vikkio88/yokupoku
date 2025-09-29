@@ -48,7 +48,7 @@ const format = {
 
 const genericProductsFormat = {
   select(obj: any) {
-    const meta = JSON.parse(obj?.meta ?? null);
+    const meta = obj.meta ?? null;
     return {
       ...obj,
       name: `${obj.name} (${obj.type}${
@@ -74,7 +74,8 @@ const genericProductsFormat = {
     };
   },
   feDataSelect(obj: any, reviewsMap: Record<string, any[]>) {
-    const meta = JSON.parse(obj?.meta ?? null);
+    const meta =
+      typeof obj.meta === "string" ? JSON.parse(obj.meta ?? "{}") : obj.meta;
     const tags = csl.toString(obj.tags);
     return { ...obj, meta, tags, reviews: reviewsMap[obj.id] || [] };
   },
@@ -170,6 +171,7 @@ export const productsRepo = {
   async getWithReviews() {
     const reviewRows = await db.query.reviews.findMany({
       where: not(eq(reviews.published, 0)),
+      with: { product: true },
     });
     const reviewsMap: Record<string, any[]> = {};
     for (const r of reviewRows.map(genericProductsFormat.feDataReview)) {

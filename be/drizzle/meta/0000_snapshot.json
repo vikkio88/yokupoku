@@ -1,0 +1,490 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "6",
+  "dialect": "sqlite",
+  "tables": {
+    "migrations": {
+      "name": "migrations",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "batch": {
+          "autoincrement": false,
+          "name": "batch",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "migration_time": {
+          "autoincrement": false,
+          "name": "migration_time",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "products_check_1": {
+          "name": "products_check_1",
+          "value": "`type` in ('game', 'movie', 'book', 'tv', 'music', 'comic_book', 'other'"
+        },
+        "devices_check_2": {
+          "name": "devices_check_2",
+          "value": "`type` in ('game_console', 'pc', 'reading', 'multimedia', 'other'"
+        }
+      }
+    },
+    "migrations_lock": {
+      "name": "migrations_lock",
+      "columns": {
+        "index": {
+          "autoincrement": false,
+          "name": "index",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "is_locked": {
+          "autoincrement": false,
+          "name": "is_locked",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "products_check_1": {
+          "name": "products_check_1",
+          "value": "`type` in ('game', 'movie', 'book', 'tv', 'music', 'comic_book', 'other'"
+        },
+        "devices_check_2": {
+          "name": "devices_check_2",
+          "value": "`type` in ('game_console', 'pc', 'reading', 'multimedia', 'other'"
+        }
+      }
+    },
+    "products": {
+      "name": "products",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "text(255)",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "type": {
+          "default": "'other'",
+          "autoincrement": false,
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "meta": {
+          "autoincrement": false,
+          "name": "meta",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "genre": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "genre",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tags": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "tags",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "links": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "links",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notes": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "released": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "released",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "consumed": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "consumed",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "createdAt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updatedAt": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "updatedAt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "slug": {
+          "autoincrement": false,
+          "name": "slug",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "autoincrement": false,
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "products_slug_unique": {
+          "name": "products_slug_unique",
+          "columns": [
+            "slug"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "products_check_1": {
+          "name": "products_check_1",
+          "value": "`type` in ('game', 'movie', 'book', 'tv', 'music', 'comic_book', 'other'"
+        },
+        "devices_check_2": {
+          "name": "devices_check_2",
+          "value": "`type` in ('game_console', 'pc', 'reading', 'multimedia', 'other'"
+        }
+      }
+    },
+    "devices": {
+      "name": "devices",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "text(255)",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "default": "'other'",
+          "autoincrement": false,
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "meta": {
+          "autoincrement": false,
+          "name": "meta",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "links": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "links",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notes": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ownedFrom": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "ownedFrom",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "products_check_1": {
+          "name": "products_check_1",
+          "value": "`type` in ('game', 'movie', 'book', 'tv', 'music', 'comic_book', 'other'"
+        },
+        "devices_check_2": {
+          "name": "devices_check_2",
+          "value": "`type` in ('game_console', 'pc', 'reading', 'multimedia', 'other'"
+        }
+      }
+    },
+    "reviews": {
+      "name": "reviews",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "text(255)",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "slug": {
+          "autoincrement": false,
+          "name": "slug",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "productId": {
+          "autoincrement": false,
+          "name": "productId",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deviceId": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "deviceId",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "title": {
+          "autoincrement": false,
+          "name": "title",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subtitle": {
+          "autoincrement": false,
+          "name": "subtitle",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "autoincrement": false,
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "autoincrement": false,
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pros": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "pros",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cons": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "cons",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tags": {
+          "default": "(null)",
+          "autoincrement": false,
+          "name": "tags",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rating": {
+          "autoincrement": false,
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bsi": {
+          "autoincrement": false,
+          "name": "bsi",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "suggested": {
+          "default": "'0'",
+          "autoincrement": false,
+          "name": "suggested",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spoiler": {
+          "default": "'0'",
+          "autoincrement": false,
+          "name": "spoiler",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published": {
+          "default": "'0'",
+          "autoincrement": false,
+          "name": "published",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "createdAt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updatedAt": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "updatedAt",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "reviews_slug_unique": {
+          "name": "reviews_slug_unique",
+          "columns": [
+            "slug"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "reviews_deviceId_devices_id_fk": {
+          "name": "reviews_deviceId_devices_id_fk",
+          "tableFrom": "reviews",
+          "tableTo": "devices",
+          "columnsFrom": [
+            "deviceId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
+        "reviews_productId_products_id_fk": {
+          "name": "reviews_productId_products_id_fk",
+          "tableFrom": "reviews",
+          "tableTo": "products",
+          "columnsFrom": [
+            "productId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "products_check_1": {
+          "name": "products_check_1",
+          "value": "`type` in ('game', 'movie', 'book', 'tv', 'music', 'comic_book', 'other'"
+        },
+        "devices_check_2": {
+          "name": "devices_check_2",
+          "value": "`type` in ('game_console', 'pc', 'reading', 'multimedia', 'other'"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

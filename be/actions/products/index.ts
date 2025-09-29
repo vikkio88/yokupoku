@@ -1,27 +1,27 @@
 import type { Context } from "hono";
 import { notFound, unprocessable } from "../formatters";
 
-const model = require("../../models/products");
+import model from "../../models/products.drizzle";
+
+type Range = [number, number];
+type Sort = [string, "desc" | "asc"];
 
 const games = {
   get: async (c: Context) => {
-    let sort = c.req.query("sort");
+    const sortParam = c.req.query("sort");
     const filter = c.req.query("q");
     const rangeStart: string | undefined = c.req.query("rs");
     const rangeEnd: string | undefined = c.req.query("re");
     const range = (
       rangeStart && rangeEnd ? [rangeStart, rangeEnd] : [0, 10]
-    ) as number[];
-    sort = sort ? JSON.parse(sort) : ["id", "desc"];
+    ) as Range;
+    const sort: Sort = sortParam ? JSON.parse(sortParam) : ["id", "desc"];
 
     const total = await model.games.total({ filter });
     const games = await model.games.get({ range, sort, filter });
 
     const topRange = Math.min(games.length, range[1]);
-    c.res.headers.append(
-      "Content-Range",
-      `${range[0]}-${topRange} / ${total}`
-    );
+    c.res.headers.append("Content-Range", `${range[0]}-${topRange} / ${total}`);
     return c.json(games);
   },
   find: async (c: Context) => {
@@ -60,20 +60,17 @@ const games = {
 
 const nonGamesProducts = {
   get: async (c: Context) => {
-    let range: string | number[] | undefined = c.req.query("range");
-    let sort = c.req.query("sort");
+    const rangeParam: string | number[] | undefined = c.req.query("range");
+    const sortParam = c.req.query("sort");
     let filter = c.req.query("q");
-    range = (range ? JSON.parse(range) : [0, 10]) as number[];
-    sort = sort ? JSON.parse(sort) : ["id", "desc"];
+    const range = (rangeParam ? JSON.parse(rangeParam) : [0, 10]) as Range;
+    const sort: Sort = sortParam ? JSON.parse(sortParam) : ["id", "desc"];
 
     const total = await model.nonGamesProducts.total({ filter });
     const products = await model.nonGamesProducts.get({ range, sort, filter });
 
     const topRange = Math.min(products.length, range[1]);
-    c.res.headers.append(
-      "Content-Range",
-      `${range[0]}-${topRange} / ${total}`
-    );
+    c.res.headers.append("Content-Range", `${range[0]}-${topRange} / ${total}`);
     return c.json(products);
   },
   find: async (c: Context) => {
@@ -112,23 +109,20 @@ const nonGamesProducts = {
 
 const products = {
   get: async (c: Context) => {
-    let sort = c.req.query("sort");
+    let sortParam = c.req.query("sort");
     const filter = c.req.query("q");
     const rangeStart: string | undefined = c.req.query("rs");
     const rangeEnd: string | undefined = c.req.query("re");
     const range = (
       rangeStart && rangeEnd ? [rangeStart, rangeEnd] : [0, 30]
-    ) as number[];
-    sort = sort ? JSON.parse(sort) : ["id", "desc"];
+    ) as Range;
+    const sort = (sortParam ? JSON.parse(sortParam) : ["id", "desc"]) as Sort;
 
     const total = await model.products.total({ filter });
     const products = await model.products.get({ range, sort, filter });
 
     const topRange = Math.min(products.length, range[1]);
-    c.res.headers.append(
-      "Content-Range",
-      `${range[0]}-${topRange} / ${total}`
-    );
+    c.res.headers.append("Content-Range", `${range[0]}-${topRange} / ${total}`);
     return c.json(products);
   },
   find: async (c: Context) => {

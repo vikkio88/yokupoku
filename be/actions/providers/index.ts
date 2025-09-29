@@ -1,8 +1,8 @@
 import type { Context } from "hono";
 import { notFound } from "../formatters";
 
-import reviewModel from "../../models/reviews";
-const productModels = require("../../models/products");
+import reviewModel from "../../models/reviews.drizzle";
+import productModels from "../../models/products.drizzle";
 
 const getPublished = async (c: Context) => {
   const reviews = await reviewModel.getPublished();
@@ -27,7 +27,7 @@ const getReview = async (c: Context) => {
 };
 
 const getProducts = async (c: Context) => {
-  const products = await productModels.products.getIndexedByTypeWithReviews();
+  const products = await productModels.products.getWithReviews();
   return c.json(products);
 };
 
@@ -42,7 +42,7 @@ const getProduct = async (c: Context) => {
 };
 
 const getReviewedProducts = async (c: Context) => {
-  const products = await productModels.products.getOnlyWithReviews();
+  const products = await productModels.products.getWithReviews();
   return c.json(products);
 };
 

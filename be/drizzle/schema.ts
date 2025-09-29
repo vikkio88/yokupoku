@@ -1,5 +1,6 @@
 import { sqliteTable, integer, numeric, uniqueIndex, text, check } from "drizzle-orm/sqlite-core"
 import { sql } from "drizzle-orm"
+import { relations } from "drizzle-orm/relations";
 
 export const products = sqliteTable(
   "products",
@@ -76,3 +77,23 @@ export const reviews = sqliteTable(
     uniqueIndex("reviews_slug_unique").on(table.slug),
   ]
 )
+
+
+export const reviewsRelations = relations(reviews, ({one}) => ({
+	device: one(devices, {
+		fields: [reviews.deviceId],
+		references: [devices.id]
+	}),
+	product: one(products, {
+		fields: [reviews.productId],
+		references: [products.id]
+	}),
+}));
+
+export const devicesRelations = relations(devices, ({many}) => ({
+	reviews: many(reviews),
+}));
+
+export const productsRelations = relations(products, ({many}) => ({
+	reviews: many(reviews)
+}));

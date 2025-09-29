@@ -4,9 +4,17 @@ import { now } from "../../libs/utils";
 import { productsRepo as products } from "../../models/products.drizzle";
 import { DUMP_DIR } from "./const";
 
+// A little bit simplified version
+const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+  arr.reduce((groups, item) => {
+    (groups[key(item)] ||= []).push(item);
+    return groups;
+  }, {} as Record<K, T[]>);
+
 const dump = async (): Promise<void> => {
   console.log("Saving New FE Product Dump");
-  const data = await products.getWithReviewsOrdered();
+  const reviews = await products.getWithReviewsOrdered();
+  const data: Record<string,typeof reviews> = groupBy(reviews, r => r.type || "unknown");
 
   for (const type in data) {
     const rows = data[type as keyof typeof data];

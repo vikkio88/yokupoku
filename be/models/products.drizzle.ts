@@ -182,18 +182,12 @@ export const productsRepo = {
     );
   },
   async getWithReviewsOrdered() {
-    const reviewRows = await db.query.reviews.findMany({
-      where: not(eq(reviews.published, 0)),
+    return db.query.products.findMany({
+      with: {
+        reviews: true,
+      },
+      orderBy: [desc(products.createdAt), desc(products.updatedAt)],
     });
-    const reviewsMap: Record<string, any[]> = {};
-    for (const r of reviewRows.map(genericProductsFormat.feDataReview)) {
-      if (!reviewsMap[r.productId]) reviewsMap[r.productId] = [];
-      reviewsMap[r.productId].push(r);
-    }
-    const prodRows = await db.select().from(products);
-    return prodRows.map((row) =>
-      genericProductsFormat.feDataSelect(row, reviewsMap)
-    );
   },
 };
 

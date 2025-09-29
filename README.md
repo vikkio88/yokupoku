@@ -1,15 +1,10 @@
 # yokupoku
+reviews of things I like
 
-To install dependencies:
+[prod](https://yokupoku.website/)
 
-```bash
-bun install
-```
+[dev](https://yoku-dev.surge.sh/)
 
-To run:
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.31. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Local
+[CMS](http://localhost:3002)

@@ -2,9 +2,7 @@ import type { Context } from "hono";
 import { notFound, unprocessable } from "../formatters";
 
 import model from "../../models/products.drizzle";
-
-type Range = [number, number];
-type Sort = [string, "desc" | "asc"];
+import type { Sort, Range } from "../../libs/params";
 
 const games = {
   get: async (c: Context) => {
@@ -14,7 +12,7 @@ const games = {
     const rangeEnd: string | undefined = c.req.query("re");
     const range = (
       rangeStart && rangeEnd ? [rangeStart, rangeEnd] : [0, 10]
-    ) as Range;
+    ) as unknown as Range;
     const sort: Sort = sortParam ? JSON.parse(sortParam) : ["id", "desc"];
 
     const total = await model.games.total({ filter });

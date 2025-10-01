@@ -1,6 +1,6 @@
 import db from "../db";
 import { generateId, slugify, csl, nBoolean, now } from "../libs/utils";
-import { eq, desc, getTableColumns } from "drizzle-orm";
+import { and, eq, desc, asc, getTableColumns, like, count } from "drizzle-orm";
 import { reviews, products } from "../drizzle/schema";
 
 export type Review = typeof reviews.$inferSelect;
@@ -77,6 +77,62 @@ export const reviewsRepo = {
 
     return rows.length ? format.select(rows[0]) : null;
   },
+  async find(id: string) {
+    const rows = await db
+      .select({
+        ...getTableColumns(reviews),
+        productName: products.name,
+        productType: products.type,
+        productSlug: products.slug,
+      })
+      .from(reviews)
+      .innerJoin(products, eq(products.id, reviews.productId))
+      .where(eq(reviews.id, id));
+
+    return rows.length ? format.select(rows[0]) : null;
+  },
+
+  async get({
+    range = [0, 9],
+    sort = ["id", "asc"],
+    filter = null,
+  }: {
+    range?: [number, number];
+    sort?: [string, "asc" | "desc"];
+    filter?: string | null;
+  }) {
+    const [lower, upper] = range;
+    const limit = upper - lower;
+    const offset = lower;
+    const conditions = [] as any[];
+    if (filter) conditions.push(like(reviews.title, `%${filter}%`));
+
+    const rows = await db
+      .select({
+        ...getTableColumns(reviews),
+      })
+      .from(reviews)
+      .where(and(...conditions))
+      .orderBy(
+        sort[1] === "asc"
+          ? asc((reviews as any)[sort[0]])
+          : desc((reviews as any)[sort[0]])
+      )
+      .limit(limit)
+      .offset(offset);
+
+    return rows.map(format.select);
+  },
+
+  async total({ filter }: { filter?: string }) {
+    const conditions = [];
+    if (filter) conditions.push(like(products.name, `%${filter}%`));
+    const [{ count: total }] = await db
+      .select({ count: count(products.id) })
+      .from(reviews)
+      .where(and(...conditions));
+    return total;
+  },
 
   async getPublished() {
     const rows = await db
@@ -146,6 +202,9 @@ export const reviewsRepo = {
 
 export default {
   format,
+  find: reviewsRepo.find,
+  get: reviewsRepo.get,
+  total: reviewsRepo.total,
   getByProductId: reviewsRepo.getByProductId,
   getBySlug: reviewsRepo.getBySlug,
   getPublished: reviewsRepo.getPublished,

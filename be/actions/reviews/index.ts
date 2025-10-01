@@ -2,20 +2,20 @@ import type { Context } from "hono";
 
 import { notFound, unprocessable } from "../formatters";
 import model from "../../models/reviews.drizzle";
+import type { Range, Sort } from "../../libs/params";
 
 export const get = async (c: Context) => {
-  let sort = c.req.query("sort");
+  const sortParam = c.req.query("sort");
   const filter = c.req.query("q");
   const rangeStart: string | undefined = c.req.query("rs");
   const rangeEnd: string | undefined = c.req.query("re");
   const range = (
     rangeStart && rangeEnd ? [rangeStart, rangeEnd] : [0, 10]
-  ) as number[];
-  sort = sort ? JSON.parse(sort) : ["id", "desc"];
+  ) as Range;
+  const sort: Sort = sortParam ? JSON.parse(sortParam) : ["id", "desc"];
 
-  const total = await model.total();
-  const reviews = await model.get({ range, sort });
-
+  const total = await model.total({ filter });
+  const reviews = await model.get({ filter, range, sort });
   c.res.headers.append("Content-Range", `${range[0]}-${range[1]} / ${total}`);
   return c.json(reviews);
 };

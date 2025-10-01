@@ -1,8 +1,9 @@
 import { eq, ne, like, and, asc, desc, not, count } from "drizzle-orm";
-import db from "../db"; // drizzle db instance
+import db from "../db";
 import { products, reviews } from "../drizzle/schema";
 import { generateId, csl, now, slugify } from "../libs/utils";
 import { PRODUCT_TYPES, SLUGEABLE_STORES } from "yokupoku-shared/enums/db";
+import type { Range } from "../libs/params";
 
 const format = {
   generateProductSlug(prod: any) {
@@ -40,7 +41,7 @@ const format = {
   select(obj: any) {
     return {
       ...obj,
-      meta: JSON.parse(obj?.meta ?? null),
+      meta: obj?.meta ?? null,
       tags: csl.toString(obj.tags),
     };
   },
@@ -293,7 +294,7 @@ export const gamesRepo = {
     sort = ["id", "asc"],
     filter = null,
   }: {
-    range?: [number, number];
+    range?: Range;
     sort?: [string, "asc" | "desc"];
     filter?: string | null;
   }) {

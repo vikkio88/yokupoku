@@ -3,12 +3,15 @@ import { useParams } from "react-router";
 import Spinner from "../components/shared/spinner";
 import { productsApi } from "../libs/api";
 import { useState } from "react";
-import { Edit as ProductEdit, View as ProductView } from "../components/products";
+import {
+  Edit as ProductEdit,
+  View as ProductView,
+} from "../components/products";
 
 export default function Product() {
   const [isInViewMode, setIsInViewMode] = useState(true);
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["product", id],
     queryFn: async () => productsApi.find(id!),
   });
@@ -23,7 +26,15 @@ export default function Product() {
         {isInViewMode ? "Edit" : "View"}
       </button>
       {isInViewMode && data && <ProductView product={data?.result} />}
-      {!isInViewMode && data && <ProductEdit product={data?.result} />}
+      {!isInViewMode && data && (
+        <ProductEdit
+          product={data?.result}
+          onFinished={() => {
+            setIsInViewMode(true);
+            refetch();
+          }}
+        />
+      )}
     </>
   );
 }

@@ -13,7 +13,7 @@ const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
 
 const dump = async (): Promise<void> => {
   console.log("Saving New FE Product Dump");
-  const reviews = await products.getWithReviewsOrdered();
+  const reviews = await products.getWithCompactReviewsOrdered();
   const data: Record<string,typeof reviews> = groupBy(reviews, r => r.type || "unknown");
 
   for (const type in data) {

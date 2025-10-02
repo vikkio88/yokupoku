@@ -39,9 +39,11 @@ const format = {
     };
   },
   select(obj: any) {
+    const meta =
+      typeof obj.meta === "string" ? JSON.parse(obj.meta) : obj.meta ?? null;
     return {
       ...obj,
-      meta: obj?.meta ?? null,
+      meta,
       tags: csl.toString(obj.tags),
     };
   },
@@ -49,7 +51,8 @@ const format = {
 
 const genericProductsFormat = {
   select(obj: any) {
-    const meta = obj.meta ?? null;
+    const meta =
+      typeof obj.meta === "string" ? JSON.parse(obj.meta) : obj.meta ?? null;
     return {
       ...obj,
       name: `${obj.name} (${obj.type}${
@@ -169,25 +172,25 @@ export const productsRepo = {
     return rows.map(genericProductsFormat.select);
   },
 
-  async getWithReviews() {
+  async getWithAtLeastOneReview() {
     const reviewRows = await db.query.reviews.findMany({
       where: not(eq(reviews.published, 0)),
-      with: { product: true },
+      with: { product: { columns: { slug: true, id: true, name: true } } },
     });
-    const reviewsMap: Record<string, any[]> = {};
-    for (const r of reviewRows.map(genericProductsFormat.feDataReview)) {
-      if (!reviewsMap[r.productId]) reviewsMap[r.productId] = [];
-      reviewsMap[r.productId].push(r);
-    }
-    const prodRows = await db.select().from(products);
-    return prodRows.map((row) =>
-      genericProductsFormat.feDataSelect(row, reviewsMap)
-    );
+    return reviewRows.map((r) => r.product);
   },
-  async getWithReviewsOrdered() {
+  async getWithCompactReviewsOrdered() {
     return db.query.products.findMany({
       with: {
-        reviews: true,
+        reviews: {
+          columns: {
+            id: true,
+            productId: true,
+            slug: true,
+            title: true,
+            subtitle: true,
+          },
+        },
       },
       orderBy: [desc(products.createdAt), desc(products.updatedAt)],
     });

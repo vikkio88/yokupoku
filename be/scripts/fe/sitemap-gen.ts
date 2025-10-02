@@ -78,7 +78,7 @@ const sitemapReviewsGen = async (): Promise<string> => {
 const sitemapProductsGen = async (): Promise<string> => {
   try {
     const smStream = new SitemapStream({ hostname: HOST });
-    const products = await productModel.getWithReviews();
+    const products = await productModel.getWithAtLeastOneReview();
 
     products.forEach((prod: { slug: string; image: string }) => {
       smStream.write({

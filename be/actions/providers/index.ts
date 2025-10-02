@@ -27,7 +27,7 @@ const getReview = async (c: Context) => {
 };
 
 const getProducts = async (c: Context) => {
-  const products = await productModels.products.getWithReviews();
+  const products = await productModels.products.getWithAtLeastOneReview();
   return c.json(products);
 };
 
@@ -42,7 +42,7 @@ const getProduct = async (c: Context) => {
 };
 
 const getReviewedProducts = async (c: Context) => {
-  const products = await productModels.products.getWithReviews();
+  const products = await productModels.products.getWithAtLeastOneReview();
   return c.json(products);
 };
 

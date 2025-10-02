@@ -1,5 +1,4 @@
 import type { Context } from "hono";
-const { now } = require("../../libs/utils");
 
 const pong = (c: Context) => {
   return c.json({ pong: true, env: process.env.LABEL });

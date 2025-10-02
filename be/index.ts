@@ -11,7 +11,7 @@ const app = new Hono();
 app.use(
   "*",
   cors({
-    origin: ["http://localhost:5173","http://localhost:3002"] ,
+    origin: ["http://localhost:5173", "http://localhost:3002"],
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
     exposeHeaders: ["Content-Range"],
@@ -76,7 +76,10 @@ provider.get("/reviewed-products", providers.getReviewedProducts);
 app.route("/api", api);
 app.route("/provider", provider);
 
-app.post("/stop", () => process.exit(0));
+app.post("/stop", () => {
+  console.log("Stop request received");
+  process.exit(0);
+});
 app.get("/", misc.fallback);
 app.all("/*", (c) => c.json({ err: "not found" }, 404));
 

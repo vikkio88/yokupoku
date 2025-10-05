@@ -1,5 +1,7 @@
 import type { Product, Review, ReviewLi } from "yokupoku-shared";
-const BASE_URL = "http://localhost:3001/api";
+import { LOCAL_API_URL } from "yokupoku-shared/config";
+
+const BASE_URL = `${LOCAL_API_URL}/api`;
 
 type FetchOptions = {
   method: string;

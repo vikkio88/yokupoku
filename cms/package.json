@@ -17,7 +17,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.1",
     "react-router": "^7.0.2",
-    "yokupoku-shared": "../yokupoku-shared"
+    "yokupoku-shared": "workspace:*"
   },
   "trustedDependencies": ["tinchi"],
   "devDependencies": {

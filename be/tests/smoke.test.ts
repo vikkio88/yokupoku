@@ -1,4 +1,5 @@
 import { describe, test, expect } from "bun:test";
+import { LOCAL_API_URL } from "yokupoku-shared/config";
 
 const endpoints = [
   { method: "GET", url: "/api/reviews" },
@@ -38,7 +39,7 @@ describe("API Endpoints", () => {
   endpoints.forEach(({ method, url }) => {
     test(`${method} ${url} should not return 500`, async () => {
       const resolvedUrl = url.replace(/:id|:slug/, "test-id-or-slug");
-      const response = await fetch(`http://localhost:3001${resolvedUrl}`, {
+      const response = await fetch(`${LOCAL_API_URL}${resolvedUrl}`, {
         method,
       });
       expect(response.status).not.toBe(500);

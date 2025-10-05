@@ -23,7 +23,7 @@
     "hono": "^4.6.14",
     "sitemap": "^7.1.0",
     "ulid": "^2.3.0",
-    "yokupoku-shared": "../yokupoku-shared"
+    "yokupoku-shared": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest",

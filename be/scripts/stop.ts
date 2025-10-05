@@ -1,4 +1,6 @@
-await fetch("http://localhost:3001/stop", {
+import { LOCAL_API_URL } from "yokupoku-shared/config";
+
+await fetch(`${LOCAL_API_URL}/stop`, {
   method: "POST",
   body: JSON.stringify({}),
 })

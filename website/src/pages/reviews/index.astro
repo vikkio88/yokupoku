@@ -1,8 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { BASE_API_URL } from "../../libs/config";
 import type { Review } from "../../libs/types";
 
-const response = await fetch("http://localhost:3001/provider/reviews");
+const response = await fetch(`${BASE_API_URL}/provider/reviews`);
 const allReviews = (await response.json()) as Review[];
 ---
 

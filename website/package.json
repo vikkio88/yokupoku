@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "4.1.0",
+    "@astrojs/react": "4.4.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "astro": "5.0.5",
+    "astro": "5.14.1",
     "astro-seo": "^0.8.4",
     "marked": "^14.1.3",
     "react": "^18.3.1",
@@ -23,6 +23,6 @@
     "timeago.js": "^4.0.2",
     "typescript": "^5.6.3",
     "use-debounce": "^10.0.4",
-    "yokupoku-shared": "../yokupoku-shared"
+    "yokupoku-shared": "workspace:*"
   }
 }

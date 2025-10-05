@@ -2,11 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import ReviewCard from "../components/ReviewCard.astro";
 import type { Review } from "../libs/types";
+import { BASE_API_URL } from "../libs/config";
 
-let response = await fetch("http://localhost:3001/provider/reviews/latest");
+let response = await fetch(`${BASE_API_URL}/provider/reviews/latest`);
 const latestReviews = (await response.json()) as Review[];
 
-response = await fetch("http://localhost:3001/provider/reviews");
+response = await fetch(`${BASE_API_URL}/provider/reviews`);
 let allReviews = (await response.json()) as Review[];
 const total = allReviews.length;
 ---
@@ -40,7 +41,6 @@ const total = allReviews.length;
     background-size: 400%;
     background-position: 0%;
   }
-  
 
   .reviewsGrid {
     display: grid;

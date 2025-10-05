@@ -1,3 +1,5 @@
+export { LOCAL_API_URL } from "./config";
+
 export const PRODUCT_TYPES = {
   GAME: "game",
   MOVIE: "movie",

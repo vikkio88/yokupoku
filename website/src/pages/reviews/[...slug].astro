@@ -6,9 +6,10 @@ import { SEO } from "astro-seo";
 import { csv } from "../../libs/csv";
 import Score from "../../components/common/Score.astro";
 import Tags from "../../components/common/Tags.astro";
+import { BASE_API_URL } from "../../libs/config";
 
 export async function getStaticPaths() {
-  let resp = await fetch("http://localhost:3001/provider/reviews");
+  let resp = await fetch(`${BASE_API_URL}/provider/reviews`);
   const reviews = (await resp.json()) as Review[];
 
   return reviews.map((r: Review) => {
@@ -25,7 +26,7 @@ interface Props {
 
 const { slug }: Props = Astro.props;
 
-const resp = await fetch(`http://localhost:3001/provider/reviews/${slug}`);
+const resp = await fetch(`${BASE_API_URL}/provider/reviews/${slug}`);
 const { review, product } = (await resp.json()) as ReviewDetails;
 
 const renderedContent = parse(review.content);
@@ -229,5 +230,4 @@ const cons = csv(review.cons);
   a:hover {
     text-decoration: underline;
   }
-
 </style>

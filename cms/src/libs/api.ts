@@ -65,7 +65,8 @@ export const reviewsApi = {
     console.log({ page, size, filter });
     return fetchApi("/reviews", { method: "GET" });
   },
-  find: (id: string) => fetchApi(`/reviews/${id}`, { method: "GET" }),
+  find: (id: string): Promise<Response<Review>> =>
+    fetchApi(`/reviews/${id}`, { method: "GET" }),
   create: (data: Review) =>
     fetchApi("/reviews", { method: "POST", body: data }),
   update: (id: string, data: Review) =>

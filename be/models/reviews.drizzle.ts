@@ -78,18 +78,10 @@ export const reviewsRepo = {
     return rows.length ? format.select(rows[0]) : null;
   },
   async find(id: string) {
-    const rows = await db
-      .select({
-        ...getTableColumns(reviews),
-        productName: products.name,
-        productType: products.type,
-        productSlug: products.slug,
-      })
-      .from(reviews)
-      .innerJoin(products, eq(products.id, reviews.productId))
-      .where(eq(reviews.id, id));
-
-    return rows.length ? format.select(rows[0]) : null;
+    return await db.query.reviews.findFirst({
+      where: eq(reviews.id, id),
+      with: { product: true },
+    });
   },
 
   async get({

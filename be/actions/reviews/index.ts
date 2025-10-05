@@ -23,14 +23,9 @@ export const get = async (c: Context) => {
 export const find = async (c: Context) => {
   const id = c.req.param("id");
   const result = await model.find(id);
-  let review = null;
-  if (Array.isArray(result) && result.length) {
-    review = result.pop();
-  }
+  if (!result) return notFound(c);
 
-  if (!review) return notFound(c);
-
-  return c.json(review);
+  return c.json(result);
 };
 
 export const create = async (c: Context) => {

@@ -4,7 +4,7 @@ import { SubmitHandler } from "react-hook-form";
 import { productsApi } from "../../libs/api";
 import { useState } from "react";
 import Spinner from "../shared/spinner";
-import Form from "./form";
+import Form from "./Form";
 
 type Props = {
   product: Product;

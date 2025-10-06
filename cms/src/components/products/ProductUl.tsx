@@ -1,6 +1,5 @@
 import { Product } from "yokupoku-shared";
 import ProductLi from "./ProductLi";
-import s from "./styles/product.module.css";
 
 type Props = {
   products: Product[];
@@ -9,7 +8,7 @@ type Props = {
 
 export default function ProductUl({ products, onReset }: Props) {
   return (
-    <ul className={s.ul}>
+    <ul>
       {products.map((p) => (
         <ProductLi key={p.id} product={p} />
       ))}

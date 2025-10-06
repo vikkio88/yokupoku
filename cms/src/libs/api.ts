@@ -34,12 +34,21 @@ function parseRange(headers: Headers): Range | undefined {
   };
 }
 
+function buildPaginationQuery(page = 0, size = 30, filter?: string) {
+  const rs = page * size;
+  const re = (page + 1) * size - 1;
+  const q = filter ? `&q=${encodeURIComponent(filter)}` : "";
+  return `?rs=${rs}&re=${re}${q}`;
+}
+
 async function fetchApi<T>(
   endpoint: string,
-  options: FetchOptions
+  options: FetchOptions,
+  additionalHeaders: Record<string, string> = {}
 ): Promise<Response<T>> {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    ...additionalHeaders,
   };
 
   const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -64,8 +73,8 @@ export const reviewsApi = {
     size = 30,
     filter?: string
   ): Promise<Response<ReviewLi[]>> => {
-    console.log({ page, size, filter });
-    return fetchApi("/reviews", { method: "GET" });
+    const query = buildPaginationQuery(page, size, filter);
+    return fetchApi(`/reviews${query}`, { method: "GET" });
   },
   find: (id: string): Promise<Response<Review>> =>
     fetchApi(`/reviews/${id}`, { method: "GET" }),

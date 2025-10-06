@@ -88,3 +88,52 @@ export const productValidators = {
       "Updated At must be a valid date or parseable string",
   },
 };
+
+export const reviewValidators = {
+  id: { required: true },
+  slug: { required: true },
+  productId: { required: true },
+  deviceId: {},
+  title: { required: true },
+  subtitle: {},
+  image: {
+    required: true,
+    pattern: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+    message: "Image must be a valid URL",
+  },
+  content: { required: true },
+  pros: {},
+  cons: {},
+  tags: {
+    pattern: /^[^,]+(,[^,]+)*$/,
+    message: "Tags must be a comma-separated list of values",
+  },
+  rating: {
+    validate: (value: number | string) =>
+      value === "" ||
+      (!isNaN(Number(value)) && Number(value) >= 0 && Number(value) <= 10) ||
+      "Rating must be a number between 0 and 10",
+  },
+  bsi: {
+    validate: (value: number | string) =>
+      value === "" ||
+      (!isNaN(Number(value)) && Number(value) >= 0) ||
+      "BSI must be a positive number",
+  },
+  suggested: {},
+  spoiler: {},
+  published: {},
+  createdAt: {
+    required: true,
+    validate: (value: string) =>
+      !isNaN(Date.parse(value)) ||
+      "Created At must be a valid date or parseable string",
+  },
+  updatedAt: {
+    required: true,
+    validate: (value: string) =>
+      !isNaN(Date.parse(value)) ||
+      "Updated At must be a valid date or parseable string",
+  },
+};
+

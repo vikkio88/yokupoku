@@ -1,5 +1,4 @@
 import { ReviewLi } from "yokupoku-shared";
-import s from "./styles/reviewLi.module.css";
 import Li  from "./ReviewLi";
 
 type Props = {
@@ -7,7 +6,7 @@ type Props = {
 };
 export default function ReviewUl({ reviews }: Props) {
   return (
-    <ul className={s.ul}>
+    <ul>
       {reviews.map((r) => (
         <Li key={r.id} review={r} />
       ))}

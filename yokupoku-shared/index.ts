@@ -105,6 +105,7 @@ export interface Review {
   published: boolean;
   createdAt: Date | string;
   updatedAt: Date | string;
+  product?: Product;
 }
 
 export interface ProductLi {

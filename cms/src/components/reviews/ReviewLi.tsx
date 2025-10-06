@@ -9,10 +9,10 @@ export default function ReviewLi({ review }: Props) {
   const navigate = useNavigate();
   return (
     <li className={`${s.li} f r spb ic`}>
-      <p className="f c">
+      <div className="f c">
         <h3>{review.title}</h3>
         <span>{review.product.name}</span>
-      </p>
+      </div>
       <span>
         <button
           className="small"

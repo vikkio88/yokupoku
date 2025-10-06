@@ -2,6 +2,9 @@ import { $ } from "bun";
 
 const MAIN_DB_FILE = "./db/data/dev.sqlite3";
 const BACKUP_FILE = "./db/data/dumps/backup_%DATE.sqlite3";
+const REMOTE = "pi4";
+const REMOTE_PATH = "usb/yokupokubackups";
+
 const formatDate = (date: Date): string =>
   `${date.getDate()}_${
     date.getMonth() + 1
@@ -25,6 +28,9 @@ async function main() {
 
   await $`cp ${MAIN_DB_FILE} ${backupFilePath}`;
   console.log(`Backup file written: "${backupFilePath}"`);
+
+  await $`scp ${backupFilePath} ${REMOTE}:${REMOTE_PATH}/`;
+  console.log(`Uploaded to ${REMOTE}:${REMOTE_PATH}`);
 }
 
 main();

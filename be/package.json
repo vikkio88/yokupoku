@@ -12,7 +12,8 @@
     "stop": "bun scripts/stop.ts",
     "dump:fe:prods": "bun scripts/fe/products-dump",
     "dump:fe:sitemap": "bun scripts/fe/sitemap-gen",
-    "db:backup": "bun scripts/dbBackup.ts"
+    "db:backup": "bun scripts/dbBackup.ts",
+    "db:restore": "bun scripts/dbRestore.ts ./db/data/dumps/restored.sqlite3"
   },
   "keywords": [],
   "author": "",

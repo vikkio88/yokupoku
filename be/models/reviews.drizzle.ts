@@ -28,6 +28,7 @@ const format = {
         name: obj.productName ?? null,
         type: obj.productType ?? null,
         slug: obj.productSlug ?? null,
+        ...(obj.product || {}),
       },
     };
     delete formatted.productName;
@@ -87,38 +88,37 @@ export const reviewsRepo = {
   async get({
     range = [0, 9],
     sort = ["id", "asc"],
-    filter = null,
+    titleFilter = null,
+    productNameFilter = null,
   }: {
     range?: [number, number];
     sort?: [string, "asc" | "desc"];
-    filter?: string | null;
+    titleFilter?: string | null;
+    productNameFilter?: string | null;
   }) {
     const [lower, upper] = range;
     const limit = upper - lower;
     const offset = lower;
     const conditions = [] as any[];
-    if (filter) conditions.push(like(reviews.title, `%${filter}%`));
+    if (titleFilter) conditions.push(like(reviews.title, `%${titleFilter}%`));
 
-    const rows = await db
-      .select({
-        ...getTableColumns(reviews),
-      })
-      .from(reviews)
-      .where(and(...conditions))
-      .orderBy(
+    const rows = await db.query.reviews.findMany({
+      where: and(...conditions),
+      orderBy:
         sort[1] === "asc"
           ? asc((reviews as any)[sort[0]])
-          : desc((reviews as any)[sort[0]])
-      )
-      .limit(limit)
-      .offset(offset);
+          : desc((reviews as any)[sort[0]]),
+      limit,
+      offset,
+      with: { product: true },
+    });
 
     return rows.map(format.select);
   },
 
-  async total({ filter }: { filter?: string }) {
+  async total({ titleFilter }: { titleFilter?: string }) {
     const conditions = [];
-    if (filter) conditions.push(like(products.name, `%${filter}%`));
+    if (titleFilter) conditions.push(like(reviews.title, `%${titleFilter}%`));
     const [{ count: total }] = await db
       .select({ count: count(products.id) })
       .from(reviews)

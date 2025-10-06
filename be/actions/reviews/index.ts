@@ -6,7 +6,7 @@ import type { Range, Sort } from "../../libs/params";
 
 export const get = async (c: Context) => {
   const sortParam = c.req.query("sort");
-  const filter = c.req.query("q");
+  const titleFilter = c.req.query("q");
   const rangeStart: string | undefined = c.req.query("rs");
   const rangeEnd: string | undefined = c.req.query("re");
   const range = (
@@ -14,8 +14,8 @@ export const get = async (c: Context) => {
   ) as Range;
   const sort: Sort = sortParam ? JSON.parse(sortParam) : ["id", "desc"];
 
-  const total = await model.total({ filter });
-  const reviews = await model.get({ filter, range, sort });
+  const total = await model.total({ titleFilter });
+  const reviews = await model.get({ titleFilter, range, sort });
   c.res.headers.append("Content-Range", `${range[0]}-${range[1]} / ${total}`);
   return c.json(reviews);
 };

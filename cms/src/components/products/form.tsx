@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import type { Product, MetaProduct } from "yokupoku-shared";
+import type { MetaProduct, Product } from "yokupoku-shared";
 import s from "./styles/edit.module.css";
 import { productValidators } from "./validators/product";
 type Props = {

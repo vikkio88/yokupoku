@@ -37,23 +37,45 @@ export const productValidators = {
   meta: {
     required: true,
     validate: (value: string) => {
+      let parsed: any;
       try {
-        const parsed = JSON.parse(value);
-        return (typeof parsed.device === "string" &&
-          GAMES_STORES.includes(
-            parsed.store as (typeof GAMES_STORES)[number]
-          ) &&
-          typeof parsed.played === "number" &&
-          (parsed.edition === null || typeof parsed.edition === "string") &&
-          typeof parsed.refunded === "boolean" &&
-          typeof parsed.price === "number") as boolean;
+        parsed = JSON.parse(value);
       } catch {
-        return `Meta must be a valid JSON with the required structure and store must be one of: ${GAMES_STORES.join(
-          ", "
-        )}`;
+        return `Meta must be valid JSON.`;
       }
+
+      if (typeof parsed !== "object" || parsed === null) {
+        return `Meta must be a JSON object.`;
+      }
+
+      if (typeof parsed.device !== "string") {
+        return `Meta.device must be a string.`;
+      }
+
+      if (!GAMES_STORES.includes(parsed.store)) {
+        return `Meta.store must be one of: ${GAMES_STORES.join(", ")}`;
+      }
+
+      if (typeof parsed.played !== "number") {
+        return `Meta.played must be a number.`;
+      }
+
+      if (parsed.edition !== null && typeof parsed.edition !== "string") {
+        return `Meta.edition must be null or a string.`;
+      }
+
+      if (typeof parsed.refunded !== "boolean") {
+        return `Meta.refunded must be a boolean.`;
+      }
+
+      if (typeof parsed.price !== "number") {
+        return `Meta.price must be a number.`;
+      }
+
+      return true;
     },
   },
+
   name: { required: true },
   genre: {},
   tags: {
@@ -136,4 +158,3 @@ export const reviewValidators = {
       "Updated At must be a valid date or parseable string",
   },
 };
-

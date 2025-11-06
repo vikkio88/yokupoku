@@ -1,0 +1,14 @@
+.chip {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.2rem;
+  background-color: var(--main-bg-faint-color);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+
+.chip span {
+  font-size: 1.8rem;
+}

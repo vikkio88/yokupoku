@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: var(--pad);
+  gap: 1rem;
 }
 
 .form > label {
@@ -10,36 +11,63 @@
   justify-content: flex-start;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.form input {
+.form input,
+.form textarea {
   min-width: 20rem;
   padding: 0.3rem;
+  border: 1px solid var(--main-font-faint-color);
+  border-radius: var(--border-radius);
+  font-family: inherit;
 }
 
 .form textarea {
   min-height: 10rem;
+  resize: vertical;
 }
-.form {
-  /* Styles for all invalid fields */
-  [aria-invalid="true"] {
-    border: 2px solid red;
-    background-color: #ffe6e6; /* Light red background */
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
-  }
 
-  /* Optional: Add specific styles when the field is focused */
-  [aria-invalid="true"]:focus {
-    border-color: darkred;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 1);
-  }
+/* Styles for invalid fields */
+.form [aria-invalid="true"] {
+  border: 2px solid var(--danger-color);
+  background-color: #ffe6e6;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+}
 
-  /* Style error messages adjacent to the invalid input */
-  [aria-invalid="true"] + .error {
-    display: block;
-    color: red;
-    font-size: 0.875em;
-    margin-top: 0.25em;
-  }
+.form [aria-invalid="true"]:focus {
+  border-color: darkred;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 1);
+}
+
+/* Error message styling */
+.form [aria-invalid="true"] + .error {
+  display: block;
+  color: var(--danger-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Checkbox styling */
+.form input[type="checkbox"] {
+  transform: scale(1.5);
+  margin-left: 0.5rem;
+}
+
+/* Submit button */
+.form button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--main-font-color);
+  background-color: var(--accent-v1-color);
+  border: var(--borders);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.form button:hover {
+  background-color: var(--accent-color);
 }

@@ -116,6 +116,7 @@ export interface ProductLi {
 export interface ReviewLi {
   id: string;
   title: string;
+  image: string;
   slug: string;
   productId: string;
   product: ProductLi;

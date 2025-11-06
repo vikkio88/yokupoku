@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router";
 import { Product } from "yokupoku-shared";
 import s from "./styles/product.module.css";
-import { useNavigate } from "react-router";
 
 type Props = {
   product: Product;
@@ -9,11 +9,16 @@ type Props = {
 export default function ProductLi({ product }: Props) {
   const navigate = useNavigate();
   return (
-    <li className={`${s.li} f r spb ic`}>
+    <li className={`${s.li} f r spb ic aic`}>
+      <img
+        src={product.image || ""}
+        alt={product.name}
+        style={{ height: "100px" }}
+      />
       <span>{product.name}</span>
       <span>
         <button
-          className="small"
+          className="small n-btn"
           onClick={() => navigate(`/products/${product.id}`)}
         >
           🔎

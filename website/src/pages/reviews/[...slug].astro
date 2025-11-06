@@ -1,12 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import type { Review, ReviewDetails } from "../../libs/types";
-import { parse } from "marked";
 import { SEO } from "astro-seo";
-import { csv } from "../../libs/csv";
+import { parse } from "marked";
 import Score from "../../components/common/Score.astro";
 import Tags from "../../components/common/Tags.astro";
+import Layout from "../../layouts/Layout.astro";
 import { BASE_API_URL } from "../../libs/config";
+import { csv } from "../../libs/csv";
+import type { Review, ReviewDetails } from "../../libs/types";
 
 export async function getStaticPaths() {
   let resp = await fetch(`${BASE_API_URL}/provider/reviews`);

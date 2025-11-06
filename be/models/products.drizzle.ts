@@ -124,7 +124,7 @@ export const productsRepo = {
     return mapped.length ? mapped.pop() : null;
   },
 
-  getAll() {
+  async getAll() {
     return db
       .select({
         id: products.id,
@@ -155,6 +155,7 @@ export const productsRepo = {
       .select({
         id: products.id,
         name: products.name,
+        image: products.image,
         type: products.type,
         meta: products.meta,
         slug: products.slug,

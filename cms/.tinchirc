@@ -1,6 +1,12 @@
 {
-  "output": "public/style.css",
-  "vars": {
+ "outputPath": "public/style.css",
+  "config": {
+    "head": true,
+    "minify": false,
+    "colorScheme": "both"
+  },
+  "vars": {},
+  "colors": {
     "DARK": "#000003",
     "LIGHT": "#fbfcfe",
     "DARK_FAINT": "#2e2e2e",
@@ -22,7 +28,11 @@
     "SUCCESS_1": "#2b997e",
     "SUCCESS_FAINT": "#a3e3d4"
   },
-  "config": {
-    "animations": true
+  "components": {
+    "colors": true,
+    "overrides": true,
+    "animations": true,
+    "components": true,
+    "debug": true
   }
 }

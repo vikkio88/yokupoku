@@ -66,6 +66,16 @@ async function fetchApi<T>(
   return { result, range };
 }
 
+export function postFile(api: string, formData: FormData, headers = {}) {
+  return fetch(`${BASE_URL}/${api}`, {
+    method: "POST",
+    headers: {
+      ...headers,
+    },
+    body: formData,
+  });
+}
+
 // Reviews API
 export const reviewsApi = {
   getAll: (
@@ -144,4 +154,11 @@ export const gamesApi = {
     fetchApi(`/games/${id}`, { method: "PUT", body: data }),
   create: (data: Product) => fetchApi("/games", { method: "POST", body: data }),
   delete: (id: string) => fetchApi(`/games/${id}`, { method: "DELETE" }),
+};
+
+export const uploader = {
+  async upload(formData: FormData) {
+    const resp = await postFile("upload", formData);
+    return resp;
+  },
 };

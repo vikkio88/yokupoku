@@ -22,6 +22,7 @@
     "@libsql/client": "^0.15.15",
     "drizzle-orm": "^0.44.5",
     "hono": "^4.6.14",
+    "imgbox-js": "^1.0.35",
     "sitemap": "^7.1.0",
     "ulid": "^2.3.0",
     "yokupoku-shared": "workspace:*"

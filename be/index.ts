@@ -1,10 +1,10 @@
 import { Hono, type Context } from "hono";
-import misc from "./actions/misc";
+import { cors } from "hono/cors";
+import { unprocessable } from "./actions/formatters";
+import misc, { upload } from "./actions/misc";
+import products from "./actions/products";
 import providers from "./actions/providers";
 import reviews from "./actions/reviews";
-import products from "./actions/products";
-import { unprocessable } from "./actions/formatters";
-import { cors } from "hono/cors";
 
 const app = new Hono();
 
@@ -21,6 +21,11 @@ app.use(
 
 app.use("*", async (c: Context, next) => {
   if (!["post", "put"].includes(c.req.method.toLowerCase())) {
+    return await next();
+  }
+
+  const contentType = c.req.header("content-type") || "";
+  if (contentType.startsWith("multipart/form-data")) {
     return await next();
   }
 
@@ -58,6 +63,7 @@ api.delete("/games/:id", products.games.del);
 
 // Misc routes
 api.get("/ping", misc.pong);
+api.post("/upload", upload);
 
 // Provider routes
 const provider = new Hono();

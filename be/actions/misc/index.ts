@@ -1,4 +1,5 @@
 import type { Context } from "hono";
+import { uploadFile } from "../../libs/uploader";
 
 const pong = (c: Context) => {
   return c.json({ pong: true, env: process.env.LABEL });
@@ -21,6 +22,22 @@ const fallback = (c: Context) => {
       '(╥﹏╥)<span style="margin-top:30px">Nope!</span></body>'
   );
 };
+
+export async function upload(c: Context) {
+  const formData = await c.req.formData();
+  const file = formData.get("file");
+  if (!(file instanceof File)) {
+    return c.json({ error: "No file uploaded" }, 422);
+  }
+
+  const result = await uploadFile(file);
+
+  if (!result) {
+    return c.json({ error: "Could not upload" }, 422);
+  }
+
+  return c.json({ ...result }, 201);
+}
 
 export default {
   pong,

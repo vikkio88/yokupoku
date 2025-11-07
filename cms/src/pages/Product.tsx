@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
-import Spinner from "../components/shared/spinner";
-import { productsApi } from "../libs/api";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import {
   Edit as ProductEdit,
   View as ProductView,
 } from "../components/products";
+import Spinner from "../components/shared/spinner";
+import { productsApi } from "../libs/api";
 
 export default function Product() {
+  const navigate = useNavigate();
   const [isInViewMode, setIsInViewMode] = useState(true);
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, refetch } = useQuery({
@@ -22,9 +23,14 @@ export default function Product() {
 
   return (
     <>
-      <button className="small" onClick={() => setIsInViewMode((t) => !t)}>
-        {isInViewMode ? "Edit" : "View"}
-      </button>
+      <div className="row">
+        <button onClick={() => setIsInViewMode((t) => !t)}>
+          {isInViewMode ? "Edit" : "View"}
+        </button>
+        <button onClick={() => navigate(`/products/${id}/reviews/new`)}>
+          New Review
+        </button>
+      </div>
       {isInViewMode && data && <ProductView product={data?.result} />}
       {!isInViewMode && data && (
         <ProductEdit

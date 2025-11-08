@@ -1,6 +1,6 @@
 export const reviewValidators = {
-  id: { required: true },
-  slug: { required: true },
+  id: {},
+  slug: {},
   productId: { required: true },
   deviceId: {},
   title: { required: true },

@@ -1,7 +1,7 @@
+import { and, asc, count, desc, eq, getTableColumns, like } from "drizzle-orm";
 import db from "../db";
-import { generateId, slugify, csl, nBoolean, now } from "../libs/utils";
-import { and, eq, desc, asc, getTableColumns, like, count } from "drizzle-orm";
-import { reviews, products } from "../drizzle/schema";
+import { products, reviews } from "../drizzle/schema";
+import { csl, generateId, nBoolean, now, slugify } from "../libs/utils";
 
 export type Review = typeof reviews.$inferSelect;
 export type NewReview = typeof reviews.$inferInsert;
@@ -13,6 +13,7 @@ const format = {
     const payload: NewReview = {
       ...obj,
       id: generateId(),
+      deviceId: obj.deviceId === "" ? null : obj.deviceId,
       slug: slugify(`${product.name} ${obj.title ?? ""}`),
       tags: csl.toString(obj.tags),
       pros: csl.toString(obj.pros),

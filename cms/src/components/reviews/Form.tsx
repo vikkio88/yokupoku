@@ -65,7 +65,7 @@ export default function Form({ review, onSubmit }: Props) {
           {...register("deviceId", reviewValidators.deviceId)}
           aria-invalid={errors.deviceId ? "true" : "false"}
           type="text"
-          defaultValue={review.deviceId || ""}
+          defaultValue={review.deviceId || undefined}
         />
         {errors.deviceId && (
           <span className="error">{errors.deviceId.message}</span>

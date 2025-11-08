@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Form from "../components/reviews/Form";
 import Spinner from "../components/shared/spinner";
-import { productsApi } from "../libs/api";
+import { productsApi, reviewsApi } from "../libs/api";
 
 export default function NewReview() {
   const { productId } = useParams<{ productId: string }>();
+  const navigate = useNavigate();
   const { data, isLoading } = useQuery({
     queryKey: ["product", productId],
     queryFn: async () => productsApi.find(productId!),
@@ -21,7 +22,21 @@ export default function NewReview() {
           <strong>New Review</strong>
           <h3>{data.result.name}</h3>
         </div>
-        <Form review={{ productId: productId! }} onSubmit={console.log} />
+        <Form
+          review={{ productId: productId! }}
+          onSubmit={async (data) => {
+            try {
+              const { result } = (await reviewsApi.create(data)) as unknown as {
+                result: {
+                  id: string;
+                };
+              };
+              navigate(`/reviews/${result.id}`);
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        />
       </>
     );
   }

@@ -13,6 +13,7 @@ export default function View({ review }: Props) {
 
   return (
     <div className={styles.view}>
+      {!review.published && <strong>Draft</strong>}
       <h1>{review.product?.name}</h1>
       <h2>{review.title}</h2>
       <h3>{review.subtitle}</h3>

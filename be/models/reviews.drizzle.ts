@@ -18,6 +18,8 @@ const format = {
       tags: csl.toString(obj.tags),
       pros: csl.toString(obj.pros),
       cons: csl.toString(obj.cons),
+      updatedAt: now(),
+      createdAt: now(),
     } as NewReview;
     return payload;
   },
@@ -52,6 +54,7 @@ const format = {
   update(obj: Partial<NewReview>) {
     const payload: Partial<NewReview> = {
       ...obj,
+      deviceId: obj.deviceId === "" ? null : obj.deviceId,
       tags: csl.toString(obj.tags),
       pros: csl.toString(obj.pros),
       cons: csl.toString(obj.cons),

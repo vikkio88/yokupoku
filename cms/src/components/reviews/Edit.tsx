@@ -1,9 +1,10 @@
 import { Review } from "yokupoku-shared";
 
+import { useState } from "react";
+import { SubmitHandler } from "react-hook-form";
+import { reviewsApi } from "../../libs/api";
 import Spinner from "../shared/spinner";
 import Form from "./Form";
-import { SubmitHandler } from "react-hook-form";
-import { useState } from "react";
 
 type Props = {
   review: Review;
@@ -14,8 +15,7 @@ export default function Edit({ review, onFinished }: Props) {
 
   const onSubmit: SubmitHandler<Review> = async (data) => {
     setIsUpdating(true);
-    // const res = await reviewsApi.update(data);
-    // console.log(res);
+    await reviewsApi.update(data.id, data);
     console.log({ data });
     setIsUpdating(false);
     onFinished();

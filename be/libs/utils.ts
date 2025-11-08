@@ -16,7 +16,7 @@ export const generateId = () => {
 export const nBoolean = (value: any) =>
   value === null ? null : Boolean(value);
 
-export const now = () => new Date().toUTCString();
+export const now = () => new Date().toISOString();
 
 // comma separated list
 export const csl = {

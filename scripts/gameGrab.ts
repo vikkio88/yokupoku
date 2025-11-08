@@ -1,4 +1,3 @@
-import { appendFileSync, writeFileSync } from "node:fs";
 import { getInfoFromSteam, reupImage } from "./metaGrab";
 
 const args = Bun.argv.slice(2);

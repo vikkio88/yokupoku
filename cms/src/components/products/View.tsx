@@ -1,9 +1,9 @@
 import { Product } from "yokupoku-shared";
-// import s from "./styles/view.module.css";
 
 type Props = {
   product: Product;
 };
+
 export default function View({ product }: Props) {
   return (
     <div>

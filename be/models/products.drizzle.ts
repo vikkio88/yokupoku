@@ -62,6 +62,15 @@ const genericProductsFormat = {
       tags: csl.toString(obj.tags),
     };
   },
+  selectForCMS(obj: any) {
+    const meta =
+      typeof obj.meta === "string" ? JSON.parse(obj.meta) : obj.meta ?? null;
+    return {
+      ...obj,
+      meta,
+      tags: csl.toString(obj.tags),
+    };
+  },
   selectForSlug(obj: any) {
     let meta = null;
     try {
@@ -120,7 +129,7 @@ export const productsRepo = {
 
   async find(id: string) {
     const rows = await db.select().from(products).where(eq(products.id, id));
-    const mapped = rows.map(genericProductsFormat.select);
+    const mapped = rows.map(genericProductsFormat.selectForCMS);
     return mapped.length ? mapped.pop() : null;
   },
 

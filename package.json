@@ -5,8 +5,10 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/cheerio": "^0.22.35",
+    "axios": "^1.13.2",
     "cheerio": "^1.0.0",
-    "imgbox-js": "^1.0.35"
+    "imgbox-js": "^1.0.35",
+    "yokupoku-shared": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

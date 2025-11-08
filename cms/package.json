@@ -9,7 +9,7 @@
     "build": "tsc -b && bun --bunx vite build",
     "lint": "bunx --bun eslint .",
     "preview": "bunx --bun vite preview",
-    "postinstall": "bunx tinchi g"
+    "postinstall": "bunx tinchi g -f"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.2",

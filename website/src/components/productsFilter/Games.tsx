@@ -1,39 +1,13 @@
 import { useEffect, useState } from "react";
-import styles from "./Games.module.css";
 import type { Meta, Product, ReviewCompact } from "../../libs/types";
+import { Game } from "./Game";
+import styles from "./Games.module.css";
 
 const Spinner = () => <div className={styles.loader} />;
 
 const hasReviews = (reviews?: ReviewCompact[]): boolean =>
   Array.isArray(reviews) && reviews.length > 0;
 const wasPlayed = (meta?: Meta) => Boolean(meta?.played);
-
-const Game = ({ slug, name, meta, genre, reviews }: Product) => {
-  const isReviews = hasReviews(reviews);
-  const played = wasPlayed(meta);
-  const hasGenre = Boolean(genre);
-  const paid = Boolean(meta?.price);
-  return (
-    <div className={styles.game}>
-      <strong>{name}</strong>
-      <div className={styles.meta}>
-        ({hasGenre && `${genre} `}
-        {meta?.device})
-      </div>
-      <div className={styles.info}>
-        <div title={played ? "Played" : "Not Played Yet"}>
-          {played ? "✅" : "❌"}
-        </div>
-        <div title={paid ? "Paid" : "Freebie"}>{paid ? "💰" : "🆓"}</div>
-        {isReviews && (
-          <a href={`/products/${slug}`} title={`${name} Details`}>
-            ➡️
-          </a>
-        )}
-      </div>
-    </div>
-  );
-};
 
 const renderResults = (games: Product[], results: number) => {
   if (results === 0) return <h1>😲</h1>;
@@ -53,6 +27,7 @@ const Games = () => {
   const [playedOnly, setPlayedOnly] = useState(false);
   const [reviewedOnly, setReviewedOnly] = useState(false);
   const totalGames = games?.length || 0;
+  const playedGames = games?.filter(({ meta }) => wasPlayed(meta)).length || 0;
   useEffect(() => {
     const getGames = async () => {
       const resp = await fetch("/data/games.json");
@@ -111,7 +86,23 @@ const Games = () => {
       )}
       {totalGames > 0 && (
         <>
-          <h4>{results} games</h4>
+          <div
+            className={styles.progressBarWrapper}
+            title={`Played ${playedGames} / ${totalGames} games`}
+          >
+            <div
+              className={styles.progressBar}
+              style={{ width: `${(playedGames / totalGames) * 100}%` }}
+            >
+              <span className={styles.progressText}>
+                {playedGames} / {totalGames} 🎮 Played
+              </span>
+            </div>
+          </div>
+
+          <h4 className={styles.count}>
+            displaying: {results} / {totalGames} games
+          </h4>
           {renderResults(filteredGames, results)}
         </>
       )}

@@ -27,7 +27,10 @@ const Games = () => {
   const [playedOnly, setPlayedOnly] = useState(false);
   const [reviewedOnly, setReviewedOnly] = useState(false);
   const totalGames = games?.length || 0;
-  const playedGames = games?.filter(({ meta }) => wasPlayed(meta)).length || 0;
+  const reviewedGames =
+    games?.filter(({ reviews }) => hasReviews(reviews)) || [];
+  const playedGames = games?.filter(({ meta }) => wasPlayed(meta)) || [];
+
   useEffect(() => {
     const getGames = async () => {
       const resp = await fetch("/data/games.json");
@@ -53,53 +56,74 @@ const Games = () => {
       <h2>Games 🎮</h2>
       {totalGames === 0 && <Spinner />}
       {totalGames > 0 && (
-        <div className={styles.filters}>
-          <input
-            type="text"
-            autoComplete="off"
-            placeholder="Filter Game..."
-            value={name}
-            onChange={({ target: { value } }) => setName(value)}
-          />
-          <div className={styles.checks}>
-            <div className={styles.filter} title="Show Only Played Games">
-              <label htmlFor="playedOnly">🎮</label>
-              <input
-                id="playedOnly"
-                type="checkbox"
-                checked={playedOnly}
-                onChange={() => setPlayedOnly(!playedOnly)}
-              />
-            </div>
+        <>
+          <div className={styles.filters}>
+            <input
+              type="text"
+              autoComplete="off"
+              placeholder="Filter Game..."
+              value={name}
+              onChange={({ target: { value } }) => setName(value)}
+            />
+            <div className={styles.checks}>
+              <div className={styles.filter} title="Show Only Played Games">
+                <label htmlFor="playedOnly">🎮</label>
+                <input
+                  id="playedOnly"
+                  type="checkbox"
+                  checked={playedOnly}
+                  onChange={() => setPlayedOnly(!playedOnly)}
+                />
+              </div>
 
-            <div className={styles.filter} title="Show Only Reviewed Games">
-              <label htmlFor="reviewedOnly">✍️</label>
-              <input
-                id="reviewedOnly"
-                type="checkbox"
-                checked={reviewedOnly}
-                onChange={() => setReviewedOnly(!reviewedOnly)}
-              />
+              <div className={styles.filter} title="Show Only Reviewed Games">
+                <label htmlFor="reviewedOnly">✍️</label>
+                <input
+                  id="reviewedOnly"
+                  type="checkbox"
+                  checked={reviewedOnly}
+                  onChange={() => setReviewedOnly(!reviewedOnly)}
+                />
+              </div>
             </div>
           </div>
-        </div>
+          <div className={styles.progressBars}>
+            <div
+              className={styles.progressBarWrapper}
+              title={`Played ${playedGames.length} / ${totalGames} games`}
+            >
+              <div
+                className={`${styles.progressBar} ${styles.played}`}
+                style={{ width: `${(playedGames.length / totalGames) * 100}%` }}
+              >
+                <span className={styles.progressText}>
+                  🎮 Played {playedGames.length} / {totalGames}
+                </span>
+              </div>
+            </div>
+            <div
+              className={styles.progressBarWrapper}
+              title={`Reviewed ${reviewedGames.length} / ${playedGames.length} games`}
+            >
+              <div
+                className={`${styles.progressBar} ${styles.reviewed}`}
+                style={{
+                  width: `${
+                    (reviewedGames.length / playedGames.length) * 100
+                  }%`,
+                }}
+              >
+                <span className={styles.progressText}>
+                  ✍️ Reviewed {reviewedGames.length} / {playedGames.length}
+                </span>
+              </div>
+            </div>
+          </div>
+        </>
       )}
+
       {totalGames > 0 && (
         <>
-          <div
-            className={styles.progressBarWrapper}
-            title={`Played ${playedGames} / ${totalGames} games`}
-          >
-            <div
-              className={styles.progressBar}
-              style={{ width: `${(playedGames / totalGames) * 100}%` }}
-            >
-              <span className={styles.progressText}>
-                {playedGames} / {totalGames} 🎮 Played
-              </span>
-            </div>
-          </div>
-
           <h4 className={styles.count}>
             displaying: {results} / {totalGames} games
           </h4>

@@ -60,10 +60,20 @@
   align-items: center;
 }
 
+.progressBars {
+  min-width: 80vw;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .progressBarWrapper {
   width: 80%;
   height: 35px;
-  background-color: var(--accent-red);
+  background-color: #1c1c1c;
   border-radius: 4px;
   overflow: hidden;
   margin-left: 10px;
@@ -71,7 +81,6 @@
 
 .progressBar {
   height: 100%;
-  background-color: var(--accent-green);
   border-radius: 4px 0 0 4px;
   display: flex;
   align-items: center;
@@ -80,6 +89,14 @@
   font-size: 0.8rem;
   font-weight: bold;
   transition: width 0.3s ease;
+}
+
+.progressBar.played {
+  background-color: #00c853;
+}
+
+.progressBar.reviewed {
+  background-color: #a66a00;
 }
 
 .progressText {

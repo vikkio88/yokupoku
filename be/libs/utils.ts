@@ -16,7 +16,24 @@ export const generateId = () => {
 export const nBoolean = (value: any) =>
   value === null ? null : Boolean(value);
 
-export const now = () => new Date().toISOString();
+export const now = () => {
+  const d = new Date();
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  return (
+    d.getFullYear() +
+    "-" +
+    pad(d.getMonth() + 1) +
+    "-" +
+    pad(d.getDate()) +
+    " " +
+    pad(d.getHours()) +
+    ":" +
+    pad(d.getMinutes()) +
+    ":" +
+    pad(d.getSeconds())
+  );
+};
 
 // comma separated list
 export const csl = {

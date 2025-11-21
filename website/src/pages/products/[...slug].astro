@@ -1,11 +1,12 @@
 ---
 import { SEO } from "astro-seo";
+import { getStoreIcon } from "yokupoku-shared";
 import ProductTypeChip from "../../components/common/ProductTypeChip.astro";
-import Layout from "../../layouts/Layout.astro";
-import Tags from "../../components/common/Tags.astro";
-import type { Product } from "../../libs/types";
 import TimeAgo from "../../components/common/react/TimeAgo";
+import Tags from "../../components/common/Tags.astro";
+import Layout from "../../layouts/Layout.astro";
 import { BASE_API_URL } from "../../libs/config";
+import type { Product } from "../../libs/types";
 
 export async function getStaticPaths() {
   const response = await fetch(`${BASE_API_URL}/provider/reviewed-products`);
@@ -22,6 +23,7 @@ const { slug } = Astro.params;
 const response = await fetch(`${BASE_API_URL}/provider/products/${slug}`);
 const product = (await response.json()) as Product;
 const { name, genre, type, meta, links, image, tags } = product;
+const storeIcon = getStoreIcon(meta.store);
 ---
 
 <Layout title={`${name} - product details `}>
@@ -74,21 +76,21 @@ const { name, genre, type, meta, links, image, tags } = product;
     </div>
 
     <div class="row">
-      {meta?.played && <h3 title="Played Time">⏲️ {meta?.played} hours</h3>}
+
       {
         meta?.store && (
-          <Fragment>
+          <>
             {links && (
               <h3 title="Store">
                 <a href={`${links.split(",")[0]}`} target="_blank">
-                  🛒 {meta?.store}
+                  <img class="storeIcon" src={storeIcon} alt={meta.store} title={meta.store} />
                 </a>
               </h3>
             )}
-            {!links && <h3 title="Store">🛒 {meta?.store}</h3>}
-          </Fragment>
+          </>
         )
       }
+      {meta?.played && <h3 title="Played Time">⏱️ {meta?.played} hours</h3>}
     </div>
     <div class="tags">
       <Tags tagStrings={tags} />
@@ -167,5 +169,10 @@ const { name, genre, type, meta, links, image, tags } = product;
 
   span.createdTime {
     font-size: 0.9rem;
+  }
+
+  img.storeIcon {
+    height: 30px;
+    filter: brightness(0) invert(1);
   }
 </style>

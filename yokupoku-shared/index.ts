@@ -56,6 +56,32 @@ export const GAMES_STORES = [
   "amazon:used",
 ] as const;
 
+export const GAMES_STORES_ICONS: Record<(typeof GAMES_STORES)[number], string> =
+  {
+    steam: "steam",
+    gog: "gogdotcom",
+    origin: "origin",
+    epic: "epicgames",
+    "battle.net": "battledotnet",
+    ubi: "ubisoft",
+    "itch.io": "itchdotio",
+    "nintendo:eshop": "nintendo",
+    "playstation:store": "playstation",
+    "xbox:store": "xbox",
+    amazon: "amazon",
+    "amazon:used": "amazon",
+    physicalsupport: "box",
+    other: "gamepad",
+  };
+
+export type GameStore = keyof typeof GAMES_STORES_ICONS;
+export function getStoreIcon(store?: string): string {
+  const key = (
+    store && GAMES_STORES_ICONS[store as GameStore] ? store : "other"
+  ) as keyof typeof GAMES_STORES_ICONS;
+  return `https://simpleicons.org/icons/${GAMES_STORES_ICONS[key]}.svg`;
+}
+
 export type Meta = Record<string, string | boolean | number>;
 export interface Product {
   id: string;

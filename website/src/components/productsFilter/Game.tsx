@@ -1,37 +1,10 @@
-import type { GAMES_STORES } from "yokupoku-shared";
+import { getStoreIcon } from "yokupoku-shared";
 import type { Meta, Product, ReviewCompact } from "../../libs/types";
 import styles from "./Games.module.css";
-
-export const GAMES_STORES_ICONS: Record<(typeof GAMES_STORES)[number], string> =
-  {
-    steam: "steam",
-    gog: "gogdotcom",
-    origin: "origin",
-    epic: "epicgames",
-    "battle.net": "battledotnet",
-    ubi: "ubisoft",
-    "itch.io": "itchdotio",
-    "nintendo:eshop": "nintendo",
-    "playstation:store": "playstation",
-    "xbox:store": "xbox",
-    amazon: "amazon",
-    "amazon:used": "amazon",
-    physicalsupport: "box",
-    other: "gamepad",
-  };
-
-type GameStore = keyof typeof GAMES_STORES_ICONS;
 
 const hasReviews = (reviews?: ReviewCompact[]): boolean =>
   Array.isArray(reviews) && reviews.length > 0;
 const wasPlayed = (meta?: Meta) => Boolean(meta?.played);
-
-function getStoreIcon(store?: string): string {
-  const key = (
-    store && GAMES_STORES_ICONS[store as GameStore] ? store : "other"
-  ) as keyof typeof GAMES_STORES_ICONS;
-  return `https://simpleicons.org/icons/${GAMES_STORES_ICONS[key]}.svg`;
-}
 
 export const Game = ({ slug, name, meta, genre, reviews }: Product) => {
   const isReviews = hasReviews(reviews);

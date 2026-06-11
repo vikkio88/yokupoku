@@ -32,6 +32,12 @@ const main = async (steamUrl: string, storeUrl?: string) => {
     storeUrl,
   });
 
+  if (storeUrl) {
+    const storeUrlParsed = new URL(storeUrl);
+    storeUrlParsed.search = "";
+    storeUrl = storeUrlParsed.toString();
+  }
+
   const outputFile = Bun.file(OUTPUT_FILE);
   let games: Game[] = [];
   try {

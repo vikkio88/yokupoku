@@ -1,0 +1,190 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Tags from '../../components/common/Tags.astro';
+import { SEO } from 'astro-seo';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map(post => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('en-GB', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+---
+
+<Layout title={`${post.data.title}`}>
+    <SEO
+      slot="seo"
+      title={`Yokupoku - ${post.data.title} - ${post.data.subtitle}`}
+      description={`${post.data.title} - ${post.data.subtitle} - ${post.data.description} - Yokupoku. tags: ${post.data.tags}`}
+      openGraph={{
+        basic: {
+          title: `Yokupoku - ${post.data.title} - ${post.data.subtitle}`,
+          type: "article",
+          image: `${post.data.image}`,
+          url: `/posts/${post.data.slug}`,
+        },
+        optional: {
+          description: `${post.data.title} - ${post.data.subtitle} - ${post.data.description} - Yokupoku. tags: ${post.data.tags}`,
+        },
+      }}
+      twitter={{
+        image: `${post.data.image}`,
+      }}
+      extend={{
+        link: [{ rel: "icon", href: "/favicon.ico" }],
+        meta: [
+          {
+            name: "twitter:image",
+            content: `${post.data.image}`,
+          },
+          {
+            name: "twitter:title",
+            content: `Yokupoku - ${post.data.title} - ${post.data.subtitle}`,
+          },
+          {
+            name: "twitter:description",
+            content: `${post.data.title} - ${post.data.subtitle} - ${post.data.description} - Yokupoku. tags: ${post.data.tags}`,
+          },
+        ],
+      }}
+    />
+  <main>
+    <h1>{post.data.title}</h1>
+    <h3>{post.data.subtitle}</h3>
+    <p class="date">{formattedDate}</p>
+    <div class="img">
+      <img src={post.data.image} alt={`${post.data.title} Post`} />
+    </div>
+    <article>
+      <Content />
+    </article>
+    <div class="tags">
+      <Tags tagStrings={post.data.tags} />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    margin: 1rem 0 0.5rem;
+  }
+
+  h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    text-align: center;
+    color: rgb(var(--accent-light));
+  }
+
+  .date {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0 0 2rem;
+  }
+
+  article {
+    padding: 1rem;
+    line-height: 1.6rem;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+  }
+
+  article :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0 0.75rem;
+    color: rgb(var(--accent-light));
+  }
+
+  article :global(h3) {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+    text-align: left;
+    color: inherit;
+  }
+
+  article :global(p) {
+    margin: 0 0 1rem;
+  }
+
+  article :global(a) {
+    color: rgb(var(--accent-light));
+  }
+
+  article :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  article :global(pre) {
+    border-radius: var(--bradius);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    margin: 1.25rem 0;
+  }
+
+  article :global(code:not(pre code)) {
+    font-size: 0.875em;
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  article :global(ul),
+  article :global(ol) {
+    padding-left: 1.5rem;
+    margin: 0 0 1rem;
+  }
+
+  article :global(li) {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 0.35rem;
+  }
+
+  article :global(blockquote) {
+    border-left: 3px solid rgb(var(--accent-light));
+    margin: 1.5rem 0;
+    padding: 0.5rem 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+  }
+
+  article :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    margin: 2rem 0;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 2rem;
+    font-size: 13px;
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+const posts = await getCollection('posts');
+const published = posts
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Layout title="Posts">
+  <main>
+    <ul>
+      {published.map(post => (
+        <li>
+          <a href={`/posts/${post.data.slug}`}>
+            <div class="meta">
+              <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </time>
+            </div>
+            <div class="content">
+              <h3>{post.data.title}</h3>
+              {post.data.subtitle && <p class="subtitle">{post.data.subtitle}</p>}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
+
+<style>
+main {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li + li {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+li a {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  text-decoration: none;
+  color: inherit;
+  align-items: baseline;
+}
+
+.meta time {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+  white-space: nowrap;
+  padding-top: 0.2rem;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.15s ease;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.5;
+}
+
+li a:hover h3 {
+  color: #fff;
+}
+
+li a:hover .meta time {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 480px) {
+  li a {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+</style>

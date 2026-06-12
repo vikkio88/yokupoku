@@ -15,7 +15,7 @@ for (const t of ts) {
 ---
 
 {
-  [...tags].map((t) => (
+  [...tags].filter(t => t && t !== "").map((t) => (
     <div class="chip">
       <span>#</span>
       {t}

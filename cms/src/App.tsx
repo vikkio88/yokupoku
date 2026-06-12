@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Nav from "./components/layout/Nav";
 import { NotFound, Product, Products, Review, Reviews } from "./pages";
 import NewReview from "./pages/NewReview";
+import ImageUploader from "./pages/ImageUploader";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             />
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/reviews/:id" element={<Review />} />
+            <Route path="/img/upload" element={<ImageUploader />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

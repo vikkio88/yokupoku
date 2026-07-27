@@ -36,7 +36,7 @@ if (import.meta.main) {
   const args = process.argv.slice(2);
 
   if (args.length === 0) {
-    console.error("Usage: bun script.ts <path-to-image>");
+    console.error(`Usage: bun ${process.argv[1]} <path-to-image>`);
     process.exit(1);
   }
 

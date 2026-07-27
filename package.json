@@ -30,6 +30,7 @@
     "db:restore": "cd be && bun db:restore",
     "g:g": "bun game:grab",
     "game:grab": "bun scripts/gameGrab.ts",
+    "img:up": "bun scripts/imgUploader.ts",
     "games:import": "bun scripts/gamesImport.ts",
     "deploy:web": "cd website && bunx surge --domain yokupoku.surge.sh dist/",
     "update:website": "bun build:web && bun deploy:web"

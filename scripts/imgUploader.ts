@@ -21,6 +21,7 @@ export const imageUploader = async (filePath: string) => {
 
     if (resp.ok) {
       const url = await resp.text();
+      console.log("Upload result: ", url);
       return url.trim();
     }
 
